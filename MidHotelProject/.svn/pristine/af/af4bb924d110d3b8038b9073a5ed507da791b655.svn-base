@@ -1,0 +1,59 @@
+package com.Hotel.controller.reservation;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+import com.Hotel.service.hotel.HotelFindServiceImpl;
+import com.Hotel.service.hotel.IHotelFindService;
+import com.Hotel.service.reservation.IRoom_reserService;
+import com.Hotel.service.reservation.Room_reserServiceImpl;
+import com.Hotel.vo.HotelVO;
+import com.Hotel.vo.Room_ReservationVO;
+import com.google.gson.Gson;
+
+@WebServlet("/hotelRoomResServlet")
+public class HotelRoomResServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    private IRoom_reserService reserService;
+    
+    
+    public HotelRoomResServlet() {
+        super();
+        
+    }
+    @Override
+    public void init() throws ServletException {
+        // 호텔 서비스 및 예약 서비스 초기화 (가정: 서비스 구현 클래스와 연결)
+         reserService = Room_reserServiceImpl.getInstance();// 실제 구현체로 수정해야 함
+    }
+    
+    //처음 리스트는 아닌 검색 했을 때의 정보 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//각각의 값을 파라미터로 받음 -> 파라미터 값을 String으로만 가능 -> 형변환 필요
+		 	String hotelName = request.getParameter("hotelName");
+	        String checkInDate = request.getParameter("checkInDate");
+	        String checkOutDate = request.getParameter("checkOutDate");
+	        int adultCount = Integer.parseInt(request.getParameter("adultCount"));
+	        int childCount = Integer.parseInt(request.getParameter("childCount"));
+	        int babyCount = Integer.parseInt(request.getParameter("babyCount"));
+
+	        // 여기서 검색 로직을 처리
+	        // 예를 들어, 데이터베이스에서 해당 조건에 맞는 객실을 찾는 코드
+	        List<Room_ReservationVO> availableRooms = reserService.getReservationsByHotelAndDates(hotelName, checkInDate, checkOutDate, adultCount, childCount, babyCount);
+
+	        // 결과를 JSON 형태로 반환
+	        response.setContentType("application/json");
+	        response.getWriter().write(new Gson().toJson(availableRooms));
+        
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+}

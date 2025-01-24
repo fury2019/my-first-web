@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hotel Details</h1>
+    <p><strong>Hotel ID:</strong> ${hotel_id}</p>
+    <p><strong>Hotel Name:</strong> ${hotel_name}</p>
+
+    <!-- 다른 페이지로 돌아갈 수 있는 링크 -->
+    <a href="/jsp/hotelList.jsp">Back to Hotel List</a>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mem">
+
+
+	<!-- 회원 가입 -->
+	<insert id="joinMember" parameterType="memVo">
+		insert into Member(
+		mem_id, mem_name, mem_pw, mem_bir, mem_gender, 
+		mem_tel, mem_post,
+		mem_addr1, mem_addr2, mem_create)
+		values(
+		#{mem_id}, #{mem_name}, #{mem_pw}, #{mem_bir}, #{mem_gender},
+		#{mem_tel}, #{mem_post}, #{mem_addr1}, #{mem_addr2}, sysdate)
+	</insert>
+
+	<!-- 로그인 관련 -->
+	<select id="memberLogin" parameterType="map" resultType="memVo">
+		select mem_id, mem_pw, mem_name, grade_no
+		from Member
+		where mem_id = #{mem_id} and mem_pw = #{mem_pw}
+	</select>
+
+	<!-- 아이디 패스워드 중복체크 -->
+	<select id="loginCheck" parameterType="map" resultType="memVo">
+		select * from Member where mem_id = #{userId} and mem_pw = #{userPw}
+	</select>
+
+	<select id="checkLogin" parameterType="map" resultType="int"> 
+		select count(*) from member where mem_id = #{userId} and
+		mem_pw = #{userPw} 
+	</select>
+	
+	<select id="memberInfo" parameterType="string" resultType="memVo">
+		select * from Member 
+		where mem_id = #{mem_id}
+	</select>
+
+	<update id="memberUpdate" parameterType="map">
+	    UPDATE member
+	    SET 
+	        mem_pw = #{mem_pw}, 
+	        mem_tel = #{mem_tel}, 
+	        mem_post = #{mem_post}, 
+	        mem_addr1 = #{mem_addr1}, 
+	        mem_addr2 = #{mem_addr2}
+	    WHERE mem_id = #{mem_id}
+	</update>
+
+	<delete id="memberDelete" parameterType="string">
+		DELETE FROM member
+		where mem_id = #{mem_id}
+	</delete>
+
+</mapper>

@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+	.rooment{
+	text-align: center;
+	 line-height: 50px;
+	}
+	.roombtn{
+	display: inline-block;
+	 background-color: #524b42;
+	  width: 100px;
+	   height: 50px;
+	}
+	.roombtn:hover{
+	font-weight: 500;
+    -webkit-box-shadow: 0 2px 40px 8px rgb(15 15 15 / 15%);
+    box-shadow: 0 2px 40px 8px rgb(15 15 15 / 15%);
+    background-color: #7c4949;
+    color: #524b42;
+	}
+	.newsletter-form div a {
+	    font-weight: 800;
+    text-shadow: 0px 1px 2px grey;
+	}
+	
+	.newsletter-form > div > a:hover {
+    cursor: pointer;
+    color: white;
+}
+.roberto-btn:focus, .roberto-btn:hover {
+    font-weight: 500;
+    -webkit-box-shadow: 0 2px 40px 8px rgb(15 15 15 / 15%);
+    box-shadow: 0 2px 40px 8px rgb(15 15 15 / 15%);
+    background-color: #7c4949;
+    color: #524b42;
+}	
+	.table-b{
+        display: block;
+/*        	border-collapse:collapse; */
+        border-radius: 7px;
+        border: 1px solid white;
+        width: fit-content;
+        overflow: hidden;
+
+    }
+    .table-b thead tr th{
+    	color: #524b42;
+    	border: 2px;
+    }
+    .table-b thead tr{
+        background-color: #f1e3c4;
+        color: white;
+    }
+    .table-b td{
+        border: none;
+    }
+    .table-b tr{
+        background-color: rgb(240, 240, 240);
+        border-bottom: 1px solid gray;
+        text-align: center;
+        line-height: 50px; 
+        color: rgb(50, 50, 50);
+    }
+    .table-b .t-addr{
+        padding-left: 10px;
+        text-decoration: underline;
+        font-weight: 800;
+    }
+     .table-b .trth{      
+        padding-left: 10px;
+        background-color : #e9d19e;
+        color : black;
+        font-weight: 800;       
+    }
+    

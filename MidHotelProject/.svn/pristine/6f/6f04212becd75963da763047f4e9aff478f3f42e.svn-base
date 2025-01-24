@@ -1,0 +1,238 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@include file="/jsp/include/logintop.jsp" %>
+<%@include file="/jsp/include/header.jsp" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/styles.css">
+
+</head>
+<body>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<div class="col-sm-8">
+		<h4>회원가입</h4>
+		<hr>
+		<form class="form-horizontal" method="post"
+			onsubmit="return f_valid(event)">
+			<div class="form-group">
+				<label for="id" class="control-label col-sm-2">아이디<span
+					class="rq"> *</span></label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="id" name="mem_id"
+						placeholder="Enter id" required pattern="[a-zA-Z][a-zA-Z0-9]{2,7}">
+					<!-- 첫 1글자는 영문으로만, 그 이후의 2~7자리는 영문과 숫자만 입력받기 -->
+
+				</div>
+				<div class="col-sm-6" style="text-align: left;">
+					<button type="button" class="btn btn-success btn-sm" id="idChk">중복검사</button>
+					<span id="disp"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="pass" class="control-label col-sm-2">비밀번호<span
+					class="rq"> *</span></label>
+				<div class="col-sm-4">
+					<input type="password" class="form-control" id="pass"
+						name="mem_pass" required
+						pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$%\^&amp;\*\(\)_\+\|]).{8,}">
+					<!-- not a valid regular expression오류 대처>> &는 &amp;로 변환 및 $ ^ * () + | ? {} []는 escape처리해야 함 -->
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="name" class="control-label col-sm-2">이름<span
+					class="rq"> *</span></label> <span class="sp"></span>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="name" name="mem_name"
+						required pattern="[가-힣]{2,5}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="bir" class="control-label col-sm-2">생년월일</label>
+				<div class="col-sm-4">
+					<input type="date" class="form-control" id="bir" name="mem_bir">
+				</div>
+			</div>
+
+			<div>
+				<label for="gender" class="control-label col-sm-2">성별<span
+					class="rq"> *</span></label>
+				<div class="col-sm-4">
+					남 <input type="radio" id="gender_male" name="mem_gender" value="남자">
+					여 <input type="radio" id="gender_female" name="mem_gender"
+						value="여자">
+				</div>
+			</div>
+	
+			<div class="form-group">
+		      <label for="hp" class="control-label col-sm-2">전화번호<span class="rq"> *</span></label>
+		      <div class="col-sm-4">
+		        <input type="text" class="form-control" id="tel" name="mem_tel" placeholder="010-0000-0000" required 
+		         pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}">
+		      </div>
+	    	</div>
+
+
+			<div class="form-group">
+				<label for="add1" class="control-label col-sm-2">우편번호<span
+					class="rq"> *</span></label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="postAddr"
+						name="mem_zip" required>
+				</div>
+				<div class="col-sm-6" style="text-align: left;">
+					<button type="button" id="addrBtn" class="btn btn-info btn-sm">주소검색</button>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="addr1" class="control-label col-sm-2">주소<span
+					class="rq"> *</span></label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="addr1" name="mem_add1"
+						required>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="addr2" class="control-label col-sm-2">상세주소<span
+					class="rq"> *</span></label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="addr2" name="mem_add2"
+						required>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-6">
+					<button class="btn btn-default" id="joinBtn">가입하기</button>
+					<span id="joinspan"></span>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<!-- 다음주소api -->
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		//주소 검색 이벤트
+		$('#addrBtn').on('click', addr);
+
+		function addr() {
+			new daum.Postcode(
+					{
+						oncomplete : function(data) {
+
+							document.getElementById('postAddr').value = data.zonecode; //우편번호
+							// jsp파일은 백틱을 사용한 탬플릿리터럴과 el tag형식이 사용해 충돌될 수 있으므로 백틱 사용시 $앞쪽에 \(백슬래시)를 붙여 쓰자
+							document.getElementById("addr1").value = `\${data.roadAddress}(\${data.jibunAddress})`; //도로명 주소
+							//document.getElementById("sample4_jibunAddress").value = data.jibunAddress; //지번 주소
+
+						}
+					}).open();
+		}
+
+		//id중복검사
+		$('#idChk').on('click', function() {
+			// 	$('#id').on('keyup',function(){});
+
+			//id영역의 입력 값 얻기
+			const idVal = $('#id').val();
+
+			//서버위치로 보내주기 - 비동기통신(AJAX) 이용해서 현재 페이지로 응답 받을 예정..
+			$.ajax({
+				url : 'idChk.jsp', //현재 위치로 요청보내고 다시 응답받을 예정..
+				type : 'get',
+				//data: "userId=" + idVal,
+				data : {
+					userId : idVal
+				}, //객체 형식으로 정보 전달해도 key=value(url인코딩)형식으로 넘어감
+				success : function(rst) {
+					console.log(rst);
+					//id=disp영역에 결과 출력하기
+					if (rst.rst == "ok") {
+						$('#disp').text("사용가능").css('color', 'green');
+					} else {
+						$('#disp').text("사용불가").css('color', 'red');
+					}
+				},
+				error : function(xhr) {
+					alert(xhr.status);
+				},
+				dataType : 'json'
+			});
+		});
+
+		//form내부의 button요소는 전송 기능을 갖는다
+		//button이 눌리는순간 form의 action위치로 요청정보를 전달하는데
+		//action이 생략되어있을 때는 현재 문서의 url위치로 요청이 전달된다
+		//위 과정대로 진행하지 않고 중간 과정을 거치기 위해 함수로 이동하게 만든다
+		function f_valid(e) {
+
+			//1.이벤트의 메소드(preventDefault)를 사용해서 현재 함수에 머무르는 방법
+			// 1번 방식은 현재 코드구문 실행에 영향을 주지 않음
+			// 		e.preventDefault(); //submit의 기능 중지...
+
+			//요청정보를 직렬화하여 Join서블릿으로 전달 예정..
+
+			//데이터 직렬화 (= form내부의 입력양식들의 정보를 k=v형태로 엮어 하나의 문자열로 제공)
+			const frmData = $('form').serialize();
+			console.log(frmData);
+
+			//AJAX사용해서 요청위치로 응답받기
+			//ajax는 응답 부분만 받아 그 부분만 갱신하기때문에 페이지 전체를 다시 그려내는것보다 부하가 적고 빠름
+			$.ajax({
+				url : '/Join',
+				type : 'post',
+				data : frmData,
+				success : function(rst) {
+					if (rst)
+						$('#joinspan').text("가입성공");
+					else
+						$('#joinspan').text("가입실패");
+				},
+				error : function(xhr) {
+					alert(xhr.status);
+				}
+			// 			,dataType: ''
+			});
+
+			//2. 함수에 false값을 리턴해서 submit을 수행하지 않는 방법
+			// 2번방식 사용시 모든 코드의 실행 후 가장 마지막에서 값을 반환해야 한다
+			return false;
+		}
+	</script>
+
+	
+<%@include file="/jsp/include/footer.jsp" %>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

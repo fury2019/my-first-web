@@ -1,0 +1,44 @@
+package com.Hotel.controller.HotelNearbySpots;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.Hotel.service.HotelNearbySpots.HotelNearbySpotsService;
+import com.Hotel.vo.Hotel_PlaceVO;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/HotelNearbySpotsServlet")
+public class HotelNearbySpotsServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HotelNearbySpotsService service = HotelNearbySpotsService.getInstance();
+
+		// 클라이언트에서 전달받은 호텔 ID
+		String hotelId = "h09";//request.getParameter("hotelId");
+		String categoryId = "nature/park";//request.getParameter("categoryId");
+
+		// 파라미터를 담을 Map 생성
+		Map<String, Object> params = new HashMap<>();
+		params.put("hotelId", hotelId);
+		params.put("categoryId", categoryId);
+		
+		// 호텔 ID 및 카테고리 ID에 맞춰 필터링된 장소를 가져옴
+		List<Hotel_PlaceVO> filteredSpots = service.getPlacesByHotelId(params); // 필터링된 장소 리스트를 request에 저장
+		request.setAttribute("spots", filteredSpots); // JSP 페이지로 포워
+		request.getRequestDispatcher("/jsp/PlaceList.jsp").forward(request, response);
+										
+	}									
+				
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+}

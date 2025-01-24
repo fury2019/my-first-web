@@ -1,0 +1,35 @@
+package com.Hotel.dao.reservation;
+
+import java.util.List;
+
+import com.Hotel.vo.Room_PaymentVO;
+
+public interface IRoom_PayDao {
+	
+	/**결제 정보 넣기
+	 * 
+	 * @param pay
+	 * @return
+	 */
+	public int insertPay(Room_PaymentVO pay);
+
+	/**
+	 *  예약 정보 삭제
+	 * @param r_res_no
+	 * @return
+	 */
+	public int deletePay(String r_res_no);
+
+	/**
+	 *  전체 결제 목록 보여주기
+	 * @return
+	 */
+	public List<Room_PaymentVO> getAllRoomPayment();
+
+	/**
+	 *  예약 번호를 받아와 목록 보여주기
+	 * @param r_res_no
+	 * @return
+	 */
+	public List<Room_PaymentVO> selectRoomPayment(String r_res_no);
+}

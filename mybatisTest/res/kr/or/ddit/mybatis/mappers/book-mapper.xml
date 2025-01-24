@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book">
+	
+    
+    <select id="bookInsert" parameterType="bookVo">
+        insert into tb_book
+		    (book_id, book_title, book_author, book_loan, book_date) 
+			values ( #{book_id}, #{book_title}, #{book_author}, 'Y', sysdate)
+    </select>
+	
+	<select id="getBookIdCount" parameterType="String" resultType="int">
+		select count(*) cnt from tb_book
+			where book_id = #{book_id}
+	</select>
+	
+	<select id="bookDelete" parameterType="String">
+		delete from tb_book where book_id = #{book_id}
+	</select>
+	
+	<update id="bookUpdate" parameterType="bookVo">
+		update tb_book set
+			book_title = #{book_title}, book_author = #{book_author},
+			book_loan = #{book_loan}, book_date = sysdate
+		where book_id = #{book_id}
+	</update>
+	
+	<select id="bookDisplayAll" resultType="bookVo">
+		select * from tb_book
+	</select>
+	
+	<select id="bookSearch" parameterType="String" resultType="bookVo">
+		select * from tb_book 
+        where book_title like '%' || #{title} || '%' 
+	</select>
+
+</mapper>

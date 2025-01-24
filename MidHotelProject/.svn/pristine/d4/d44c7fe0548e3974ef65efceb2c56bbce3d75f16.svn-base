@@ -1,0 +1,139 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.Hotel.vo.CouponVO" %>
+<%@ page import="java.util.List" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>쿠폰 회수</title>
+    <style>
+        /* 전체 페이지 스타일 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fdf5e6;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #8b4513;
+            font-size: 28px;
+        }
+
+        /* 테이블 스타일 */
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            table-layout: fixed; /* 셀의 너비를 균등하게 설정 */
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #e3d5b8;
+            text-align: left; 
+            vertical-align: middle; /* 세로 중앙 정렬 */
+            color: #8b4513;
+            word-wrap: break-word; /* 내용이 길 경우 줄바꿈 처리 */
+        }
+
+        th {
+            background-color: #f5deb3;
+            font-size: 16px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        td {
+            font-size: 14px;
+        }
+
+        /* 버튼 스타일 */
+        button {
+            background-color: #cd5c5c;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #b22222;
+        }
+
+        /* 데이터 없을 때 스타일 */
+        .no-data {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            padding: 20px;
+        }
+
+        /* 전체 컨테이너 정렬 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>쿠폰 리스트</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>쿠폰 번호</th>
+                    <th>쿠폰 이름</th>
+                    <th>쿠폰 설명</th>
+                    <th>쿠폰 조건</th>
+                    <th>할인율</th>
+                    <th>회원 ID</th>
+                    <th>회수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    List<CouponVO> couponList = (List<CouponVO>) request.getAttribute("couponList");
+                    if (couponList != null && !couponList.isEmpty()) {
+                        for (CouponVO coupon : couponList) {
+                %>
+                <tr>
+                    <td><%= coupon.getCoupon_no() %></td>
+                    <td><%= coupon.getCoupon_name() %></td>
+                    <td><%= coupon.getCoupon_comment() %></td>
+                    <td><%= coupon.getCoupon_condition() %></td>
+                    <td><%= coupon.getCoupon_percent() %>%</td>
+                    <td><%= coupon.getMem_id() %></td>
+                    <td>
+                        <form action="/deleteCoupon" method="post">
+                            <input type="hidden" name="couponId" value="<%= coupon.getCoupon_no() %>" />
+                            <button type="submit">회수</button>
+                        </form>
+                    </td>
+                </tr>
+                <%
+                        }
+                    } else {
+                %>
+                <tr>
+                    <td colspan="7" class="no-data">쿠폰 데이터가 없습니다.</td>
+                </tr>
+                <%
+                    }
+                %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mapper.PaymentMapper">
+
+    <!-- Insert Payment -->
+    <insert id="insertPayment" parameterType="com.Hotel.vo.Goods_PaymentVO">
+        INSERT INTO PAYMENT (
+            PAY_ID, CART_NO, GOODS_ID, P_USE_POINT, COUPON_NO,
+            P_EARN_POINT, P_TOT_PRICE, P_PRICE, P_DATE
+        ) VALUES (
+            #{payId}, #{cartNo}, #{goodsId}, #{pUsePoint}, #{couponNo},
+            #{pEarnPoint}, #{pTotPrice}, #{pPrice}, SYSDATE
+        )
+    </insert>
+
+    <!-- Select Payment by ID -->
+    <select id="getPaymentById" parameterType="String" resultType="com.Hotel.vo.Goods_PaymentVO">
+        SELECT 
+            PAY_ID, CART_NO, GOODS_ID, P_USE_POINT, COUPON_NO,
+            P_EARN_POINT, P_TOT_PRICE, P_PRICE, P_DATE
+        FROM PAYMENT
+        WHERE PAY_ID = #{payId}
+    </select>
+
+    <!-- Update Payment -->
+    <update id="updatePayment" parameterType="com.Hotel.vo.Goods_PaymentVO">
+        UPDATE PAYMENT
+        SET 
+            CART_NO = #{cartNo},
+            GOODS_ID = #{goodsId},
+            P_USE_POINT = #{pUsePoint},
+            COUPON_NO = #{couponNo},
+            P_EARN_POINT = #{pEarnPoint},
+            P_TOT_PRICE = #{pTotPrice},
+            P_PRICE = #{pPrice}
+        WHERE PAY_ID = #{payId}
+    </update>
+
+    <!-- Delete Payment -->
+    <delete id="deletePayment" parameterType="String">
+        DELETE FROM PAYMENT WHERE PAY_ID = #{payId}
+    </delete>
+
+    <!-- Select All Payments -->
+    <select id="getAllPayments" resultType="com.Hotel.vo.Goods_PaymentVO">
+        SELECT 
+            PAY_ID, CART_NO, GOODS_ID, P_USE_POINT, COUPON_NO,
+            P_EARN_POINT, P_TOT_PRICE, P_PRICE, P_DATE
+        FROM PAYMENT
+    </select>
+
+</mapper>

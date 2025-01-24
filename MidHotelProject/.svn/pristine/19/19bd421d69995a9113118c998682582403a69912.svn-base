@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="place">
+
+    <select id="selectAllPlaces" parameterType="String" resultType="placeVo">
+        SELECT * FROM hotel_place
+    </select>
+    
+    <select id="getPlacesByHotelId" parameterType="map" resultType="placeVo">
+        SELECT * FROM hotel_place
+        WHERE hotel_id = #{hotelId} AND place_cat_id = #{categoryId}
+    </select>
+    
+</mapper>

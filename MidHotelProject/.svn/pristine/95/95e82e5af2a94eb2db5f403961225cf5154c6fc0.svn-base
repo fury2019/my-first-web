@@ -1,0 +1,43 @@
+package com.Hotel.controller.HotelNearbySpots;
+
+import java.io.IOException;
+import java.util.List;
+
+import com.Hotel.service.HotelNearbySpots.HotelNearbySpotsService;
+import com.Hotel.vo.HotelPlaceVO;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/HotelNearbySpotsServlet")
+public class HotelNearbySpotsServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HotelNearbySpotsService service = HotelNearbySpotsService.getInstance();    
+		List<HotelPlaceVO> spots = service.HotelPlaceDisplayAll(); // 데이터 콘솔 출력 
+		
+		for (HotelPlaceVO spot : spots) { 
+			System.out.println("Place id: " + spot.getPlace_name()); 
+			System.out.println("Place Name: " + spot.getPlace_name()); 
+			System.out.println("Place Tel: " + spot.getPlace_tel()); 
+		    System.out.println("Place Address: " + spot.getPlace_addr()); 
+		    System.out.println("place_cat_id: " + spot.getPlace_cat_id()); 
+		    System.out.println("place_like_amt: " + spot.getPlace_like_amt()); 
+		    System.out.println("hotel_id: " + spot.getHotel_id()); 
+		} 
+		request.setAttribute("spots", spots); 
+		request.getRequestDispatcher("/displaySpots.jsp").forward(request, response); 
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

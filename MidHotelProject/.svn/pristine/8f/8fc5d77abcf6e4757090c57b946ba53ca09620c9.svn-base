@@ -1,0 +1,39 @@
+<%@page import="com.Hotel.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>비밀번호 검증</title>
+    
+</head>
+<body>
+    <h1>비밀번호 입력</h1>
+    <form>
+        <label for="password">비밀번호:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button type="button" id="pwChk">확인</button>
+    </form>
+</body>
+</html>
+<%
+
+/*
+        //return; // 폼 출력 후 나머지 코드 실행 중단
+    } else if (memPw == null) {
+        // 세션이 만료된 경우 처리
+        out.println("<h1>세션이 만료되었습니다. 다시 로그인해주세요.</h1>");
+        response.sendRedirect("/jsp/Login.jsp");
+        return;
+    } else if (!memPw.equals(inPw)) {
+        // 비밀번호 검증 실패 처리
+        out.println("<h1>비밀번호가 일치하지 않습니다. 다시 입력해주세요.</h1>");
+        out.println("<a href='/jsp/include/PWTest.jsp'>다시 시도하기</a>");
+        return; // 검증 실패 시 실행 중단
+    } else {
+    	test = true;
+    response.sendRedirect("/memberUpdate");
+    }
+    */
+%>

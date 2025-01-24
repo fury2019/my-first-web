@@ -1,0 +1,88 @@
+package com.Hotel.controller.member;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.Hotel.service.member.JoinLoginServiceImpl;
+import com.Hotel.vo.MemberVO;
+
+@WebServlet("/Login")
+public class Login extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    
+    public Login() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//requestDispatcher객체 - jsp 또는 servlet위치에 요청을 전달하며 페이지의 이동을 제공하는..
+		request.getRequestDispatcher("../Main.jsp").forward(request, response);
+//		response.getWriter().print(1);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String userId = request.getParameter("mem_id");
+		String userPw = request.getParameter("mem_pw");
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("mem_id", userId);
+		map.put("mem_pw", userPw);
+		
+		
+		MemberVO memVo = new MemberVO();
+		memVo.setMem_id(userId);
+		memVo.setMem_pw(userPw);
+		
+		
+		//서비스객체에 로그인 정보 전달하기
+		JoinLoginServiceImpl service = JoinLoginServiceImpl.getInstance();
+		
+		MemberVO logginMember = service.memberLogin(map);
+		
+//		if()
+		
+		//정보 일치시 memId에 사용자의 아이디 정보가 담겨옴 / 아닐 때 null
+//		request.setAttribute("loginCode", memId); // 요청 변경시 request에 담긴 정보는 사라진다
+		
+		// 1. 브라우저 종료 전까지 2. 로그아웃 처리 전까지 요청객체가 담고 있는 정보가 유지되도록 세션을 사용
+		HttpSession session = request.getSession();
+		
+		if(logginMember!=null) {
+			//로그인 성공
+			session.setAttribute("loginCode", logginMember);
+		} else {
+			//로그인 실패 
+			session.setAttribute("loginCode", null);
+		}
+		
+		//로그인 결과에 따라 페이지 이동 
+		if(logginMember != null) { //로그인 성공 
+			response.sendRedirect("../Main.jsp");
+		}else {
+			//로그인 실패시
+			response.sendRedirect("../../jsp/Login.jsp");
+		}
+		
+		
+		//requestDispatcher - index위치로 전달
+//		request.getRequestDispatcher("index.jsp").forward(request, response);
+		
+		//로그인 처리 결과를 안고 메인서블릿 위치로 이동합니다
+		//forward()메소드 사용해서 요청 위치 이동시 같은 메소드로 전달됨
+		//request.getRequestDispatcher("/Main").forward(request, response);
+		//redirect()메소드 사용시 get메소드로 전달
+		
+		
+	}
+
+}

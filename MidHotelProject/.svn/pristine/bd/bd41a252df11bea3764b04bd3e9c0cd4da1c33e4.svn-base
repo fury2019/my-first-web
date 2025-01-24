@@ -1,0 +1,42 @@
+<%@page import="com.Hotel.vo.Hotel_PlaceVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %> <!-- List 클래스 임포트 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Nearby Spots</title>
+</head>
+<body>
+    <h1>Nearby Spots</h1>
+	<%=request.getContextPath()%>/HotelNearbySpotsServlet";
+    <%
+        List<Hotel_PlaceVO> spots = (List<Hotel_PlaceVO>) request.getAttribute("spots"); // spots 가져오기
+        if (spots != null && !spots.isEmpty()) {
+    %>
+        <table>
+            <%
+                for (Hotel_PlaceVO spot : spots) {
+            %>
+                <tr>
+                    <td> ID: <%= spot.getPlace_id() %> </td>
+                    <td> Name: <%= spot.getPlace_name() %> </td>
+                    <td> Tel: <%= spot.getPlace_tel() %> </td>
+                    <td> Address: <%= spot.getPlace_addr() %> </td> 
+                    <td> Category ID: <%= spot.getPlace_cat_id() %> </td> 
+                    <td> Likes: <%= spot.getPlace_like_amt() %> </td>
+                    <td> Hotel ID: <%= spot.getHotel_id() %> </td>
+                </tr>
+            <%
+                }
+            %>
+        </table>
+    <%
+        } else {
+    %>
+        <p>주변 장소가 없습니다.</p>
+    <%
+        }
+    %>
+</body>
+</html>

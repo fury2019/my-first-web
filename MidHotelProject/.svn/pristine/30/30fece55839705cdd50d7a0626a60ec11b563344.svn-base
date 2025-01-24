@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Coupon"> <!-- 하나의 namespace로 설정 -->
+    <select id="getCouponsByMemberId" parameterType="String" resultType="com.Hotel.vo.CouponVO">
+        SELECT 
+            coupon_no,
+            coupon_name,
+            coupon_comment,
+            coupon_condition,
+            coupon_percent,
+            mem_id,
+            service_id
+        FROM coupon
+        WHERE mem_id = #{memberId}
+    </select>
+    
+    
+    <select id="myCoupon" parameterType="String" resultType="couponVo">
+    	select *
+    	from coupon
+    	where mem_id = #{mem_id}
+    </select>
+</mapper>

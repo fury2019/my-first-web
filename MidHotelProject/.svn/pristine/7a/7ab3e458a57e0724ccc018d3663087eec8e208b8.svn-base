@@ -1,0 +1,61 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.Hotel.vo.MemberVO, java.util.List" %>
+<%
+    List<MemberVO> memList = (List<MemberVO>) request.getAttribute("memList");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>블랙리스트 관리</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background-color: #f5deb3; }
+        button { background-color: #cd5c5c; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #b22222; }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+
+    </script>
+</head>
+<body>
+    <h2>블랙리스트 관리</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>회원 ID</th>
+                <th>이름</th>
+                <th>가입일자</th>
+                <th>상태</th>
+                <th>관리</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (memList != null && !memList.isEmpty()) { %>
+                <% for (MemberVO member : memList) { %>
+                    <tr>
+                        <td><%= member.getMem_id() %></td>
+                        <td><%= member.getMem_name() %></td>
+                        <td><%= member.getMem_create() %></td>
+                        <td><%= member.getGrade_no() %></td>
+                        <td>
+						    <% if ("Black".equals(member.getGrade_no())) { %>
+						        <!-- 블랙 상태 해제 버튼 -->
+						        <button class="revert-btn" data-id="<%= member.getMem_id() %>">일반으로 변경</button>
+						    <% } else { %>
+						        <!-- 블랙리스트로 변경 버튼 -->
+						        <button class="blacklist-btn" data-id="<%= member.getMem_id() %>">블랙리스트로 변경</button>
+						    <% } %>
+						</td>
+                    </tr>
+                <% } %>
+            <% } else { %>
+                <tr>
+                    <td colspan="5">회원 데이터가 없습니다.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</body>
+</html>

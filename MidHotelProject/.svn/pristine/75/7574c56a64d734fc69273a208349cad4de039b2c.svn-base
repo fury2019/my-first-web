@@ -1,0 +1,65 @@
+package com.Hotel.dao.HotelNearbySpots;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
+import com.Hotel.common.util.MybatisUtil;
+import com.Hotel.vo.Hotel_PlaceVO;
+
+public class HotelNearbySpotsDAO implements IHotelNearbySpotsDAO{
+	private static HotelNearbySpotsDAO dao;
+
+	// 싱글턴 패턴을 위한 생성자
+	private HotelNearbySpotsDAO() {
+		
+	}
+
+	// 싱글턴 인스턴스 반환
+	public static HotelNearbySpotsDAO getInstance() {
+		if (dao == null) {
+			dao = new HotelNearbySpotsDAO();
+		}
+		return dao;
+	}
+
+	// 주변 장소 가져오기
+	public List<Hotel_PlaceVO> HotelPlaceDisplayAll() {
+		List<Hotel_PlaceVO> spots = null;
+		SqlSession session = null; // SqlSession 선언
+
+		try {
+			session = MybatisUtil.getSqlSession(); // SqlSession 생성
+			spots = session.selectList("com.Hotel.dao.HotelNearbySpotsMapper.getNearbySpots");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close(); // SqlSession 닫기
+			}
+		}
+		return spots;
+	}
+
+	@Override
+	public List<Hotel_PlaceVO> getPlacesByHotelId(Map<String, Object> params) {
+		List<Hotel_PlaceVO> place = null;
+		SqlSession session = null;
+		
+		try {
+			session = MybatisUtil.getSqlSession();
+			place = session.selectList("com.Hotel.dao.HotelNearbySpotsMapper.getPlacesByHotelId", params);
+		} catch (Exception e) {
+			
+		}finally {
+			if (session != null) {
+				session.close(); // SqlSession 닫기
+			}
+		}
+		
+		return place;
+		
+	}
+}
+

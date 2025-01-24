@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+
+	<!-- 쿠폰 발송 -->
+	<insert id="insertCoupon" parameterType="couponVo">
+		INSERT INTO Coupon (coupon_no, coupon_name, coupon_comment, coupon_percent, mem_id)
+    	VALUES (coupon_seq.NEXTVAL, #{coupon_name}, #{coupon_comment}, #{coupon_percent}, #{mem_id})
+	</insert>
+	
+	<!-- 쿠폰 전체 조회 -->
+	<select id="viewAllCoupon" resultType="couponVo">
+		SELECT * FROM Coupon
+	</select>
+	
+	
+	<!-- 쿠폰 회수 -->
+	<delete id="deleteCoupon" parameterType="int">
+		DELETE FROM coupon WHERE coupon_no = #{coupon_no}
+	</delete>
+	
+</mapper>

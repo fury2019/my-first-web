@@ -1,0 +1,84 @@
+.header-area {
+    position: sticky;
+    z-index: 100;
+    width: 100%;
+    transition-duration: 500ms;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid black;
+  
+  }
+  .header-area .search-form {
+    transition-duration: 350ms;
+    transition-timing-function: ease-in;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 0;
+    background-color: #f1ebd6;
+  }
+  .header-area .search-form.search-form-active {
+    height: 80px;
+    z-index: 99999999;
+  }
+  .header-area .search-form form {
+    position: relative;
+    z-index: 1;
+  }
+  .header-area .search-form form input {
+    background-color: transparent;
+    width: 100%;
+    height: 60px;
+    border: none;
+    font-size: 14px;
+    color: white;
+  }
+  .header-area .search-form form button {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: right;
+  }
+  .header-area .search-form form button:focus {
+    outline: none;
+  }
+
+.book-now-btn > a {
+/*     background-color: #f1e3c4 !important;  */
+/*     color: #524b42 !important; */
+    font-family: fantasy !important;
+    width: auto !important;
+    font-weight: 600;
+    color:#524b42;
+  }
+  header > div > a > i {
+    color: #f1ebd6;
+  }
+
+
+  body > header{
+    font-family: fantasy;
+  }
+
+  header {
+    height: 60px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    top: 0;
+    z-index: 1;
+    position: sticky;
+}
+
+.headdrop{
+	border-bottom : 1px dashed gray;
+}
+
+
+
+

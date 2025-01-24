@@ -1,0 +1,82 @@
+<%@page import="com.Hotel.vo.FAQVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>FAQ 게시글 수정</title>
+
+<style type="text/css">
+    table, tr, td { border:1px solid blue; border-collapse: collapse; }
+    td { padding:5px;}
+</style>
+
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.7.1.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("#btnList").on("click", function(){
+        location.href="<%=request.getContextPath()%>/faqList";
+    });
+});
+</script>
+</head>
+
+<body>
+<h2>FAQ 게시글 수정</h2>
+
+<%
+    FAQVO faqvo = (FAQVO) request.getAttribute("faqVo");
+    if (faqvo != null) {
+%>
+
+<form id="btnUpdate" method="post" action="<%=request.getContextPath()%>/faqUpdate">
+<table border="1">
+<tbody>
+    <tr>
+        <td>게시물 번호</td>
+        <td>
+            <input type="text" name="faq_no" id="faq_no" value="<%=faqvo.getFaq_no()%>" required readonly>
+        </td>
+    </tr>
+    
+    <tr>
+        <td>FAQ 제목</td>
+        <td><input type="text" name="faq_title" id="faq_title" value="<%=faqvo.getFaq_title()%>" required></td>
+    </tr>
+    
+    <tr>
+        <td>FAQ 내용</td>
+        <td><textarea name="faq_content" id="faq_content" required><%=faqvo.getFaq_content()%></textarea></td> 
+    </tr>
+    
+    <tr>
+       <td>게시판 종류</td>
+        <td>
+            <select name="class_id" id="class_id" required>
+                <option value="Class01">FAQ</option>
+            </select>
+        </td>  
+    </tr>
+    
+    <tr>
+        <td colspan="2" style="text-align:center;">
+            <input type="submit" value="저장"> <input type="reset" value="초기화">
+            <input type="button" id="btnList" value="FAQ목록"></td>
+    </tr>
+</tbody>
+</table>
+</form>
+
+<%
+    } else {
+        out.println("<p>FAQ 정보를 불러올 수 없습니다.</p>");
+    }
+%>
+
+</body>
+</html>
+
+
+
+

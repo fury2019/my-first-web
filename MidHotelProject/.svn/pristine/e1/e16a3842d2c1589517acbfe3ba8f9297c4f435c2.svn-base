@@ -1,0 +1,48 @@
+<%@ page import="com.Hotel.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<%-- 세션에서 로그인 정보를 가져오기 --%>
+<%
+    MemberVO loggedInMember = (MemberVO) session.getAttribute("loginCode");
+    System.out.println("Logged In Member: " + loggedInMember); // 디버깅 로그
+    if (loggedInMember == null) {
+        response.sendRedirect(request.getContextPath() + "/jsp/Login.jsp");
+        return;
+    }
+%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>장바구니 목록</title>
+</head>
+<body>
+    <h1>장바구니 목록</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>상품명</th>
+                <th>수량</th>
+                <th>가격</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${goods_CartList}" var="cartItem">
+                <tr>
+                    <td>${cartItem.goods_id}</td>
+                    <td>${cartItem.goods_amt}</td>
+                    <td>${cartItem.price}</td> <!-- 가격 정보는 추가로 정의해야 함 -->
+                    <td>
+                        <form action="${pageContext.request.contextPath}/goods_CartDelete" method="post">
+                            <input type="hidden" name="cart_no" value="${cartItem.cart_no}">
+                            <button type="submit" class="btn btn-danger">삭제</button>
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+    <button onclick="location.href='${pageContext.request.contextPath}/checkout'" class="btn btn-primary">구매하기</button>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<%@ page import="com.Hotel.vo.HotelVO" %>
+<%@ page import="java.util.List" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hotel List</title>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css//HotelPlace.css">
+</head>
+<body>
+<%
+    List<HotelVO> hotelList = (List<HotelVO>) request.getAttribute("hotelList");
+    if (hotelList != null && !hotelList.isEmpty()) {
+%>
+    <h2>Hotel List</h2>    
+    <table>
+        <thead>
+            <tr>
+                <th>Hotel Name</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        <%
+            for (HotelVO hotel : hotelList) {
+        %>
+            <tr>
+                <td><%= hotel.getHotel_name() %></td>
+                <td><%= hotel.getHotel_tel() %></td>
+                <td>
+                    <!-- Select hotel to view nearby spots -->
+                    <form action="<%=request.getContextPath()%>/HotelNearbySpots" method="get">
+                        <input type="hidden" name="hotelId" value="<%= hotel.getHotel_id() %>">
+                        <button type="submit">View Nearby Spots</button>
+                    </form>
+                </td>
+            </tr>
+        <%
+            }
+        %>
+        </tbody>
+    </table>
+<%
+    } else {
+        out.println("<p>No hotels available.</p>");
+    }
+%>
+</body>
+</html>

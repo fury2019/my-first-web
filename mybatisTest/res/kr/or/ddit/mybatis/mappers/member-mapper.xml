@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+
+    
+    <select id="insertMember" parameterType="memVo">
+        insert into mymember
+		    (mem_id, mem_pass, mem_name, mem_tel, mem_addr) 
+			values ( #{mem_id}, #{mem_pass}, #{mem_name}, #{mem_tel}, #{mem_addr})
+    </select>
+	
+	<select id="getMemberCount" parameterType="String" resultType="int">
+		select count(*) cnt from mymember
+			where mem_id = #{mem_id}
+	</select>
+	
+	<select id="deleteMember" parameterType="String">
+		delete from mymember where mem_id = #{mem_id}
+	</select>
+	
+	<update id="updateMember" parameterType="memVo">
+		update mymember set
+			mem_pass = #{mem_pass}, mem_name = #{mem_name},
+			mem_tel = #{mem_tel}, mem_addr = #{mem_addr}
+		where mem_id = #{mem_id}
+	</update>
+	
+	<select id="getAllMember" resultType="memVo">
+		select * from mymember
+	</select>
+	<!-- 
+		Map을 파라미터로 받아서 SQL문에 사용할 때는 Map의 
+	 -->
+	
+	<update id="updateMember2" parameterType="map">
+		update mymember set ${FIELD} = #{NEWDATA}
+		where mem_id = #{MEMID}
+	</update>
+
+</mapper>

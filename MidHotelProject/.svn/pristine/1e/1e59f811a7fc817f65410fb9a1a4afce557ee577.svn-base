@@ -1,0 +1,132 @@
+<%@page import="com.Hotel.vo.FAQVO"%>
+<%@page import="com.Hotel.vo.MemberVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+       pageEncoding="UTF-8"%>
+       
+<%@include file="/jsp/include/top.jsp" %>
+<%@include file="/jsp/include/header.jsp" %>      
+           
+       
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+   <meta charset="UTF-8"/>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>DDIT 호텔-FAQ</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link rel="stylesheet" type="text/css" href="/css/FAQ.css">
+   
+</head>     
+<body>
+    <div class="layout">
+        <div class="content">
+            <div class="sidebar">
+                <ul>
+                    <li><a href="<%=request.getContextPath() %>/faqList">FAQ 관리</a></li>
+                </ul>
+            </div>
+
+            <div class="faq-info">
+                <h2>FAQ 목록</h2>
+                <hr class="line">
+                    <div class="faq-actions">
+                    <button id="addBtn" class="btn btn-primary">새글등록</button>
+                    <button id="updateBtn" class="btn btn-warning">수정</button>
+                    <button id="deleteBtn" class="btn btn-danger">삭제</button>
+                </div>    
+                <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="faq-select">선택</th>
+                    		<th class="faq-title">제목</th>
+                    		<th class="faq-content">내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        List<FAQVO> faqList = (List<FAQVO>) request.getAttribute("faqList");
+                        if (faqList != null) {
+                            for (FAQVO faq : faqList) {
+                    %>
+					<tr>
+						<td class="faq-select"><input type="checkbox" name="faqCheckbox" value="<%=faq.getFaq_no()%>"></td>
+                      	<td class="faq-title" onclick="toggleContent(this)"><%=faq.getFaq_title()%></td>
+                      	<td class="faq-content" onclick="toggleContent(this)"><%=faq.getFaq_content()%></td>
+                    </tr>
+                    <%
+                            }
+                        }
+                    %>
+                    </tbody>
+                </table>
+                </div>
+            
+                </div>
+            </div>
+        </div>
+        <%@include file="/jsp/include/footer.jsp" %>
+    
+     <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.7.1.js"></script>
+   <script type="text/javascript">
+
+   $(function(){
+
+     $("#addBtn").on("click", function(){
+      location.href = "<%=request.getContextPath()%>/jsp/FAQInsert.jsp";
+   });
+      
+   $("#updateBtn").on("click", function(){
+      var selected = $("input[name='faqCheckbox']:checked");
+      if (selected.length === 1) {
+      var faqNo = selected.val();
+             location.href = "<%=request.getContextPath()%>/jsp/FAQUpdate.jsp?faq_no="+faqNo;
+         editFAQ(faqNo);
+      } else {
+         alert("수정할 FAQ를 하나 선택해 주세요.");
+      }
+
+   });
+
+   $("#deleteBtn").on("click", function(){
+       var selected = $("input[name='faqCheckbox']:checked");
+       if (selected.length === 1) { // 수정: 하나만 선택하도록 변경
+         var faqNo = selected.val();
+         if (confirm("선택한 FAQ를 삭제하시겠습니까?")) {
+            $.ajax({
+                  type: "POST",
+                   url: "<%=request.getContextPath()%>/faqDelete",
+                   data: { "faq_no": faqNo }, // 수정: 하나의 FAQ 번호만 전송
+                   success: function(response) {
+                      console.log("Response from server: ", response);
+                       location.reload(); // 삭제 후 페이지 새로고침
+               },
+               error: function(jqXHR, textStatus, errorThrown) {
+                  console.error("Error deleting FAQ: ", textStatus, errorThrown);
+               }
+            });
+         }
+       } else {
+           alert("삭제할 FAQ를 선택해 주세요.");
+       }
+   
+   });
+         
+   });
+     
+   function editFAQ(faqNo) { 
+      location.href = '<%=request.getContextPath()%>/faqUpdate?faq_no=' + faqNo;
+     
+        }
+
+   function toggleContent(element) {
+       var content = $(element).next(); // 다음 요소인 내용(td)을 선택
+       content.toggleClass('expanded'); // 'expanded' 클래스를 토글
+   }
+   
+     </script>   
+    
+</body>
+</html>

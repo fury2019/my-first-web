@@ -1,0 +1,45 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.Hotel.vo.MemberVO, java.util.List" %>
+<%
+    List<MemberVO> memList = (List<MemberVO>) request.getAttribute("memList");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>회원 목록</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background-color: #f5deb3; }
+    </style>
+</head>
+<body>
+    <h2>회원 목록</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>회원 ID</th>
+                <th>이름</th>
+                <th>가입일자</th>
+                <th>회원 등급</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (memList != null && !memList.isEmpty()) { %>
+                <% for (MemberVO member : memList) { %>
+                    <tr>
+                        <td><%= member.getMem_id() %></td>
+                        <td><%= member.getMem_name() %></td>
+                        <td><%= member.getMem_create() %></td>
+                        <td><%= member.getGrade_no() %></td>
+                    </tr>
+                <% } %>
+            <% } else { %>
+                <tr>
+                    <td colspan="4">회원 데이터가 없습니다.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</body>
+</html>

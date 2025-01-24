@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pay">
+    <insert id="insertPay" parameterType="payVo">
+        INSERT INTO room_payment (
+            r_res_no, p_use_point, coupon_no, p_earn_point, p_tot_price, p_price, p_date
+        ) VALUES (
+            #{r_res_no}, #{p_use_point}, #{coupon_no}, #{p_earn_point}, #{p_tot_price}, #{p_price}, sysdate
+        )
+    </insert>
+</mapper>

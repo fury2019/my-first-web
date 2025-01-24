@@ -1,0 +1,217 @@
+<%@page import="java.util.LinkedHashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="com.Hotel.vo.HotelVO"%>
+<%@page import="com.Hotel.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
+<%@ page import="com.Hotel.vo.Room_ReservationVO"%>
+<%@ page import="com.Hotel.service.reservation.IRoom_reserService"%>
+<%@ page import="com.Hotel.service.reservation.Room_reserServiceImpl"%>
+<%@ page session="true" %>
+
+<%@include file="/jsp/include/top.jsp" %>
+
+<%@include file="/jsp/include/header.jsp"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DDIT 호텔 - 예약 관리</title>
+<style>
+body {
+    font-family: 'Noto Sans KR', sans-serif; /* 이미지와 유사한 폰트 사용 (구글 폰트에서 가져옴) */
+    margin: 20px;
+    background-color: #f8f8f8; /* 배경색 추가 */
+}
+
+.container {
+    width: 70%;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+h1, h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.2em;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-top: 20px;
+}
+
+.room-options .option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.room-options label {
+    flex-grow: 1;
+    color: #555;
+    font-weight: 500;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.quantity-control button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: #eee;
+    cursor: pointer;
+    font-size: 1.2em;
+    border-radius: 3px;
+    margin: 0 5px;
+}
+.quantity-control button:hover{
+    background-color: #ddd;
+}
+
+.quantity-control input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    padding: 5px;
+}
+.option-description, .request-description {
+  color: #777;
+  font-size: 0.9em;
+  margin-top: 10px;
+  line-height: 1.4;
+}
+textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    resize: vertical; /* 세로 크기 조절만 가능 */
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    color: #555;
+    line-height: 1.6;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+.container {
+    width: 800px; /* 적절한 너비 설정 */
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.header1 {
+    display: flex;
+    text-align: center; 
+    margin-bottom: 20px;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ddd; /* 아이콘 배경색 */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.header1 h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+
+</style>
+</head>
+<body>
+<div class="header1">
+        <div class="icon">1</div> <div class="icon">2</div> <div class="icon">3</div>
+        <h2>호텔, 날짜, 인원 선택</h2>
+    </div>
+    <div class="container">
+        <h1>옵션 선택</h1>
+
+        <div class="room-options">
+            <h2>객실 1</h2>
+            <div class="option">
+                <div class="quantity-control">
+                    조식<input type="checkbox" id="breakfast">
+                </div>
+            </div>
+            <div class="option">
+                <div class="quantity-control">
+                   early-checkIn <input type="checkbox" id="early-check">
+                </div>
+                <br>
+            <div class="option">
+                <div class="quantity-control">
+                  late-checkOut <input type="checkbox" id="late-check">
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+        <div class="notes">
+            <h2>유의사항</h2>
+            <ul>
+                <li>요금에는 10% 부가가치세가 부과됩니다.</li>
+                <li>2인 1실 기준</li>
+                <li>체크인 시 등록카드 작성 및 투숙객 본인 확인을 위해 본인 사진이 포함된 신분증을 반드시 제시해 주시기 바랍니다.</li>
+                <li>만 12세 이하 어린이는 객실 인원 추가 요금을 받지 않습니다.</li>
+                <li>37개월 미만 유아는 조식이 무료입니다.</li>
+                <li>안내견을 제외한 애완견 등 동물 입장은 불가합니다.</li>
+                <li>부모 등 법정대리인을 동반하지 않은 만 19세 미만 미성년자는 투숙할 수 없습니다.<br>
+                	(체크인 시점에 생일이 지난 만 19세부터 법정대리인 동반 없이 투숙이 가능합니다.)</li>
+                <li>상기 요금은 기본 요금이며, 쿠폰할인을 제외한 할인은 적용되지 않습니다.</li>
+                <li>객실 이용 시 주차는 무료 주차 입니다.(객실당 1대만 주차 가능)</li>
+                <li>자세한 객실안내는 고객문의를 이용해 주시기 바랍니다.</li>
+            </ul>
+        </div>
+        <div class="notes">
+            <h2>취소 및 환불 규정</h2>
+            <ul>
+                <li>숙박예정일 1일전 18시까지는 위약금 없이 취소 가능</li>
+                <li>위 기간 이후 취소 또ㅓ는 변경시(No Show 포함)</li>
+                <li>- 성수기 (4, 5, 6, 10, 11월, 12월24일, 12월 31일): 최초 1박 요금의 80% 부과</li>
+                <li>- 비수기 (성수기 외 기간): 최초 1박 요금의 10% 부과
+            </ul>
+        </div>
+    </div>
+    <script>
+    	function serviceReservation(){
+			const breakfast = document.querySelector('')
+    	}
+    
+    </script>
+
+<%@include file="/jsp/include/footer.jsp"%>
+</body>
+</html>
+
+ 

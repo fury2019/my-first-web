@@ -1,0 +1,46 @@
+package com.Hotel.controller.HotelNearbySpots;
+
+import java.io.IOException;
+import java.util.List;
+
+import com.Hotel.service.HotelNearbySpots.HotelNearbySpotsService;
+import com.Hotel.service.HotelNearbySpots.IHotelNearbySpotsService;
+import com.Hotel.vo.Hotel_PlaceVO;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/HotelNearbySpots")
+public class HotelNearbySpots extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 클라이언트로부터 호텔 ID를 받음
+        String hotelId = request.getParameter("hotelId");
+
+        // hotelId가 없거나 비어 있으면 오류 응답 전송
+        if (hotelId == null || hotelId.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "호텔 ID가 제공되지 않았습니다.");
+            return;
+        }
+        
+        // 서비스 객체 가져오기
+        IHotelNearbySpotsService service = HotelNearbySpotsService.getInstance();
+
+        // 특정 호텔 근처 명소 가져오기
+        List<Hotel_PlaceVO> spots = service.getPlacesByHotelId(hotelId);
+
+        // 명소 리스트를 요청 속성에 설정
+        request.setAttribute("spots", spots);
+
+        // 결과를 보여줄 JSP로 포워딩
+        request.getRequestDispatcher("/jsp/displaySpots.jsp").forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response); // POST 요청도 GET 요청과 동일하게 처리
+    }
+}

@@ -1,0 +1,70 @@
+package com.Hotel.controller.reservation;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+import com.Hotel.service.hotel.HotelFindServiceImpl;
+import com.Hotel.service.hotel.IHotelFindService;
+import com.Hotel.service.reservation.IRoom_reserService;
+import com.Hotel.service.reservation.Room_reserServiceImpl;
+import com.Hotel.vo.HotelVO;
+import com.Hotel.vo.Room_ReservationVO;
+
+@WebServlet("/hotelRoomResServlet")
+public class HotelRoomResServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    private IHotelFindService hotelService;
+    private IRoom_reserService reserService;
+    
+    
+    public HotelRoomResServlet() {
+        super();
+        
+    }
+    @Override
+    public void init() throws ServletException {
+        // 호텔 서비스 및 예약 서비스 초기화 (가정: 서비스 구현 클래스와 연결)
+    	 hotelService = HotelFindServiceImpl.getInstance();
+         reserService = Room_reserServiceImpl.getInstance();// 실제 구현체로 수정해야 함
+    }
+    
+    //처음 리스트는 아닌 검색 했을 때의 정보 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//각각의 값을 파라미터로 받음 -> 파라미터 값을 String으로만 가능 -> 형변환 필요
+    	String r_res_no = request.getParameter("r_res_no");
+        String mem_id = request.getParameter("mem_id");
+        String room_no = request.getParameter("room_no");
+        String type_name = request.getParameter("type_name");
+        String hotel_id = request.getParameter("hotel_id");
+        String hotelName = request.getParameter("hotel_name");
+        int r_res_people = Integer.parseInt(request.getParameter("r_res_people"));
+        String r_res_chkindate = request.getParameter("checkInDate");
+        String r_res_chkoutdate = request.getParameter("checkOutDate");
+        int r_res_price = Integer.parseInt(request.getParameter("r_res_price"));
+        int r_res_adult = Integer.parseInt(request.getParameter("r_res_adult"));
+        int r_res_child = Integer.parseInt(request.getParameter("r_res_child"));
+        int r_res_kids = Integer.parseInt(request.getParameter("r_res_kids"));
+        
+        
+        //호텔 정보(이름) 가져오기
+        List<HotelVO> hotels = hotelService.getHotelsByName(hotelName);
+        
+        List<Room_ReservationVO> Rooms = reserService.getReservationsByHotelAndDates(mem_id, r_res_chkindate, r_res_chkoutdate);
+        
+        request.setAttribute("hotels", hotels);
+        request.setAttribute("reservations", Rooms);
+        
+        request.getRequestDispatcher("/jsp/Reservation2.jsp").forward(request, response);
+        
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+}

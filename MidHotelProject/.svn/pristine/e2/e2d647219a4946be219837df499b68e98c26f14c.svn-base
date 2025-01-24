@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotelroom">
+	<!-- 호텔별 총 객실 개수  -->
+	<select id="getAllCountRoom" parameterType="String" resultType="hotelroomVo">
+		select count(*) from hotel_room where hotel_id = #{hotel_id}
+	</select>
+	<!--호텔별 룸타입  -->
+	<select id="getTypeRoom"  parameterType="String" resultType="hotelroomVo">
+		select DISTINCT type_name from hotel_room where hotel_id= #{hotel_id}
+	</select>
+	
+	<!--호텔별 룸타입마다 개수  -->
+	<select id="getTypeCountRoom" parameterType="String" resultType="hotelroomVo">
+		select type_name, count(*) from hotel_room where hotel_id=#{hotel_id} and room_status='예약가능' group by type_name
+	</select>
+</mapper>

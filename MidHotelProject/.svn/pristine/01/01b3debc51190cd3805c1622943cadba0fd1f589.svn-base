@@ -1,0 +1,9 @@
+package com.Hotel.dao.reservation;
+
+
+import com.Hotel.vo.Room_PaymentVO;
+
+public interface IRoom_PayDao {
+
+	public int insertPay(Room_PaymentVO pay);
+}

@@ -1,0 +1,51 @@
+@charset "EUC-KR";
+/* Google Web Font */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap');
+* {
+    box-sizing: border-box;
+}
+
+/* Table */
+.member {
+    width: 800px;
+    background-color: #fff;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    overflow: hidden;
+    border-spacing: 0;
+    
+    
+}
+.member caption {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+.member tr {
+    border-bottom: 1px solid #eee;
+}
+.member tr:last-child {
+    border: none;
+}
+.member tr:nth-child(odd) {
+    background-color: #ddd;
+}
+.member th,
+.member td {
+    padding: 12px;
+    text-align: center; 
+}
+.member tr th {
+    background-color: #f1e3c4;
+    color: #524b42;
+}
+.member tr th:first-child {
+    border-radius: 5px 0 0 0;
+}
+.member tr th:last-child {
+    border-radius: 0 5px 0 0;
+}
+.member tr td:last-child {
+    color: crimson;
+    font-weight: 500;
+}

@@ -1,0 +1,67 @@
+package com.Hotel.controller.facilities;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+import com.Hotel.service.facilities.Fac_reserServiceImpl;
+import com.Hotel.service.facilities.IFac_reserService;
+import com.Hotel.service.hotel.HotelFindServiceImpl;
+import com.Hotel.service.hotel.IHotelFindService;
+import com.Hotel.vo.HotelVO;
+import com.Hotel.vo.Hotel_FacilitiesVO;
+
+
+@WebServlet("/FacResServlet")
+public class FacResServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	private IFac_reserService facResService;
+	private IHotelFindService hotelFindService;
+	
+	// 편의시설분류 테이블 서비스 만들고 추가하기
+	
+	
+	public FacResServlet() {
+		super();
+		facResService = Fac_reserServiceImpl.getInstance();
+		hotelFindService = HotelFindServiceImpl.getInstance();
+	}
+	
+	
+	
+	
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<String> allRegions = hotelFindService.LocalSearch();
+		List<HotelVO> allHotelNames = hotelFindService.getAllHotelNames();
+		
+		
+		
+		request.setAttribute("regions", allRegions);
+		request.setAttribute("hotels", allHotelNames);
+		
+		//jsp로 포워딩
+//		request.getRequestDispatcher("/jsp/FacilitiesReservation.jsp").forward(request, response);
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 호텔 주소를 파라미터로 받아 검색
+        String hotel_addr = request.getParameter("hotel_addr");
+
+        List<HotelVO> hotels = hotelFindService.searchHotelAddr(hotel_addr);
+
+        // 검색된 결과를 JSP로 전달
+        request.setAttribute("searchedHotels", hotels);
+
+        // JSP로 포워딩
+        request.getRequestDispatcher("/jsp/FacilitiesReservation.jsp").forward(request, response);
+	
+	}
+
+}

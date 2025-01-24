@@ -1,0 +1,50 @@
+<%@ page import="com.Hotel.vo.HotelVO" %>
+<%@ page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+       pageEncoding="UTF-8"%>
+   <!DOCTYPE html>
+   <html>
+   <head>
+   <meta charset="UTF-8"/>
+   <title>Hotel List</title>
+   <style type="text/css">
+       table, tr, td { border:1px solid blue; }
+       td { padding:5px;}
+   </style>
+   <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.7.1.js"></script>
+   </head>
+   <body>
+   <%
+       List<HotelVO> hotelList = (List<HotelVO>)request.getAttribute("hotelList");
+       if (hotelList != null && !hotelList.isEmpty()) {
+   %>
+       <h2>Hotel List</h2>    
+       <table border="1">
+           <thead>
+               <tr>
+               </tr>
+               <tr>
+                   <th>이 름</th>
+                   <th>전화번호</th>
+               </tr>
+           </thead>
+           <tbody>
+           <%
+               for(HotelVO hotelvo : hotelList){    
+           %>
+               <tr>
+                   <td><%=hotelvo.getHotel_name() %></td>
+                   <td><%=hotelvo.getHotel_tel() %></td>
+               </tr>
+           <%
+               }
+           %>
+           </tbody>
+       </table>
+   <%
+       } else {
+           out.println("<p>No hotelList data found.</p>");
+       }
+   %>
+   </body>
+   </html>

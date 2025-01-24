@@ -1,0 +1,45 @@
+package com.Hotel.controller.hotel;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+
+import com.Hotel.service.hotel.HotelFindServiceImpl;
+import com.Hotel.service.hotel.IHotelFindService;
+import com.Hotel.vo.HotelVO;
+
+
+
+@WebServlet("/hotelfindServlet")
+public class HotelfindServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+	private IHotelFindService hotelFindService;
+    
+    public HotelfindServlet() {
+        super();
+        hotelFindService = HotelFindServiceImpl.getInstance();
+    }
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//호텔 이름을 파라미터로 받아온다.
+		String hotel_addr = request.getParameter("hotel_addr");
+		
+		List<HotelVO> hotels = hotelFindService.searchHotelAddr(hotel_addr);
+		
+		request.setAttribute("hotels", hotels);
+		request.getRequestDispatcher("/jsp/hotelFind.jsp").forward(request, response);
+	}
+
+}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>오시는 길</title>
+    <style>
+        /* 팝업 스타일 */
+        .popup {
+            display: none; /* 기본적으로 숨김 */
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .overlay {
+            display: none; /* 기본적으로 숨김 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .close-btn {
+            cursor: pointer;
+            color: red;
+            float: right;
+        }
+    </style>
+    <script>
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+    </script>
+</head>
+
+<body>
+    <header class="header">
+        <h1>신크리스테이 마포</h1>
+        <div class="links">
+            <a href="#" onclick="showPopup()">홈</a>
+            <a href="#" onclick="showPopup()">예약</a>
+            <a href="#" onclick="showPopup()">문의</a>
+            <a href="#" onclick="showPopup()">오시는 길</a> <!-- 팝업 추가 -->
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2>소개</h2>
+            <ul>
+                <li>호텔정보</li>
+                <li>충전안내도</li>
+                <li class="active">오시는 길</li>
+                <li>갤러리</li>
+            </ul>
+        </aside>
+        <main class="main-content body">
+            <h1>오시는 길</h1>
+            <p>신크리스테이 마포 주소: 서울시 마포구 마포대로 83 (지하철 3호선: 마포역 도보 570m)</p>
+            <h2>교통편</h2>
+            <h3>버스</h3>
+            <p>일반버스: 1002번</p>
+            <p>간선버스: 160번, 163번, 260번, 600번, 604번, 463번, 261번</p>
+            <p>지선버스: 171번, 706번, 7013번, 7018번, 7611번</p>
+            <p>광역버스: 8600번, 8601번</p>
+            <h3>지하철</h3>
+            <p>5호선, 6호선, 경의중앙선: 공항철도 이용 (소요시간: 약 50분)</p>
+            <h3>자가용</h3>
+            <p>인천공항 - 신크리스테이 마포 구간 교통안내 (약 57km)</p>
+            <p>김포공항 - 신크리스테이 마포 구간 교통안내 (약 17km)</p>
+            
+            <h2>위치 안내</h2>
+            <div id="map" style="width:100%;height:350px;"></div>
+
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=343043930ec288ef53e989469860932e"></script>
+            <script>
+                var mapContainer = document.getElementById('map'), 
+                    mapOption = { 
+                        center: new kakao.maps.LatLng(37.55608, 127.0052), // 서울 위치
+                        level: 5 
+                    };
+
+                var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+                var markerPosition = new kakao.maps.LatLng(37.55608, 127.0052); // 서울 위치
+
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition
+                });
+
+                marker.setMap(map);
+            </script>
+
+            <footer class="footer">
+                <p>전화: 02-6979-9000</p>
+                <p><a href="main.html">메인 페이지로 돌아가기</a></p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- 팝업과 오버레이 -->
+    <div id="overlay" class="overlay" onclick="closePopup()"></div>
+    <div id="popup" class="popup">
+        <span class="close-btn" onclick="closePopup()">X</span>
+        <h2>오시는 길</h2>
+        <p>신크리스테이 마포 주소: 서울시 마포구 마포대로 83</p>
+        <p>지하철 3호선: 마포역 도보 570m</p>
+        <p>버스: 1002번, 160번, 163번 등</p>
+        <p>자가용: 인천공항에서 약 57km, 김포공항에서 약 17km</p>
+    </div>
+</body>
+</html>

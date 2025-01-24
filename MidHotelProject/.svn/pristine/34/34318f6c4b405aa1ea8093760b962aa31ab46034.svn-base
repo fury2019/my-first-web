@@ -1,0 +1,71 @@
+package com.Hotel.dao.FAQ;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import com.Hotel.common.util.MybatisUtil;
+import com.Hotel.vo.FAQVO;
+import com.Hotel.vo.NoticeVO;
+
+public class NoticeDaoImpl implements INoticeDao {
+
+	private static NoticeDaoImpl dao;
+	
+	private NoticeDaoImpl() {  }
+	
+	public static INoticeDao getInstance() {
+		if(dao==null) dao = new NoticeDaoImpl();
+		
+		return dao;
+	}
+	
+	@Override
+	public List<NoticeVO> getAllNotice() {
+		
+		SqlSession session = null;
+		
+		List<NoticeVO> noticeList = null;
+		
+		try {
+			
+			noticeList = session.selectList("notice.getAllNotice");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(session!=null) session.close();
+		}
+		
+		return noticeList;
+	}
+
+	@Override
+	public List<NoticeVO> getClassNotice(String class_id) {
+		SqlSession session = MybatisUtil.getSqlSession();
+		
+		List<NoticeVO> noticeVo = null;
+		
+		try {
+			noticeVo = session.selectList("notice.getClassNotice", class_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(session != null) session.close();
+		}
+		return noticeVo;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

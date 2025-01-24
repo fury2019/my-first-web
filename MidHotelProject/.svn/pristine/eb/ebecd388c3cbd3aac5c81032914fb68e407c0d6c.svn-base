@@ -1,0 +1,81 @@
+package com.Hotel.controller.Goods_Payment;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.Hotel.dao.Goods_Payment.IGoods_PaymentDao;
+import com.Hotel.dao.Goods_Payment.Goods_PaymentDaoImpl;
+import com.Hotel.service.Goods_Payment.IGoods_PaymentService;
+import com.Hotel.service.Goods_Payment.Goods_PaymentServiceImpl;
+import com.Hotel.vo.Goods_PaymentVO;
+
+@WebServlet("/goods_PaymentInsert")
+public class Goods_PaymentInsert extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    private IGoods_PaymentService service = Goods_PaymentServiceImpl.getInstance();
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // DAO 인스턴스 생성
+        IGoods_PaymentDao goodsPaymentDao = Goods_PaymentDaoImpl.getInstance();
+
+        // 파라미터 받기
+        String payId = request.getParameter("payId");
+        String cartNo = request.getParameter("cartNo");
+        String goodsIdList = request.getParameter("goodsIdList"); // goodsIdList 받기
+        int pUsePoint = Integer.parseInt(request.getParameter("pUsePoint"));
+        String couponNo = request.getParameter("couponNo");
+        int pEarnPoint = Integer.parseInt(request.getParameter("pEarnPoint"));
+        int pTotPrice = Integer.parseInt(request.getParameter("pPrice"));
+
+        // 유효성 검사
+        if (goodsIdList == null || goodsIdList.isEmpty()) {
+            request.setAttribute("errorMessage", "상품 ID가 필요합니다.");
+            request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+            return;
+        }
+
+        if (cartNo == null || cartNo.isEmpty()) {
+            request.setAttribute("errorMessage", "장바구니 번호가 필요합니다.");
+            request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+            return;
+        }
+
+        // goodsIdList를 배열로 변환
+        String[] goodsIds = goodsIdList.split(",");
+
+        // 각 상품에 대해 결제 처리
+        for (String goodsId : goodsIds) {
+            // Goods_PaymentVO 객체 생성
+            Goods_PaymentVO payment = new Goods_PaymentVO();
+            payment.setPayId(payId);
+            payment.setCart_no(cartNo);
+            payment.setGoods_id(goodsId); // 각 상품의 ID 설정
+            payment.setP_use_point(pUsePoint);
+            payment.setCoupon_no(couponNo);
+            payment.setP_earn_point(pEarnPoint);
+            payment.setP_tot_price(pTotPrice);
+            payment.setP_price(pTotPrice);
+            payment.setP_date(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+
+            // 데이터베이스에 삽입
+            int result = goodsPaymentDao.insertPayment(payment);
+
+            if (result <= 0) {
+                request.setAttribute("errorMessage", "결제 정보 삽입에 실패했습니다.");
+                request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+                return;
+            }
+        }
+
+        // 결제 성공 시 처리
+        request.setAttribute("message", "결제가 완료되었습니다.");
+        request.getRequestDispatcher("/jsp/paymentConfirmation.jsp").forward(request, response);
+    }
+}

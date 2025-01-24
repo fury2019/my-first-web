@@ -1,0 +1,87 @@
+<%@page import="com.Hotel.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+   
+<%
+    // 세션에서 로그인 정보를 가져오기
+    MemberVO loggedInMember = (MemberVO) session.getAttribute("loginCode");
+    if(loggedInMember != null){
+%>
+	<%@include file="/jsp/include/logouttop.jsp" %>
+<%
+    } else{
+%>
+	<%@include file="/jsp/include/logintop.jsp" %>
+<%
+    }
+%>
+
+<%@include file="/jsp/include/header.jsp" %>      
+        
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>FAQ 게시글 작성</title>
+
+<style type="text/css">
+    table, tr, td { border:1px solid blue; border-collapse: collapse; }
+    td { padding:5px;}
+</style>
+
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.7.1.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script type="text/javascript">
+
+$(function(){
+    $("#btnList").on("click", function(){
+        location.href="<%=request.getContextPath()%>/faqList";
+    });
+    
+    $("#btnInsert").on("submit", function(){
+        // 추가적인 유효성 검사 필요 시 여기에 작성
+        return true; // 모든 검사를 통과하면 전송
+    });
+});
+</script>
+</head>
+
+<body>
+<h2>FAQ 게시글 작성</h2>
+<form id="btnInsert" method="post" action="<%=request.getContextPath()%>/faqInsert">
+<table border="1">
+<tbody>
+
+    <tr>
+        <td>FAQ 제목</td>
+        <td><input type="text" name="faq_title" id="faq_title" required></td>
+    </tr>
+    
+    <tr>
+        <td>FAQ 내용</td>
+        <td><textarea name="faq_content" id="faq_content" required></textarea></td> 
+    </tr>
+    
+    <tr>
+       <td>게시판 종류</td>
+        <td>
+            <select name="class_id" id="class_id" required>
+                <option value="Class01">FAQ</option>
+            </select>
+        </td>  
+    </tr>
+    
+    <tr>
+        <td colspan="2" style="text-align:center;">
+            <input type="submit" value="저장"> <input type="reset" value="초기화">
+            <input type="button" id="btnList" value="FAQ목록"></td>
+    </tr>
+</tbody>
+</table>
+</form>
+</body>
+
+		<%@include file="/jsp/include/footer.jsp" %>
+
+</html>

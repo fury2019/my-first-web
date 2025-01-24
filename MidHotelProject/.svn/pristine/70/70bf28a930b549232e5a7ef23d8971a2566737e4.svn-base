@@ -1,0 +1,35 @@
+package com.Hotel.controller.facilities;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+import com.Hotel.service.facilities.Fac_reserServiceImpl;
+import com.Hotel.service.facilities.IFac_reserService;
+
+
+@WebServlet("/FacResServlet")
+public class FacResServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	private IFac_reserService facResService;
+	
+	public FacResServlet() {
+		super();
+		facResService = Fac_reserServiceImpl.getInstance();
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 지역
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

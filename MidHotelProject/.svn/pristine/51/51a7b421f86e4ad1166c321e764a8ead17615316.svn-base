@@ -1,0 +1,91 @@
+  @font-face {
+    font-family: 'MinSans-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/MinSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+    
+    html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'MinSans-Regular', sans-serif;
+        background-color: #fff8dc;
+        height: 100%;
+    }
+
+    .layout {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .content {
+        display: flex;
+        flex: 1;
+        margin-top: 0px;
+    }
+
+    .footer {
+        margin-top: auto;
+    }
+
+    .sidebar {
+        width: 200px;
+        background-color: #f5deb3;
+        color: #333;
+        padding: 20px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        border-right: 1px solid #e3d5b8;
+        height: calc(100vh - 130px);
+        position: sticky;
+        top: 60px;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar ul li {
+        padding: 10px 15px;
+        border-bottom: 1px solid #e3d5b8;
+    }
+
+    .sidebar ul li a {
+        color: #8b4513;
+        text-decoration: none;
+        font-size: 16px;
+        display: block;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .sidebar ul li a:hover {
+        background-color: #deb887;
+        color: white;
+        font-weight: bold;
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 20px;
+        background-color: #fff8dc;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    
+    #content-area {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        flex: 1;
+    }
+
+    #content-area h1 {
+        font-size: 24px;
+        color: #8b4513;
+        margin-bottom: 20px;
+    }

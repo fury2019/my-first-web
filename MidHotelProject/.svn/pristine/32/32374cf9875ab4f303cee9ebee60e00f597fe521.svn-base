@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="facRes">
+
+	<!-- 호텔별 다이닝 정보 가져오기 -->
+	<select id="getDining" parameterType="String" resultType="hfcVo">
+		SELECT
+		h.hotel_id, h.hotel_name, f.fac_cat_id, f.fac_name, f.fac_max_mem,
+		f.fac_status, f.fac_addr, f.fac_btime, f.fac_ltime, f.fac_dtime,
+		f.fac_tel, c.fac_cat_name, c.fac_cat_top_id
+		FROM hotel h
+		JOIN
+		hotel_facilities f ON h.hotel_id = f.hotel_id
+		JOIN facility_category c
+		ON f.fac_cat_id = c.fac_cat_id
+		WHERE h.hotel_id = #{data}
+		AND
+		f.fac_cat_id IN (SELECT fac_cat_id FROM facility_category WHERE
+		fac_cat_top_id = 'dining')
+	</select>
+	
+	<!-- 호텔 다이닝 시설 조회 -->
+	<select id="getHotelDining" parameterType="map"
+		resultType="hfcVo">
+		SELECT (SELECT FAC_ID FROM HOTEL_FACILITIES WHERE FAC_NAME = #{diningName} AND HOTEL_ID = #{hotelId}) fac_id,
+		h.hotel_id,
+		h.hotel_name,
+		f.fac_cat_id,
+		f.fac_name,
+		f.fac_max_mem,
+		f.fac_status,
+		f.fac_addr,
+		f.fac_btime,
+		f.fac_ltime,
+		f.fac_dtime,
+		f.fac_tel,
+		c.fac_cat_name,
+		c.fac_cat_top_id
+		FROM hotel h
+		JOIN hotel_facilities f ON h.hotel_id = f.hotel_id
+		JOIN facility_category c ON f.fac_cat_id = c.fac_cat_id
+		WHERE h.hotel_id = #{hotelId}
+		AND f.fac_cat_id IN (
+		SELECT fac_cat_id
+		FROM facility_category
+		WHERE fac_cat_top_id = 'dining'
+		)
+		AND f.fac_name LIKE '%${diningName}%'
+	</select>
+	
+	<!-- 예약하기 눌렀을때 삽입 -->
+	<insert id="insertDReservation" parameterType="fRVo">
+		insert into FACILITIES_RESERVATION(f_res_no, mem_id, 
+		fac_id, hotel_id, f_res_mem, f_fes_time)
+		values(#{f_res_no}, #{mem_id}, #{fac_id}, #{hotel_id}, #{f_res_mem}, #{f_fes_time})
+	</insert>
+	
+	<!--다이닝 전체 예약 정보 불러오기  -->
+	<select id="selectAllDReservation" resultType="fRVo">
+		select * from FACILITIES_RESERVATION 
+	</select>
+	
+	<!--특정 회원의 예약 정보만 불러오기 -->
+	<select id="selectDReservation" resultType="fRVo" parameterType="String">
+		select * from FACILITIES_RESERVATION WHERE mem_id = #{mem_id}
+	</select>
+	
+	
+	<!--다이닝 예약 정보 삭제하기  -->
+	<delete id="deleteDReservation" parameterType="String">
+		delete from FACILITIES_RESERVATION
+		where f_res_no = #{f_res_no}
+	</delete>
+	
+	
+</mapper>

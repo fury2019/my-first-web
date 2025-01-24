@@ -1,0 +1,112 @@
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        background-color: #fff8dc;
+        height: 100%;
+    }
+
+    .layout {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        align-items: center; /* 수직 가운데 정렬 */
+    }
+
+    .content {
+        display: flex;
+        flex: 1;
+        width: 100%; /* 화면의 3분의 2 사용 */
+    }
+
+    .footer {
+        margin-top: auto;
+    }
+
+    .sidebar {
+        width: 200px;
+        background-color: #f5deb3;
+        color: #333;
+        padding: 20px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        border-right: 1px solid #e3d5b8;
+        height: calc(100vh - 130px);
+        position: sticky;
+        top: 60px;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar ul li {
+        padding: 10px 15px;
+        border-bottom: 1px solid #e3d5b8;
+    }
+
+    .sidebar ul li a {
+        color: #8b4513;
+        text-decoration: none;
+        font-size: 16px;
+        display: block;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .sidebar ul li a:hover {
+        background-color: #deb887;
+        color: white;
+        font-weight: bold;
+    }
+
+    .faq-title, .faq-content {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; /* 한 줄로 표시 */
+        cursor: pointer; /* 클릭 가능하다는 것을 나타내기 위해 커서 변경 */
+        transition: max-height 0.3s ease; /* 부드러운 높이 변화 */
+    }
+
+    .faq-title {
+        max-width: 150px;        
+    }
+
+    .faq-content {
+        max-height: 100px; /* 기본 높이 설정 */
+        max-width: 200px;
+    }
+
+    .faq-content.expanded {
+        max-height: 200px; /* 확장된 상태의 높이 설정 */
+        white-space: normal; /* 여러 줄로 표시 */
+    }
+
+    .faq-info {
+        padding: 20px;
+        background-color: #fff8dc;
+        color: #333;
+        flex: 1; /* 남은 공간을 차지하게 설정 */
+    }
+
+    .faq-table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-collapse: collapse;
+    }
+
+    .faq-table th, .faq-table td {
+        text-align: left;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .faq-table th {
+        background-color: #f7f7f7;
+    }
+
+    .faq-actions {
+        text-align: center;
+        margin-top: 20px;
+    }

@@ -1,0 +1,36 @@
+package com.Hotel.controller.Goods;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+import com.Hotel.service.Goods.Goods_CartServiceImpl;
+import com.Hotel.service.Goods.IGoods_CartService;
+import com.Hotel.vo.Goods_CartVO; // Goods_CartVO로 수정
+
+@WebServlet("/goods_CartList")
+public class Goods_CartList extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        IGoods_CartService service = Goods_CartServiceImpl.getInstance();
+
+        // 세션에서 사용자 ID 가져오기
+        String memId = (String) request.getSession().getAttribute("userId");
+        
+        // memId를 전달하여 장바구니 목록을 가져옴
+        List<Goods_CartVO> goodsCartList = service.getAllGoodsCart(memId);
+
+        request.setAttribute("goods_CartList", goodsCartList);
+        request.getRequestDispatcher("/Goods_CartList.jsp").forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
+}
+

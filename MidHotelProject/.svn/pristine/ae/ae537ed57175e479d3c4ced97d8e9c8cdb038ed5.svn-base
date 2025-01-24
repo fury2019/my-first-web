@@ -1,0 +1,51 @@
+package com.Hotel.controller.Goods;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+import com.Hotel.service.Goods.IGoods_CartService;
+import com.Hotel.service.Goods.Goods_CartServiceImpl;
+import com.Hotel.vo.Goods_CartVO;
+import com.Hotel.vo.MemberVO;
+
+@WebServlet("/goods_CartInsert")
+public class Goods_CartInsert extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 세션에서 로그인 정보 가져오기
+        MemberVO loggedInMember = (MemberVO) request.getSession().getAttribute("loginCode");
+        String memId = (loggedInMember != null) ? loggedInMember.getMem_id() : null;
+
+        // memId가 null인지 확인
+        if (memId == null || memId.isEmpty()) {
+            // 로그인하지 않았을 경우 처리
+            request.setAttribute("errorMessage", "로그인 후 장바구니에 추가해주세요.");
+            request.getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+            return;
+        }
+
+        // 파라미터 가져오기
+        String goodsId = request.getParameter("goods_id");
+        int goodsAmt = Integer.parseInt(request.getParameter("goods_amt"));
+
+        // Goods_CartVO 객체 생성
+        Goods_CartVO cartItem = new Goods_CartVO();
+        cartItem.setGoods_id(goodsId);
+        cartItem.setMem_id(memId);
+        cartItem.setGoods_amt(goodsAmt);
+
+        // 서비스 호출
+        IGoods_CartService service = Goods_CartServiceImpl.getInstance();
+        service.insertGoods_Cart(cartItem); // 장바구니에 추가
+
+        // 장바구니 목록 페이지로 리다이렉트
+        response.sendRedirect(request.getContextPath() + "/Goods_CartList.jsp");
+
+    }
+}
+
+
+

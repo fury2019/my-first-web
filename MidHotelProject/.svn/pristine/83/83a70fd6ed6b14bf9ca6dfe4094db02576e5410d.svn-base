@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>서울지점 오시는길</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%; /* 전체 화면 높이 */
+            overflow: hidden; /* 스크롤 제거 */
+        }
+        #map {
+            width: 100%;
+            height: 100%; /* 지도 높이를 전체 화면으로 설정 */
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=343043930ec288ef53e989469860932e"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(37.55608, 127.0052), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption);
+
+// 마커가 표시될 위치입니다 
+var markerPosition  = new kakao.maps.LatLng(37.55608, 127.0052); 
+
+// 마커를 생성합니다
+var marker = new kakao.maps.Marker({
+    position: markerPosition
+});
+
+// 마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);
+
+var iwContent = '<div style="padding:5px;">서울지점 오시는길 <br>' +
+               
+                '<a href="https://map.kakao.com/link/to/서울신라호텔,37.55608, 127.0052" ' +
+                'style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우 내용
+    iwPosition = new kakao.maps.LatLng(37.55608, 127.0052); // 인포윈도우 위치
+
+// 인포윈도우를 생성합니다
+var infowindow = new kakao.maps.InfoWindow({
+    position : iwPosition, 
+    content : iwContent 
+});
+  
+// 마커 위에 인포윈도우를 표시합니다
+infowindow.open(map, marker); 
+</script>
+</body>
+</html>

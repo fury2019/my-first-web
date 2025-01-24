@@ -1,0 +1,112 @@
+package com.Hotel.dao.reservation;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
+import com.Hotel.common.util.MybatisUtil;
+import com.Hotel.dao.reservation.IRoom_ServiceResDao;
+import com.Hotel.vo.Room_ReservationVO;
+import com.Hotel.vo.Room_ServiceVO;
+
+public class Room_ServiceResDaoImpl implements IRoom_ServiceResDao {
+	private static Room_ServiceResDaoImpl dao;
+	
+	private Room_ServiceResDaoImpl() {
+		
+	}
+	
+	public static Room_ServiceResDaoImpl getInstance() {
+		if(dao == null)
+			dao = new Room_ServiceResDaoImpl();
+		return dao;
+	}
+	
+	// 부가서비스 insert
+	@Override
+	public int insertService(Room_ServiceVO roomService) {
+		SqlSession session = null;
+		int cnt = 0;
+		try {
+			session = MybatisUtil.getSqlSession();
+			cnt = session.insert("res.insertService", roomService);
+			if(cnt>0)
+				session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+			session.close();
+		}
+		
+		return cnt;		
+	}
+
+	// 부가서비스 delete
+	@Override
+	public int deleteService(Room_ServiceVO roomService) {
+		SqlSession session = null;
+		int cnt = 0;
+		try {
+			session = MybatisUtil.getSqlSession();
+			cnt = session.insert("res.deleteService", roomService);
+			if(cnt>0)
+				session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+			session.close();
+		}
+		
+		return cnt;		
+	}
+	
+	// 부가서비스 예약 내역 (객실예약번호에 맞춰서...)
+	public List<Room_ServiceVO> getServiceRes(String resId){
+		SqlSession session = null;
+		List<Room_ServiceVO> serviceList = null;
+		
+		try {
+			session = MybatisUtil.getSqlSession();
+			serviceList = session.selectList("res.getServiceRes",resId);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+			session.close();
+		}
+	
+		
+		return serviceList;
+
+		
+	}
+	
+	public List<Room_ReservationVO> getServicePrice(String memId, String resId) {
+	    SqlSession session = null;
+	    List<Room_ReservationVO> servicePrices = null; // 리스트로 변경
+
+	    try {
+	        session = MybatisUtil.getSqlSession();
+	        Map<String, String> params = new HashMap<>();
+	        params.put("memId", memId);
+	        params.put("resId", resId);
+	        // selectList 메서드를 사용하여 여러 행을 조회
+	        servicePrices = session.selectList("res.getServicePrice", params);
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        if (session != null) {
+	            session.close();
+	        }
+	    }
+
+	    return servicePrices; // 리스트 반환
+	}
+
+}

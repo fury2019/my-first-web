@@ -1,0 +1,90 @@
+package com.Hotel.controller.reservation;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.Hotel.service.reservation.IRoom_reserService;
+import com.Hotel.service.reservation.Room_reserServiceImpl;
+import com.Hotel.vo.Room_ReservationVO;
+import com.google.gson.Gson;
+import java.util.Date;
+@WebServlet("/hotelRoomResServlet")
+public class HotelRoomResServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    private IRoom_reserService reserService;
+
+    public HotelRoomResServlet() {
+        super();
+        reserService = Room_reserServiceImpl.getInstance();
+    }
+
+    // GET 요청 처리
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // 파라미터 받기
+        String hotelName = request.getParameter("hotelName");
+        String checkInDate = request.getParameter("checkInDate");
+        String checkOutDate = request.getParameter("checkOutDate");
+
+        // 날짜 형식 지정
+        SimpleDateFormat inputFormat = new SimpleDateFormat("YYYY-MM-DD");  // 입력된 날짜 형식
+
+        // 파라미터를 Map에 담기
+        Map<String, Object> params = new HashMap<>();
+        params.put("hotelName", hotelName);
+
+        // 날짜 형변환
+        try {
+            if (checkInDate != null && !checkInDate.isEmpty()) {
+                Date checkIn = inputFormat.parse(checkInDate);
+                params.put("checkInDate", checkIn);
+            }
+            if (checkOutDate != null && !checkOutDate.isEmpty()) {
+                Date checkOut = inputFormat.parse(checkOutDate);
+                params.put("checkOutDate", checkOut);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // 날짜 형식이 잘못된 경우 예외 처리
+            System.out.println("날짜 형식이 잘못되었습니다.");
+        }
+
+        // 성인 수, 어린이 수, 유아 수를 검증하고 값이 있을 때만 Map에 추가
+        String adultCount = request.getParameter("adultCount");
+        String childCount = request.getParameter("childCount");
+        String babyCount = request.getParameter("babyCount");
+
+        if (adultCount != null && !adultCount.isEmpty()) {
+            params.put("adultCount", Integer.parseInt(adultCount));
+        }
+        if (childCount != null && !childCount.isEmpty()) {
+            params.put("childCount", Integer.parseInt(childCount));
+        }
+        if (babyCount != null && !babyCount.isEmpty()) {
+            params.put("babyCount", Integer.parseInt(babyCount));
+        }
+
+        // 예약 가능한 객실 정보 조회
+        List<Room_ReservationVO> availableRooms = reserService.getReservationsByHotelAndDates(params);
+        
+//        request.setAttribute("rooms", availableRooms);
+        // 결과를 JSON 형태로 반환
+        response.setContentType("application/json");
+        response.getWriter().write(new Gson().toJson(availableRooms));
+//        request.getRequestDispatcher("/jsp/Reservation2.jsp").forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
+}

@@ -1,0 +1,54 @@
+select{
+    opacity: 0;
+    margin: auto;
+    padding: 0;
+    border: none;
+    background: none;
+    position: absolute;
+    height: 25px;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    overflow: visible !important;
+    writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    box-sizing: border-box;
+    align-items: center;
+    white-space: pre;
+    -webkit-rtl-ordering: logical;
+}
+
+.lnbMenu {
+    width: 216px;
+    border: #e9dab8 solid 1px;
+    background: #f1e3c4;
+    padding: 23px;
+    margin: 0 0 30px 0;
+}
+
+.contents {
+    float: right;
+    width: 20%;
+    padding: 0;
+    background: #FFF;
+    min-height: auto;
+}
+.lnbArea {
+    float: left;
+}
+.contents {
+    float: right;
+    width: 80%;
+    padding: 0;
+    background: #FFF;
+    min-height: auto;
+}

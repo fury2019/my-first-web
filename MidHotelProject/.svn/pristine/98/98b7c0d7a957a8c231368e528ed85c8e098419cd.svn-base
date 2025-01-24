@@ -1,0 +1,13 @@
+package com.Hotel.dao.admin;
+
+import java.util.List;
+
+import com.Hotel.vo.MemberVO;
+import com.Hotel.vo.Room_ReservationVO;
+
+public interface IAdminMemDao {
+	
+	 List<MemberVO> getRecentMembers();
+	 
+	 List<Room_ReservationVO> getRecentReservations();
+}

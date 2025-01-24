@@ -1,0 +1,62 @@
+package com.Hotel.controller.facilities;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.UUID;
+
+import com.Hotel.service.facilities.Fac_reserServiceImpl;
+import com.Hotel.service.facilities.IFac_reserService;
+import com.Hotel.vo.Facilities_ReservationVO;
+
+@WebServlet("/facilitiesResServlet")
+public class FacilitiesResServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	private IFac_reserService facservice;
+
+	public FacilitiesResServlet() {
+		super();
+		facservice = Fac_reserServiceImpl.getInstance();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 요청 데이터 가져오기
+		String memId = request.getParameter("mem_id");
+		String facId = request.getParameter("fac_id");
+		String hotelId = request.getParameter("hotel_id");
+		String fResMem = request.getParameter("f_res_mem");
+		String fFesTime = request.getParameter("f_fes_time");
+
+		
+		Facilities_ReservationVO reservation = new Facilities_ReservationVO();
+		reservation.setF_res_no("res_"+UUID.randomUUID().toString().substring(0,5)); // 예약 번호는 자동 생성
+		reservation.setMem_id(memId);
+		reservation.setFac_id(facId);
+		reservation.setHotel_id(hotelId);
+		reservation.setF_res_mem(Integer.parseInt(fResMem));
+		reservation.setF_fes_time(fFesTime);
+
+		// 예약 처리
+		int Reserved = facservice.insertFacRes(reservation);
+
+		if (Reserved > 0) {
+			System.out.println("예약 성공 : " + Reserved);
+		} else {
+			System.out.println("예약 실패 : " + Reserved);
+		}
+		
+		
+	
+	}
+
+}

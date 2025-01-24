@@ -1,0 +1,21 @@
+package com.Hotel.dao.HotelNearbySpots;
+
+import java.util.List;
+import java.util.Map;
+
+import com.Hotel.vo.Hotel_PlaceVO;
+
+
+
+public interface IHotelNearbySpotsDAO {
+
+	/**
+	 * 전체 정보를 가져와 List에 저장하여 반환하는 메서드
+	 * 
+	 * @return HotelPlaceVO객체가 저장된 List객체
+	 */
+	public List<Hotel_PlaceVO> HotelPlaceDisplayAll();
+	
+
+	public List<Hotel_PlaceVO> getPlacesByHotelId(Map<String, Object> params); 
+}

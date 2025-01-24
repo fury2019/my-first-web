@@ -1,0 +1,102 @@
+/* Font 설정 */
+@font-face {
+    font-family: 'MinSans-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/MinSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: #FFF3C8; /* 전체 배경색 */
+    font-family: 'MinSans-Regular', sans-serif; /* 기본 글꼴 */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+/* 카드 스타일 */
+.card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 3px solid #FFF3C8; /* 강조를 위한 하단선 */
+}
+
+.card-body {
+    background-color: #FFFFFF;
+    padding: 15px;
+    border-radius: 0 0 5px 5px;
+}
+
+.card-title {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    color: #555;
+    font-size: 14px;
+}
+
+/* 좋아요 버튼 스타일 */
+/* 무슨색이 좋을까 추천좀 */
+
+
+
+
+
+/* 모달 스타일 */
+.modal-header {
+    background-color: #FFF3C8; /* 하이라이트 색상 조정 */
+    color: #000;
+    font-weight: bold;
+}
+
+.modal-body {
+    font-size: 16px;
+}
+
+.modal-img {
+    max-height: 500px;
+    object-fit: contain;
+}
+
+/* 기타 요소 */
+.text-muted {
+    color: #888;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #333;
+    font-weight: bold;
+}
+
+p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+/* Footer */
+footer {
+    background-color: #FFF3C8; /* 푸터 배경색 조정 */
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+}

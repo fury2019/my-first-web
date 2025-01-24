@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>호텔 선택</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            text-align: center;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-size: 18px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        /* 팝업 스타일 */
+        .popup {
+            display: none; /* 기본적으로 숨김 */
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .overlay {
+            display: none; /* 기본적으로 숨김 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        #map {
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+    <script>
+        function openMapPopup(hotelName, checkInDate, checkOutDate, phoneNumber, latitude, longitude) {
+            const popup = document.getElementById('popup');
+            const overlay = document.getElementById('overlay');
+            const mapContainer = document.getElementById('map');
+
+            // Kakao 지도 초기화
+            const mapOptions = {
+                center: new kakao.maps.LatLng(latitude, longitude),
+                level: 3 // 지도의 확대 레벨
+            };
+            const map = new kakao.maps.Map(mapContainer, mapOptions);
+            const marker = new kakao.maps.Marker({
+                position: new kakao.maps.LatLng(latitude, longitude)
+            });
+            marker.setMap(map);
+
+            // 팝업 내용 설정
+            document.getElementById('hotel-name').innerText = hotelName;
+            document.getElementById('check-in-date').innerText = checkInDate;
+            document.getElementById('check-out-date').innerText = checkOutDate;
+            document.getElementById('phone-number').innerText = phoneNumber;
+
+            // 팝업과 오버레이 표시
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            const overlay = document.getElementById('overlay');
+
+            // 팝업과 오버레이 숨김
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        }
+    </script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=343043930ec288ef53e989469860932e"></script>
+</head>
+<body>
+    <h1>호텔 선택</h1>
+    <ul>
+        <li><a href="#" onclick="openMapPopup('호텔 A', '2024-12-15', '2024-12-20', '010-1234-5678', 37.5665, 126.978); return false;">호텔 A</a></li>
+        <li><a href="#" onclick="openMapPopup('호텔 B', '2024-12-16', '2024-12-21', '010-2345-6789', 37.5651, 126.989); return false;">호텔 B</a></li>
+        <li><a href="#" onclick="openMapPopup('호텔 C', '2024-12-17', '2024-12-22', '010-3456-7890', 37.5700, 126.976); return false;">호텔 C</a></li>
+    </ul>
+
+    <!-- 팝업 오버레이 -->
+    <div id="overlay" class="overlay" onclick="closePopup()"></div>
+
+    <!-- 팝업 내용 -->
+    <div id="popup" class="popup">
+        <h2 id="hotel-name"></h2>
+        <p>체크인 날짜: <span id="check-in-date"></span></p>
+        <p>체크아웃 날짜: <span id="check-out-date"></span></p>
+        <div id="map"></div>
+        <p>전화번호: <span id="phone-number"></span></p>
+        <button onclick="closePopup()">닫기</button>
+    </div>
+</body>
+</html>

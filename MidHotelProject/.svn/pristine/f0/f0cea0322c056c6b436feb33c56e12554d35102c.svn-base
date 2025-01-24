@@ -1,0 +1,37 @@
+package com.Hotel.controller.admin;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+import com.Hotel.dao.admin.CouponDeleteDaoImpl;
+import com.Hotel.service.admin.CouponDeleteServiceImpl;
+
+@WebServlet("/deleteCoupon")
+public class DeleteCoupon extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+	private CouponDeleteDaoImpl dao = CouponDeleteDaoImpl.getInstance();
+	
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int couponId = Integer.parseInt(request.getParameter("couponId"));
+		
+		boolean isDeleted = dao.deleteCoupon(couponId);
+		
+		if (isDeleted) {
+            System.out.println("쿠폰 삭제 성공: " + couponId);
+        } else {
+            System.out.println("쿠폰 삭제 실패: " + couponId);
+        }
+        response.sendRedirect("couponAllView");
+    }
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
+
+}

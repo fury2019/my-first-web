@@ -1,0 +1,90 @@
+package com.Hotel.controller.reservation;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.Hotel.service.reservation.IRoom_ServiceResService;
+import com.Hotel.service.reservation.Room_ServiceResServiceImpl;
+import com.Hotel.vo.Room_ReservationVO;
+import com.Hotel.vo.Room_ServiceVO;
+
+/**
+ * Servlet implementation class RoomServiceResServelt
+ */
+@WebServlet("/RoomServiceResServelt")
+public class RoomServiceResServelt extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    
+	private IRoom_ServiceResService roomServiceResService;
+    
+    public RoomServiceResServelt() {
+        super();
+        // TODO Auto-generated constructor stub
+        roomServiceResService = Room_ServiceResServiceImpl.getInstance();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String action = request.getParameter("action");
+		System.out.println(action);
+		
+		if ("insert".equals(action)) {
+        	//리스트 전체를 보여주는 서블릿
+            insertService(request, response);
+        } else if ("delete".equals(action)) {
+        	//r_res_no에 대한 리스트를 보여주는 서블릿
+            deleteService(request, response);
+        }
+	}
+	
+	private void insertService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String r_res_no = (String) request.getAttribute("r_res_no");
+		List<String> serviceList = (List<String>) request.getAttribute("optionsList");
+	
+		
+		List<Room_ServiceVO> service = new ArrayList<>();
+		
+		for(String service_id : serviceList) {
+			Room_ServiceVO roomService = new Room_ServiceVO();
+			roomService.setR_res_no(r_res_no);
+			roomService.setService_id(service_id);
+			service.add(roomService);
+		}
+		
+		boolean allInserted = true; // 모든 삽입이 성공했는지 여부를 추적
+		
+		for (Room_ServiceVO roomService : service) {
+	        int insertService = roomServiceResService.insertService(roomService);
+	        if (insertService <= 0) { // 삽입 실패 시
+	            allInserted = false; // 플래그를 false로 설정
+	            break; // 더 이상 진행하지 않음
+	        }
+		}
+		
+		// 성공 여부에 따라 리다이렉트
+	    if (allInserted) {
+	        // 성공 시 다른 페이지로 리다이렉트
+	        response.sendRedirect("successPage.jsp"); // 성공 페이지로 리다이렉트
+	    } else {
+	        // 실패 시 다른 페이지로 리다이렉트
+	        response.sendRedirect("Reservation3.jsp"); // 오류 페이지로 리다이렉트
+	    }
+		
+		
+	}
+	
+	private void deleteService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
+	}
+
+}

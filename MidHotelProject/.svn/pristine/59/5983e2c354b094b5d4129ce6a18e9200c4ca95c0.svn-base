@@ -1,0 +1,41 @@
+package com.Hotel.service.HotelNearbySpots;
+
+import java.util.List;
+import java.util.Map;
+
+import com.Hotel.dao.HotelNearbySpots.HotelNearbySpotsDAO;
+import com.Hotel.dao.HotelNearbySpots.IHotelNearbySpotsDAO;
+import com.Hotel.vo.Hotel_PlaceVO;
+
+public class HotelNearbySpotsService implements IHotelNearbySpotsService {
+    private static HotelNearbySpotsService service;  
+    private IHotelNearbySpotsDAO dao;
+
+    // 생성자
+    private HotelNearbySpotsService() {
+        dao = HotelNearbySpotsDAO.getInstance();  
+    }
+
+    public static HotelNearbySpotsService getInstance() {
+        if (service == null) {
+            service = new HotelNearbySpotsService();
+        }
+        return service;
+    }
+
+    /**
+     * 모든 주변 장소 정보를 가져오는 메서드
+     */
+    @Override
+    public List<Hotel_PlaceVO> HotelPlaceDisplayAll() {
+        return dao.HotelPlaceDisplayAll();
+    }
+
+    /**
+     * 특정 호텔 ID에 해당하는 주변 장소 정보를 가져오는 메서드
+     */
+    @Override
+    public List<Hotel_PlaceVO> getPlacesByHotelId(Map<String, Object> params) {
+        return dao.getPlacesByHotelId(params);
+    }
+}

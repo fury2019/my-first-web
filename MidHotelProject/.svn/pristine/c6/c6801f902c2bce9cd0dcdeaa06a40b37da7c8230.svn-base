@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pay">
+	<!--결제 정보 삽입  -->
+    <insert id="insertPay" parameterType="payVo">
+        INSERT INTO room_payment (
+            r_res_no, p_use_point, coupon_no, p_earn_point, p_tot_price, p_price, p_date
+        ) VALUES (
+            #{r_res_no}, #{p_use_point}, #{coupon_no}, #{p_earn_point}, #{p_tot_price}, #{p_price}, sysdate
+        )
+    </insert>
+	
+	<!-- 전체 결제목록 보기  -->
+	<select id="selectAllPay" resultType="payVo">
+		select * from room_payment
+	</select>
+	
+	<!--예약번호를 받아와 결제목록 보기  -->
+	<select id="selectgetPay" resultType="payVo" parameterType="String">
+		select * from room_payment where r_res_no = #{r_res_no}
+	</select>
+	
+	<!-- 예약번호를 불러와 결제 정보를 삭제함 -->
+	<delete id="delectPay" parameterType="String">
+		DELETE FROM room_payment WHERE r_res_no = #{r_res_no} 
+	</delete>
+
+</mapper>
+
+

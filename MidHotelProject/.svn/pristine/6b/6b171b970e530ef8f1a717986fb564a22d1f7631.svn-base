@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="place">
+
+	<select id="selectAllPlaces" parameterType="String"
+		resultType="placeVo">
+		SELECT * FROM hotel_place
+	</select>
+
+	<select id="getPlacesByHotelId" parameterType="String"
+		resultType="placeVo">
+		SELECT * FROM hotel_place WHERE hotel_id = #{hotelId}
+	</select>
+
+	<!-- PLACE_LIKE 테이블에 레코드를 추가하는 쿼리 -->
+	<insert id="insertLike">
+		INSERT INTO PLACE_LIKE
+		(LIKE_NO, PLACE_ID, MEM_ID, LIKE_COUNT, LIKE_DATE)
+		VALUES (PLACE_LIKE_SEQ.NEXTVAL, #{placeId}, #{memId}, 1, SYSDATE)
+	</insert>
+
+	<!-- 기존에 LIKE_COUNT를 증가시키는 쿼리 -->
+	<update id="updateLikeCount" parameterType="map">
+		UPDATE PLACE_LIKE
+		SET
+		LIKE_COUNT = LIKE_COUNT + 1
+		WHERE PLACE_ID = #{placeId} AND MEM_ID =
+		#{memId}
+	</update>
+
+	<!-- 좋아요 수 조회 쿼리 -->
+	<select id="selectLikeCount" parameterType="String"
+		resultType="int">
+		SELECT COALESCE(SUM(LIKE_COUNT), 0)
+		FROM PLACE_LIKE
+		WHERE
+		PLACE_ID = #{placeId}
+	</select>
+
+	<!-- place_like 테이블에서 hotel_place테이블로 좋아요 수를 가져오는 쿼리 -->
+	<select id="updatePlacesLikeCount" parameterType="String"
+		resultType="placeVo">
+		SELECT hp.*,
+			COALESCE(pl.like_count, 0) AS place_like_amt
+		FROM hotel_place hp
+		LEFT JOIN (
+			SELECT place_id, COUNT(*) AS like_count
+			FROM place_like
+			GROUP BY place_id
+		) pl ON hp.place_id = pl.place_id
+		WHERE hp.hotel_id = #{hotelId};
+	</select>
+	<select id="selectPlacesLikeList" parameterType="String"
+		resultType="placeLikeVo">
+		SELECT * FROM place_like WHERE place_id = #{placeId}
+	</select>
+
+
+</mapper>

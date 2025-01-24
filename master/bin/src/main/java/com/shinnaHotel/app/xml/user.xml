@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="User">
+
+	<insert id="insertUsers" parameterType="userdto">
+		INSERT INTO users(u_name,u_id,u_password,u_phone,u_email) 
+		VALUES (#{u_name}, #{u_id}, #{u_password}, #{u_phone}, #{u_email})		
+	</insert>
+	
+	 <select id="login" parameterType="hashmap" resultType="_int">
+	 	select count(*) from users where u_id = #{u_id} and u_password = #{u_password}
+	</select>
+	
+	<select id="userInfo" parameterType="String" resultType="userdto">
+		select * from users where u_id = #{u_id}
+	</select>	
+	
+	<update id="updateUser" parameterType="userdto">
+		UPDATE USERS SET
+			u_name = #{u_name}, u_password = #{u_password}, u_phone = #{u_phone}, u_email = #{u_email} WHERE u_id = #{u_id}
+	</update>
+	
+	<select id="selectExist" parameterType="String" resultType="_int">
+		SELECT nvl(sum(r.RES_PRICE),0) FROM RESERVATION r  WHERE r.U_ID = #{u_id}
+	</select>
+	
+	<update id="updateWithdraw" parameterType="String">
+		UPDATE USERS SET U_NAME = '탈퇴한사용자', U_PASSWORD = '', U_PHONE = '', U_EMAIL ='', U_STATUS = '2' WHERE u_id = #{u_id}
+	</update>
+</mapper>

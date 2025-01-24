@@ -1,0 +1,121 @@
+@font-face {
+    font-family: 'MinSans-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/MinSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'MinSans-Regular', sans-serif;
+    background-color: #fff8dc;
+    height: 100%;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    width: 100%;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: #f5deb3;
+    padding: 20px;
+    border-right: 1px solid #e3d5b8;
+    position: sticky;
+    top: 60px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 10px 15px;
+    border-bottom: 1px solid #e3d5b8;
+}
+
+.sidebar ul li a {
+    color: #8b4513;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #deb887;
+    color: white;
+    font-weight: bold;
+}
+
+.faq-info {
+    width: 60%;
+    padding: 20px;
+    background-color: #fff8dc;
+    color: #333;
+    flex: 1;
+}
+
+input[type="text"],
+textarea,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+textarea {
+    height: 100px; /* 높이 설정 */
+}
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+    background-color: #deb887; /* 버튼 배경 색상 */
+    color: white; /* 버튼 텍스트 색상 */
+    cursor: pointer; /* 클릭 가능하다는 것을 나타내기 위해 커서 변경 */
+    border: 1px solid #ccc; /* 경계선 설정 */
+    border-radius: 4px; /* 둥근 모서리 설정 */
+    padding: 5px 10px; /* 내부 여백 조정 (상하: 5px, 좌우: 10px) */
+    font-size: 14px; /* 폰트 크기 조정 */
+    width: auto; /* 너비를 자동으로 설정하여 내용에 맞게 조정 */
+    flex: 1; /* 버튼을 균일하게 분배 */
+    margin: 0 5px; /* 좌우에 5px 마진 설정 */
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover {
+    background-color: #d2691e;
+}
+
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 1200px; /* 최대 너비 설정 */
+}
+
+table th, table td {
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f7f7f7;
+}

@@ -1,0 +1,31 @@
+<%@page import="com.Hotel.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%
+    // 세션에서 로그인 정보를 가져오기
+    MemberVO loggedInMember = (MemberVO) session.getAttribute("loginCode");
+	
+// 	String memGrade = (String) session.getAttribute("memGrade");
+
+// 	out.println(loggedInMember.getMem_id());
+    if(loggedInMember != null){
+%>
+<% 		if(loggedInMember.getGrade_no() != null && "Admin".equals(loggedInMember.getGrade_no())){
+		out.println(loggedInMember.getGrade_no());
+%>	
+			<%@include file="/jsp/include/AdminLogouttop.jsp" %>
+<%
+		} else {
+%>
+			<%@include file="/jsp/include/logouttop.jsp" %>
+<%			
+		}
+%>
+<%
+    } else{
+%>
+	<%@include file="/jsp/include/logintop.jsp" %>
+<%
+    }
+%>

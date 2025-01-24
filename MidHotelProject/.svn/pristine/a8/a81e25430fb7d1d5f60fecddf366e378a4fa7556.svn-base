@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotel">
+	<!-- 지역별로 분류 -->
+	<select id="localsearch" resultType="String">
+		select DISTINCT substr(hotel_addr,0,2) as region from hotel
+	</select>
+	<!-- 호텔 전체 리스트 출력 -->
+	<select id="getAllNameHotels" resultType="hotelVo">
+		 SELECT * FROM hotel
+	</select>
+	
+	<!--호텔 지역별 찾기  -->
+	<select id="searchHotel" parameterType="map" resultType="hotelVo">
+		SELECT hotel_name FROM Hotel WHERE hotel_addr 
+			LIKE '%' || #{hotel_addr} || '%'			
+	</select>
+	
+	
+	<!-- 호텔 이름을 클릭했을 때 그 정보를 불러옴 -->
+	<select id="getHotelByName" parameterType="String" resultType="hotelVo">
+		SELECT HOTEL_NAME, HOTEL_ADDR, HOTEL_TEL
+		 FROM Hotel WHERE hotel_name = #{hotel_name}
+	</select>
+	
+	
+	<!-- 관광명소 담당 mapper -->
+	<select id="getAllHotels" resultType="hotelVo">
+        SELECT hotel_name, hotel_tel FROM hotel
+    </select>
+
+</mapper>

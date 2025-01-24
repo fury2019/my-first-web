@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="Files">
+
+	<insert id="insertFile" parameterType="filesdto">
+		INSERT INTO TBL_FILES
+		(FILENAME, R_ID, FILENAMEORIGINAL)
+		VALUES(#{fileName}, #{r_id}, #{fileNameOriginal})	
+	</insert>
+
+	<select id="getSeq" resultType="_int">
+		select r_id_seq.CURRVAL from dual
+	</select>
+	
+	<select id="getfileName" parameterType="_int" resultType="string">
+		SELECT fileName
+		FROM TBL_FILES 
+		WHERE r_id = #{r_id}
+	</select>
+</mapper>

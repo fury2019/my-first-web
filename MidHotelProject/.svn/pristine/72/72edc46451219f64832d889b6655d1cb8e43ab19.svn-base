@@ -1,0 +1,66 @@
+package com.Hotel.dao.facilities;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import com.Hotel.common.util.MybatisUtil;
+import com.Hotel.vo.Facilities_ReservationVO;
+
+public class Fac_reserDaoImpl implements IFac_reserDao {
+	private static Fac_reserDaoImpl dao;
+	
+	private Fac_reserDaoImpl() {}
+	
+	public static Fac_reserDaoImpl getInstance() {
+		if(dao == null)
+			dao = new Fac_reserDaoImpl();
+		return dao;
+	}
+	
+	
+
+	// 예약 정보 삽입
+	public int insertFacRes(Facilities_ReservationVO facres) {
+		SqlSession session = null;
+		
+		int cnt = 0;
+		
+		try {
+			session = MybatisUtil.getSqlSession();
+			cnt = session.insert("",facres);
+			if(cnt>0) session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null) session.close();
+		}
+		
+		return cnt;
+	}
+
+	@Override
+	public int updateFacRes(Facilities_ReservationVO facres) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteFacRes(String fresno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Facilities_ReservationVO selectFacRes(String freno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Facilities_ReservationVO> selectAllFacRes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

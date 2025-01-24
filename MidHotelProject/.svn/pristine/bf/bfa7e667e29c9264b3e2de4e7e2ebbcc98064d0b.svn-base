@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="res">
+	<!-- 예약할 때 정보 -->
+	<insert id="insertres" parameterType="resVo">
+		insert into
+		ROOM_RESERVATION(r_res_no, mem_id, room_no,type_name,hotel_id,
+		r_res_people, r_res_chkindate,r_res_chkoutdate,r_res_price)
+		values(#{r_res_no}, #{mem_id}, #{room_no}, #{type_name},
+		#{hotel_id}, #{r_res_people}, #{r_res_chkindate}, #{r_res_chkoutdate},
+		#{r_res_price})
+	</insert>
+	<!-- 예약 코드를 받아와 보여준다. -->
+	<select id="selectres" parameterType="String" resultType="resVo">
+		select
+		* from ROOM_RESERVATION where r_res_no = #{r_res_no}
+	</select>
+
+	<!--예약 전체 목록을 보여준다. -->
+	<select id="selectAllres" resultType="resVo">
+		select * from
+		ROOM_RESERVATION
+	</select>
+	
+	
+	<!-- 예약 수정 -->
+	<update id="updateres" parameterType="resVo">
+		UPDATE ROOM_RESERVATION SET
+			r_res_no = #{r_res_no},
+			mem_id = #{mem_id}, 
+			room_no = #{room_no}, 
+			type_name = #{type_name},
+			hotel_id = #{hotel_id}, 
+			r_res_people = #{r_res_people},
+			r_res_chkindate = #{r_res_chkindate}, 
+			r_res_chkoutdate = #{r_res_chkoutdate}, 
+			r_res_price = #{r_res_price} 
+		WHERE mem_id= #{mem_id}
+	</update>
+
+	<!-- 예약 삭제 -->
+	<delete id="deleteres" parameterType="String">
+		delete from
+		ROOM_RESERVATION where r_res_no = #{r_res_no}
+	</delete>
+	
+	<select id="getReservationsByHotelAndDates" parameterType="resVo" resultType="resVo"> 
+		<![CDATA[ 
+		SELECT * FROM room_reservation 
+		WHERE mem_id = #{mem_id}
+		AND r_res_chkindate  >= #{checkInDate} 
+		AND r_res_chkoutdate  <= #{checkOutDate} ]]> 
+	</select>
+	
+</mapper>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>마커 생성하기</title>
+</head>
+<body>
+<div id="map" style="width:50%;height:350px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=343043930ec288ef53e989469860932e"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(37.55608, 127.0052), // 지도의 중심좌표
+        level: 5 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+// 마커가 표시될 위치를 선택하는 변수
+var locationCase = 'case1'; // 'case1', 'case2', 'case3' 등으로 변경 가능
+
+// 마커의 위치를 결정하는 switch 문
+var markerPosition;
+switch (locationCase) {
+    case '서울':
+        markerPosition = new kakao.maps.LatLng(37.55608, 127.0052); // 서울 ddit 호텔
+        break;
+    case '광화문':
+        markerPosition = new kakao.maps.LatLng(37.57277, 126.9811); // 광화문 ddit 스테이
+        break;
+    case '마포':
+        markerPosition = new kakao.maps.LatLng(37.54292, 126.9497); 
+        break;
+    case '서대문':
+        markerPosition = new kakao.maps.LatLng(37.56518, 126.9667); 
+        break;
+    case '역삼':
+        markerPosition = new kakao.maps.LatLng(37.50479, 127.0412); 
+        break;
+    case '서초':
+        markerPosition = new kakao.maps.LatLng(37.48947, 127.0301); 
+        break;
+    case '구로':
+        markerPosition = new kakao.maps.LatLng(37.48582, 126.9042); 
+        break;
+    case '삼성':
+        markerPosition = new kakao.maps.LatLng(37.51010, 127.0631); 
+        break;
+    case '제주 ':
+        markerPosition = new kakao.maps.LatLng(33.24731, 126.4080); 
+        break;
+    case '동탄':
+        markerPosition = new kakao.maps.LatLng(37.20253, 127.0732); 
+        break;
+    case '천안':
+        markerPosition = new kakao.maps.LatLng(36.82575, 127.1430); 
+        break;
+    case '전주':
+        markerPosition = new kakao.maps.LatLng(35.82200, 127.1488); 
+        break;
+    case '울산':
+        markerPosition = new kakao.maps.LatLng(35.53800, 129.3298); 
+        break;
+    case '여수':
+        markerPosition = new kakao.maps.LatLng(34.74426, 127.7486); 
+        break;
+    case '서부산':
+        markerPosition = new kakao.maps.LatLng(35.09682, 128.9051); 
+        break;
+    case '해운대':
+        markerPosition = new kakao.maps.LatLng(35.16009, 129.1587); 
+        break;
+    case '제주':
+        markerPosition = new kakao.maps.LatLng(33.48551, 126.4910); 
+        break;
+    case '이호테우':
+        markerPosition = new kakao.maps.LatLng(33.49364, 126.4256); 
+        break;
+    
+    default:
+        markerPosition = new kakao.maps.LatLng(37.56518, 126.9667); // 기본 위치 ddit스테이 서대문
+}
+ 
+// 마커를 생성합니다
+var marker = new kakao.maps.Marker({
+    position: markerPosition
+});
+
+// 마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);
+
+// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+// marker.setMap(null);    
+</script>
+</body>
+</html>

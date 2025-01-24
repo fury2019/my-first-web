@@ -1,0 +1,175 @@
+<%@page import="com.Hotel.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.Hotel.vo.Room_ReservationVO" %>
+<%@ page import="com.Hotel.service.reservation.IRoom_reserService" %>
+<%@ page import="com.Hotel.service.reservation.Room_reserServiceImpl" %>
+<%
+    // 세션에서 로그인 정보를 가져오기
+    MemberVO loggedInMember = (MemberVO) session.getAttribute("loginCode");
+    if(loggedInMember != null){
+%>
+	<%@include file="/jsp/include/logouttop.jsp" %>
+<%
+    } else{
+%>
+	<%@include file="/jsp/include/logintop.jsp" %>
+<%
+    }
+%>
+
+
+
+<%@include file="/jsp/include/header.jsp" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>예약 관리</title>
+</head>
+<body>
+    <h2>예약 관리</h2>
+
+    <!-- 예약 등록 폼 -->
+    <form id="reservationForm" action="/RoomResServlet" method="post" onsubmit="generateReservationId()">
+        <input type="hidden" name="action" id="action" value="create"/>
+        <!-- r_res_no에 대한 값을 추가한다. -->
+        <input type="hidden" name="r_res_no" id="r_res_no"/>
+        
+        <label for="mem_id">회원 ID:</label>
+        <input type="text" name="mem_id" id="mem_id" required/><br/>
+
+        <label for="room_no">객실 번호:</label>
+        <input type="text" name="room_no" id="room_no" required/><br/>
+
+        <label for="type_name">객실 유형:</label>
+        <input type="text" name="type_name" id="type_name" required/><br/>
+
+        <label for="hotel_id">호텔 ID:</label>
+        <input type="text" name="hotel_id" id="hotel_id" required/><br/>
+
+        <label for="r_res_people">예약 인원:</label>
+        <input type="number" name="r_res_people" id="r_res_people" required/><br/>
+
+        <label for="r_res_chkindate">체크인 날짜:</label>
+        <input type="date" name="r_res_chkindate" id="r_res_chkindate" required/><br/>
+
+        <label for="r_res_chkoutdate">체크아웃 날짜:</label>
+        <input type="date" name="r_res_chkoutdate" id="r_res_chkoutdate" required/><br/>
+
+        <label for="r_res_price">예약 금액:</label>
+        <input type="number" name="r_res_price" id="r_res_price" required/><br/>
+
+        <input type="submit" value="예약 생성"/>
+        <button type="button" onclick="resetForm()">초기화</button>
+    </form>
+
+    <h3>예약 목록</h3>
+    <%
+    	//서비스에 있는 데이터를 Instance값으로 받아온다.
+        IRoom_reserService reservationService = Room_reserServiceImpl.getInstance();
+        //리스트 전체 정보를 출력함
+    	List<Room_ReservationVO> reservations = reservationService.selectAllRes();
+    %>
+    <%
+    	// reservations 데이터가 null이 아니거나 비지 않았을 때 
+        if (reservations != null && !reservations.isEmpty()) {
+    %>
+    <table border="1">
+        <tr>
+            <th>예약 번호</th>
+            <th>회원 ID</th>
+            <th>객실 번호</th>
+            <th>객실 유형</th>
+            <th>호텔 ID</th>
+            <th>예약 인원</th>
+            <th>체크인 날짜</th>
+            <th>체크아웃 날짜</th>
+            <th>예약 금액</th>
+            <th>작업</th>
+        </tr>
+        <%
+        	//생성자를 생성하고 변수에 담아줌
+            for (Room_ReservationVO reservation : reservations) {
+        %>
+        
+        <tr>
+        	<!-- DB에 있는 정보를 보여준다. 향상된 FOR문으로 -->
+            <td><%= reservation.getR_res_no() %></td>
+            <td><%= reservation.getMem_id() %></td>
+            <td><%= reservation.getRoom_no() %></td>
+            <td><%= reservation.getType_name() %></td>
+            <td><%= reservation.getHotel_id() %></td>
+            <td><%= reservation.getR_res_people() %></td>
+            <td><%= reservation.getR_res_chkindate() %></td>
+            <td><%= reservation.getR_res_chkoutdate() %></td>
+            <td><%= reservation.getR_res_price() %></td>
+            <td>
+            	<!-- form에서 서블릿을 post방식으로 호출함 -->
+                 <form action="/RoomResServlet" method="post" style="display:inline;">   
+	             	<!-- 예약관리 정보를 수정하기 위한 버튼을 만들고 그 함수를 호출함  -->
+	             <button type="button" onclick="editReservation('<%= reservation.getR_res_no() %>', '<%= reservation.getMem_id() %>', '<%= reservation.getRoom_no() %>', '<%= reservation.getType_name() %>', '<%= reservation.getHotel_id() %>', <%= reservation.getR_res_people() %>, '<%= reservation.getR_res_chkindate() %>', '<%= reservation.getR_res_chkoutdate() %>', <%= reservation.getR_res_price() %>)">수정</button>
+                    <!-- name일 때 삭제 버튼을 숨겨준다. -->
+                    <input type="hidden" name="action" value="delete"/>
+                    <!-- r_res_no의 값을 받아온다 -->
+                    <input type="hidden" name="r_res_no" value="<%= reservation.getR_res_no() %>"/>
+                    <!--  삭제 버튼을 클릭했을 때 submit 제출-->
+                    <input type="submit" value="삭제"/>
+                </form>
+            </td>
+        </tr>
+        <%
+            }
+        %>
+    </table>
+    <%
+        } else {
+    %>
+    <p>등록된 예약이 없습니다.</p>
+    <%
+        }
+    %>
+
+    <script>
+    	/* 오류 해결을 위해 예약번호를 임의로 랜덤값으로 지정해서 받아옴 */
+        function generateReservationId() {
+            const r_res_no = 'res_' + Math.floor(Math.random() * 1000000);
+            document.getElementById('r_res_no').value = r_res_no;
+        }
+		
+    	// 업데이트 관련 함수
+        function editReservation(r_res_no, mem_id, room_no, type_name, hotel_id, r_res_people, r_res_chkindate, r_res_chkoutdate, r_res_price) {
+            // action의 value값이 update일때 처리한다.
+    		document.getElementById('action').value = 'update';
+            document.getElementById('r_res_no').value = r_res_no;
+            document.getElementById('mem_id').value = mem_id;
+            document.getElementById('room_no').value = room_no;
+            document.getElementById('type_name').value = type_name;
+            document.getElementById('hotel_id').value = hotel_id;
+            document.getElementById('r_res_people').value = r_res_people;
+            document.getElementById('r_res_chkindate').value = r_res_chkindate;
+            document.getElementById('r_res_chkoutdate').value = r_res_chkoutdate;
+            document.getElementById('r_res_price').value = r_res_price;
+            document.querySelector('input[type="submit"]').value = '예약 수정';
+        }
+		
+        function resetForm() {
+			//리셋 버튼 함수 -> 이걸 누르면 예약관리에 입력했던 정보들을 처음으로 돌릴 수 있다. 데이터는 안날아감
+            document.getElementById('action').value = 'create';
+            document.getElementById('r_res_no').value = '';
+            document.getElementById('mem_id').value = '';
+            document.getElementById('room_no').value = '';
+            document.getElementById('type_name').value = '';
+            document.getElementById('hotel_id').value = '';
+            document.getElementById('r_res_people').value = '';
+            document.getElementById('r_res_chkindate').value = '';
+            document.getElementById('r_res_chkoutdate').value = '';
+            document.getElementById('r_res_price').value = '';
+            document.querySelector('input[type="submit"]').value = '예약 생성';
+        }
+    </script>
+    
+<%@include file="/jsp/include/footer.jsp" %>
+</body>
+</html>

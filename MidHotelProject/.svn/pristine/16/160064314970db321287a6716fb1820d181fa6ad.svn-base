@@ -1,0 +1,38 @@
+package com.Hotel.service.admin;
+
+import java.util.List;
+
+import com.Hotel.dao.admin.AdminMemDaoImpl;
+import com.Hotel.dao.admin.CouponDeleteDaoImpl;
+import com.Hotel.dao.admin.IAdminMemDao;
+import com.Hotel.dao.admin.ICouponDeleteDao;
+import com.Hotel.vo.MemberVO;
+import com.Hotel.vo.Room_ReservationVO;
+
+public class AdminMemServiceImpl implements IAdminMemService {
+	
+	private static IAdminMemService service;
+	private IAdminMemDao dao;
+	
+	public AdminMemServiceImpl() {
+		dao = AdminMemDaoImpl.getInstance();
+	}
+	
+	public static IAdminMemService getInstance() {
+		if(service == null) service = new AdminMemServiceImpl();
+		
+		return service;
+	}
+
+	@Override
+	public List<MemberVO> getRecentMembers() {
+		return dao.getRecentMembers();
+	}
+
+	@Override
+	public List<Room_ReservationVO> getRecentReservations() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

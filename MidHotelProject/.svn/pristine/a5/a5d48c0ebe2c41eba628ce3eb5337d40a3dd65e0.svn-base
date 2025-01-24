@@ -1,0 +1,14 @@
+package com.Hotel.service.admin;
+
+import java.util.List;
+
+import com.Hotel.vo.MemberVO;
+import com.Hotel.vo.Room_ReservationVO;
+
+public interface IAdminMemService {
+
+	List<MemberVO> getRecentMembers();
+	 
+	List<Room_ReservationVO> getRecentReservations();
+	 
+}

@@ -1,0 +1,42 @@
+package com.Hotel.controller.FAQ;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+import com.Hotel.service.FAQ.FAQServiceImpl;
+import com.Hotel.service.FAQ.IFAQService;
+import com.Hotel.vo.FAQVO;
+
+@WebServlet("/faqInsert")
+public class FAQInsert extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	request.setCharacterEncoding("utf-8");
+	
+	String faqTitle = request.getParameter("faq_title");
+	String faqContent = request.getParameter("faq_content");
+	String classId = request.getParameter("class_id");
+	
+	FAQVO faqVo = new FAQVO();
+	faqVo.setFaq_title(faqTitle);
+	faqVo.setFaq_content(faqContent);
+	faqVo.setClass_id(classId);
+	
+	IFAQService service = FAQServiceImpl.getInstance();
+	service.insertFAQ(faqVo);
+	
+	response.sendRedirect(request.getContextPath()+"/faqList");
+	
+	}
+
+}

@@ -1,0 +1,100 @@
+<%@ page import="com.Hotel.vo.Hotel_PlaceVO"%>
+<%@ page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Spots</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom CSS to control image size -->
+    <style>
+    .card-img-top {
+        object-fit: cover; /* Maintain aspect ratio and fill the space */
+        height: 200px; /* Set fixed height for images */
+    }
+
+    /* 모달창 이미지 커스텀 스타일 */
+    .modal-img {
+        width: 100%; /* 모달창 내부에서 이미지가 너비 100% */
+        max-height: 500px; /* 최대 높이 설정 */
+        object-fit: contain; /* 이미지 비율 유지 */
+    }
+</style>
+</head>
+
+<body>
+    <div class="container my-5">
+        <h2 class="text-center mb-4">근처 명소</h2>
+
+        <%
+        List<Hotel_PlaceVO> spots = (List<Hotel_PlaceVO>) request.getAttribute("spots");
+        %>
+        <%
+        if (spots != null && !spots.isEmpty()) {
+        %>
+        <div class="row">
+            <%
+            for (Hotel_PlaceVO spot : spots) {
+            %>
+            <div class="col-md-4 mb-4">
+                <div class="card" data-bs-toggle="modal" data-bs-target="#spotModal<%= spot.getPlace_id() %>">
+                    <!-- 명소 이미지 추가 (이미지 경로 예시로 추가, 실제 구현 시 이미지 경로가 필요합니다) -->
+                    <%
+                    String imagePath = "place_image/" + spot.getPlace_id() + ".webp"; // 예시 이미지 경로
+                    %>
+                    <img src="<%= request.getContextPath() %>/<%= imagePath %>" class="card-img-top" alt="Spot Image">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= spot.getPlace_name() %></h5>
+                        <p class="card-text">
+                            <strong>전화:</strong> <%= spot.getPlace_tel() %><br>
+                            <strong>주소:</strong> <%= spot.getPlace_addr() %>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for each spot -->
+            <div class="modal fade" id="spotModal<%= spot.getPlace_id() %>" tabindex="-1" aria-labelledby="spotModalLabel<%= spot.getPlace_id() %>" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="spotModalLabel<%= spot.getPlace_id() %>"><%= spot.getPlace_name() %></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- 명소 이미지 확대 -->
+                           <!-- 명소 이미지 확대 -->
+							<img src="<%= request.getContextPath() %>/<%= imagePath %>" class="modal-img" alt="Spot Image">
+
+                            <p><strong>명소 이름:</strong> <%= spot.getPlace_name() %></p>
+                            <p><strong>전화:</strong> <%= spot.getPlace_tel() %></p>
+                            <p><strong>주소:</strong> <%= spot.getPlace_addr() %></p>
+                            <p><strong>카테고리:</strong> <%= spot.getPlace_cat_id() %></p>
+                            <p><strong>좋아요 수:</strong> <%= spot.getPlace_like_amt() %></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%
+            }
+            %>
+        </div>
+        <%
+        } else {
+        %>
+        <p class="text-center">이 호텔 근처에는 명소가 없습니다.</p>
+        <%
+        }
+        %>
+    </div>
+</body>
+
+</html>

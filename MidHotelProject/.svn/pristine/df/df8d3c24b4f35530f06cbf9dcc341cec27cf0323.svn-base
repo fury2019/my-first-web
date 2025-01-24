@@ -1,0 +1,559 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@include file="/jsp/include/top.jsp" %>
+<%@include file="/jsp/include/header.jsp" %>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The DDIT Hotels</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: center;
+		    background-color: #000;
+		    color: #fff;
+		    padding: 10px 20px;
+		    position: relative;
+		}
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        nav .dropdown {
+		    position: relative;
+		    display: inline-block;
+		}
+		
+		nav .dropdown-content {
+		    display: none;
+		    position: absolute;
+		    background-color: #fff;
+		    min-width: 150px;
+		    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+		    z-index: 1;
+		}
+		
+		nav .dropdown-content a {
+		    color: #333;
+		    padding: 10px;
+		    text-decoration: none;
+		    display: block;
+		}
+		
+		nav .dropdown:hover .dropdown-content {
+		    display: block;
+		}
+		
+		nav .dropdown-content a:hover {
+		    background-color: #f1f1f1;
+		}
+		
+		nav a {
+		    color: #fff;
+		    text-decoration: none;
+		    font-size: 14px;
+		    margin-right : 20px;
+		}
+        nav .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        nav .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        nav .dropdown-content a {
+            color: #333;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            
+        }
+        nav .dropdown:hover .dropdown-content {
+            display: block;
+        }
+ 		.main-banner {
+            position: relative;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+        }
+        .main-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .main-banner .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .reservation {
+            background: #f8f8f8;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .reservation input, .reservation select {
+            padding: 10px;
+            font-size: 14px;
+        }
+        .reservation button {
+            padding: 10px 20px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .section {
+            padding: 20px;
+        }
+        .room-details {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .room-details img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
+        .footer {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        #banner-seoul {
+    		background-color: #1e90ff;
+		}
+
+		#banner-jeju {
+		    background-color: #ff7f50;
+		}
+		
+		#banner-stay {
+		    background-color: #32cd32;
+		}
+		
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .popup img {
+            max-width: 80%;
+            max-height: 80%;
+            border: 5px solid white;
+            border-radius: 10px;
+        }
+        .popup .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .view-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+		
+		#scrollToTop {
+			display: none;
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			width: 50px;
+			height: 50px;
+			background-color: #000;
+			color: #fff;
+			border: none;
+			border-radius: 50%;
+			text-align: center;
+			line-height: 50px;
+			font-size: 20px;
+			cursor: pointer;
+			z-index: 1000;
+        }
+        #scrollToTop:hover {
+            background-color: #444;
+        }
+        
+		
+    </style>
+</head>
+
+<body>
+     <header id="header-seoul">
+        <div class="logo-container">
+            <button class="logo-button" onclick="rotateBanner(-1)">&lt;</button>
+            <div class="logo">THE DDIT SEOUL</div>
+            <button class="logo-button" onclick="rotateBanner(1)">&gt;</button>
+        </div>
+        <nav>
+            <div class="dropdown">
+                <a href="#">Special Gift</a>
+                <div class="dropdown-content">
+                    <a href="#">Gift 1</a>
+                    <a href="#">Gift 2</a>
+                    <a href="#">Gift 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#" onclick="loadContent('RoomInformation.jsp')">객실</a>
+                <div class="dropdown-content">
+                    <a href="#">스탠다드</a>
+                    <a href="#">디럭스</a>
+                    <a href="#">스위트</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#" onclick="loadContent('DiningInformation.jsp')">다이닝</a>
+                <div class="dropdown-content">
+                    <a href="#">라연</a>
+                    <a href="#">아리아께</a>
+                    <a href="#">콘티넨탈</a>
+                    <a href="#">팔선</a>
+                    <a href="#">콘티넨탈</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#" onclick="loadContent('SeoulDDITFacInformation.jsp')">라이프스타일</a>
+                <div class="dropdown-content">
+                    <a href="#">실내 헬스장</a>
+                    <a href="#">실내 골프장</a>
+                    <a href="#">실내 수영장</a>
+                    <a href="#">실내 수영장</a>
+                    <a href="#">실내 수영장</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#">라운지</a>
+                <div class="dropdown-content">
+                    <a href="#">Gallery 1</a>
+                    <a href="#">Gallery 2</a>
+                    <a href="#">Gallery 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#">Event</a>
+                <div class="dropdown-content">
+                    <a href="#">Event 1</a>
+                    <a href="#">Event 2</a>
+                    <a href="#">Event 3</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Other headers -->
+    <header id="header-jeju" style="display: none;">
+        <div class="logo-container">
+            <button class="logo-button" onclick="rotateBanner(-1)">&lt;</button>
+            <div class="logo">THE DDIT JEJU</div>
+            <button class="logo-button" onclick="rotateBanner(1)">&gt;</button>
+        </div>
+        <nav>
+            <div class="dropdown">
+                <a href="#">Special Gift</a>
+                <div class="dropdown-content">
+                    <a href="#">Gift 1</a>
+                    <a href="#">Gift 2</a>
+                    <a href="#">Gift 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#" onclick="loadContent('SeoulDDITRoomInformation.jsp')">객실</a>
+                <div class="dropdown-content">
+                    <a href="#">스탠다드</a>
+                    <a href="#">디럭스</a>
+                    <a href="#">스위트</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#" onclick="loadContent('SeoulDDITDiningInformation.jsp')">다이닝</a>
+                <div class="dropdown-content">
+                    <a href="#">Dining Option 1</a>
+                    <a href="#">Dining Option 2</a>
+                    <a href="#">Dining Option 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#" onclick="loadContent('SeoulDDITFacInformation.jsp')">라이프스타일</a>
+                <div class="dropdown-content">
+                    <a href="#">Lifestyle 1</a>
+                    <a href="#">Lifestyle 2</a>
+                    <a href="#">Lifestyle 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#">Gallery</a>
+                <div class="dropdown-content">
+                    <a href="#">Gallery 1</a>
+                    <a href="#">Gallery 2</a>
+                    <a href="#">Gallery 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#">Event</a>
+                <div class="dropdown-content">
+                    <a href="#">Event 1</a>
+                    <a href="#">Event 2</a>
+                    <a href="#">Event 3</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <header id="header-stay" style="display: none;">
+        <div class="logo-container">
+            <button class="logo-button" onclick="rotateBanner(-1)">&lt;</button>
+            <div class="logo">DDIT 스테이</div>
+            <button class="logo-button" onclick="rotateBanner(1)">&gt;</button>
+        </div>
+        <nav>
+            <div class="dropdown">
+                <a href="#">Special Gift</a>
+                <div class="dropdown-content">
+                    <a href="#">Gift 1</a>
+                    <a href="#">Gift 2</a>
+                    <a href="#">Gift 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#" onclick="loadContent('SeoulDDITRoomInformation.jsp')">객실</a>
+                <div class="dropdown-content">
+                    <a href="#">스탠다드</a>
+                    <a href="#">디럭스</a>
+                    <a href="#">스위트</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#" onclick="loadContent('SeoulDDITDiningInformation.jsp')">다이닝</a>
+                <div class="dropdown-content">
+                    <a href="#">Dining Option 1</a>
+                    <a href="#">Dining Option 2</a>
+                    <a href="#">Dining Option 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#" onclick="loadContent('SeoulDDITFacInformation.jsp')">라이프스타일</a>
+                <div class="dropdown-content">
+                    <a href="#">Lifestyle 1</a>
+                    <a href="#">Lifestyle 2</a>
+                    <a href="#">Lifestyle 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#">Gallery</a>
+                <div class="dropdown-content">
+                    <a href="#">Gallery 1</a>
+                    <a href="#">Gallery 2</a>
+                    <a href="#">Gallery 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#">Event</a>
+                <div class="dropdown-content">
+                    <a href="#">Event 1</a>
+                    <a href="#">Event 2</a>
+                    <a href="#">Event 3</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Banners -->
+    <div class="main-banner" id="banner-seoul">
+        <img src="/image/h01.webp" alt="The DDIT Seoul" onclick="openPopup('/image/h01.webp')">
+        <div class="overlay">
+            <h1>Welcome to The DDIT Seoul</h1>
+            <p>Experience luxury and elegance in the heart of Seoul</p>
+        </div>
+    </div>
+
+    <div class="main-banner" id="banner-jeju" style="display: none;">
+        <img src="/image/h09.webp" alt="The DDIT Jeju" onclick="openPopup('/image/h09.webp')">
+        <div class="overlay">
+            <h1>Welcome to The DDIT Jeju</h1>
+            <p>Relax and unwind in the scenic beauty of Jeju Island</p>
+        </div>
+    </div>
+
+    <div class="main-banner" id="banner-stay" style="display: none;">
+        <img src="/image/h05.webp" alt="DDIT Stay" onclick="openPopup('/image/h05.webp')">
+        <div class="overlay">
+            <h1>Welcome to DDIT Stay</h1>
+            <p>Comfort and convenience for your travels</p>
+        </div>
+    </div>
+
+    <!-- Content Area -->
+    <div id="content-area" style="padding: 20px;">
+        <!-- Default content or placeholder -->
+        <h2>Welcome to The DDIT Hotels</h2>
+        <p>Choose a service to learn more about our offerings.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 The DDIT Hotels. All rights reserved.</p>
+        <p>Contact: +82-042-222-8202  |  Email: info@ddit.com</p>
+        <p>대표이사: 김형음</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const headerIds = ["header-seoul", "header-jeju", "header-stay"];
+        const bannerIds = ["banner-seoul", "banner-jeju", "banner-stay"];
+        let currentBannerIndex = 0;
+
+        function showBannerAndHeader(index) {
+            bannerIds.forEach((id, idx) => {
+                document.getElementById(id).style.display = idx === index ? "block" : "none";
+            });
+            headerIds.forEach((id, idx) => {
+                document.getElementById(id).style.display = idx === index ? "block" : "none";
+            });
+        }
+
+        function rotateBanner(direction) {
+            currentBannerIndex = (currentBannerIndex + direction + bannerIds.length) % bannerIds.length;
+            showBannerAndHeader(currentBannerIndex);
+        }
+
+        function loadContent(page) {
+            const contentArea = document.getElementById('content-area');
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', page, true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    contentArea.innerHTML = xhr.responseText;
+                } else {
+                    contentArea.innerHTML = '<p>Error loading content. Please try again later.</p>';
+                }
+            };
+            xhr.onerror = function () {
+                contentArea.innerHTML = '<p>Error loading content. Please check your connection.</p>';
+            };
+            xhr.send();
+        }
+        
+    	
+    	function scrollToTop() {
+    	    window.scrollTo({
+    	        top: 0,
+    	        behavior: 'smooth'
+    	    });
+    	}
+    	
+    	// 스크롤 이벤트로 버튼 표시/숨김 처리
+    	window.addEventListener('scroll', function () {
+    	    const scrollToTopButton = document.getElementById('scrollToTop');
+    	    if (window.scrollY > 300) {
+    	        scrollToTopButton.style.display = 'block';
+    	    } else {
+    	        scrollToTopButton.style.display = 'none';
+    	    }
+    	});
+
+        // Initialize the first banner and header
+        showBannerAndHeader(0);
+        
+        var slideIndex = {
+        		'myModal1': 1,
+        		'myModal2': 1,
+        		'myModal3': 1,
+        		'myModal4': 1,
+        		'myModal5': 1,
+        		'myModal6': 1,
+        		'myModal7': 1,
+        		'myModal8': 1
+        	};
+
+        function openModal(modalId, slideIndex) {
+        		document.getElementById(modalId).style.display = "block";
+        		showSlides(slideIndex, modalId);
+        	}
+
+        function closeModal(modalId) {
+        		document.getElementById(modalId).style.display = "none";
+        	}
+
+        function currentSlide(n, modalId) {
+        		slideIndex[modalId] = n;
+        		showSlides(n, modalId);
+        	}
+
+        function plusSlides(n, modalId) {
+        		slideIndex[modalId] += n;
+        		showSlides(slideIndex[modalId], modalId);
+        	}
+        
+    </script>
+</body>
+</html>

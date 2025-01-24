@@ -1,0 +1,58 @@
+package com.Hotel.controller.Goods_Payment;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.Hotel.service.Goods_Payment.IGoods_PaymentService;
+import com.Hotel.service.Goods_Payment.Goods_PaymentServiceImpl;
+import com.Hotel.vo.Goods_PaymentVO;
+
+@WebServlet("/goods_PaymentInsert")
+public class Goods_PaymentInsert extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    private IGoods_PaymentService service = Goods_PaymentServiceImpl.getInstance();
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 요청 파라미터에서 결제 정보 추출
+        String payId = request.getParameter("payId"); // 자동 생성된 결제 ID
+        String cartNo = request.getParameter("cartNo"); // 장바구니 번호
+        String goodsId = request.getParameter("goodsId"); // 상품 ID
+        int pUsePoint = Integer.parseInt(request.getParameter("pUsePoint")); // 사용 포인트
+        String couponNo = request.getParameter("couponNo"); // 쿠폰 번호
+        int pEarnPoint = Integer.parseInt(request.getParameter("pEarnPoint")); // 적립 포인트
+        int pTotPrice = Integer.parseInt(request.getParameter("pTotPrice")); // 총 결제 금액
+        int pPrice = Integer.parseInt(request.getParameter("pPrice")); // 상품 가격
+
+        // 현재 날짜와 시간을 포맷하여 p_date 설정
+        String pDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
+        // Goods_PaymentVO 객체 생성 및 필드 설정
+        Goods_PaymentVO payment = new Goods_PaymentVO();
+        payment.setPay_id(payId);
+        payment.setCart_no(cartNo);
+        payment.setGoods_id(goodsId);
+        payment.setP_use_point(pUsePoint);
+        payment.setCoupon_no(couponNo);
+        payment.setP_earn_point(pEarnPoint);
+        payment.setP_tot_price(pTotPrice);
+        payment.setP_price(pPrice);
+        payment.setP_date(pDate); // 현재 날짜 설정
+
+        // 결제 정보 삽입
+        int result = service.insertPayment(payment);
+
+        // 결과에 따라 응답 처리
+        if (result > 0) {
+            response.sendRedirect("success.jsp"); // 성공 시 이동할 페이지
+        } else {
+            response.sendRedirect("error.jsp"); // 실패 시 이동할 페이지
+        }
+    }
+}
+

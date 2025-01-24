@@ -1,0 +1,76 @@
+<%@page import="com.Hotel.vo.MemberVO"%>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.Hotel.vo.Room_ReservationVO" %>
+<%MemberVO log = (MemberVO)session.getAttribute("loginCode");
+if (log == null) {
+    System.out.println("로그인 정보가 없습니다. 로그인이 필요합니다.");
+} else {
+    System.out.println("로그인 성공: " + log);
+} 
+
+%>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>객실 회원 예약 정보</title>
+</head>
+<body>
+    <h1><%= log.getMem_id() %>님의 객실 예약 리스트</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>예약 번호</th>
+                <th>회원 ID</th>
+                <th>객실 번호</th>
+                <th>체크인 날짜</th>
+                <th>체크아웃 날짜</th>
+                <th>객실 가격</th>
+                <th>성인 인원</th>
+                <th>어린이 인원 </th>
+                <th>유아 인원</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+                // 서블릿에서 전달된 예약 리스트 가져오기
+                List<Room_ReservationVO> reservations = (List<Room_ReservationVO>) request.getAttribute("reservationRoomMembers");
+
+                if (reservations != null && !reservations.isEmpty()) {
+                	for (Room_ReservationVO reservation : reservations) {
+            %>
+            <tr>
+                <td><%= reservation.getR_res_no() %></td>
+                <td><%= reservation.getMem_id() %></td>
+                <td><%= reservation.getRoom_no() %></td>
+                <td><%= reservation.getR_res_chkindate() %></td>
+                <td><%= reservation.getR_res_chkoutdate() %></td>
+                <td><%= reservation.getR_res_price() %></td>
+                <td><%= reservation.getR_res_adult() %></td>
+                <td><%= reservation.getR_res_child() %></td>   
+                <td><%= reservation.getR_res_kids() %></td>
+                <td>
+                    <form action="<%= request.getContextPath() %>/hotelRoomResList" method="post">
+                        <input type="hidden" name="action" value="Roomdelete">
+                        <input type="hidden" name="r_res_no" value="<%= reservation.getR_res_no() %>">
+                        <button type="submit">삭제</button>
+                    </form>
+                </td>
+            </tr>
+            <%
+                    }
+                } else {
+            %>
+            <tr>
+                <td colspan="10">예약 정보가 없습니다.</td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <br>
+    <a href="/Main.jsp">메인으로 돌아가기</a>
+</body>
+</html>

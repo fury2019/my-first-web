@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="res">
+	<!-- 예약할 때 정보 -->
+	<insert id="insertres" parameterType="resVo">
+		insert into
+		ROOM_RESERVATION(r_res_no, mem_id, room_no, type_name, hotel_id, r_res_chkindate, r_res_chkoutdate, r_res_price, r_res_adult, r_res_child, r_res_kids)
+		values(#{r_res_no}, #{mem_id}, #{room_no}, #{type_name},
+		#{hotel_id}, #{r_res_chkindate}, #{r_res_chkoutdate}, #{r_res_price}, #{r_res_adult}, #{r_res_child}, #{r_res_kids}
+		)
+	</insert>
+	
+	<!-- 예약 코드를 받아와 보여준다. -->
+	<select id="selectres" parameterType="String" resultType="resVo">
+		select
+		* from ROOM_RESERVATION where r_res_no = #{r_res_no}
+	</select>
+
+	<!--예약 전체 목록을 보여준다. -->
+	<select id="selectAllres" resultType="resVo">
+		select * from
+		ROOM_RESERVATION
+	</select>
+	
+	
+	<!-- 예약 수정 -->
+	<update id="updateres" parameterType="resVo">
+		UPDATE ROOM_RESERVATION SET
+			r_res_no = #{r_res_no},
+			mem_id = #{mem_id}, 
+			room_no = #{room_no}, 
+			type_name = #{type_name},
+			hotel_id = #{hotel_id}, 
+			r_res_people = #{r_res_people},
+			r_res_chkindate = #{r_res_chkindate}, 
+			r_res_chkoutdate = #{r_res_chkoutdate}, 
+			r_res_price = #{r_res_price} 
+		WHERE mem_id= #{mem_id}
+	</update>
+
+	<!-- 예약 삭제 -->
+	<delete id="deleteres" parameterType="String">
+		delete from
+		ROOM_RESERVATION where r_res_no = #{r_res_no}
+	</delete>
+	
+ 	<!-- 룸 안에 있는 호텔 이름,체크인,체크아웃에 대한 정보를 넘겨줌 -->
+<!-- 	<select id="getReservationsByHotelAndDates" parameterType="map" resultType="resVo">  -->
+<!--         SELECT * FROM room_reservation r -->
+<!--         INNER JOIN hotel h ON r.hotel_id = h.hotel_id -->
+<!--         WHERE h.hotel_name = #{hotelName} -->
+<!--         AND r.r_res_chkindate = #{checkInDate} -->
+<!--         AND r.r_res_chkoutdate = #{checkOutDate} -->
+<!--         AND r.r_res_adult = #{adultCount} -->
+<!--         AND r.r_res_child = #{childCount} -->
+<!--         AND r.r_res_kids = #{babyCount}      -->
+<!-- 	</select> -->
+	
+	<!-- 객실 예약시 필요한 정보 조회   hotel_id-> 특정 호텔 ID 조건-->
+	<select id="getReservations" parameterType="map" resultType="hotelroomVo">
+		SELECT hr.hotel_id, rt.type_name, rt.type_price, COUNT(DISTINCT hr.room_no) roomCnt
+		FROM hotel_room hr join room_type rt on hr.type_name = rt.type_name
+		WHERE hr.hotel_id = #{hotelId}
+		AND hr.room_no NOT IN (
+	    	SELECT DISTINCT RR.ROOM_NO
+	    	FROM ROOM_RESERVATION RR
+	    	WHERE RR.HOTEL_ID = HR.HOTEL_ID
+	    	AND (
+	        	(RR.R_RES_CHKINDATE &lt;= TO_DATE(#{checkInDate}, 'YYYY-MM-DD') AND RR.R_RES_CHKOUTDATE > TO_DATE(#{checkInDate}, 'YYYY-MM-DD'))
+	    		and((RR.R_RES_CHKINDATE &lt;= TO_DATE(#{checkOutDate}, 'YYYY-MM-DD') AND RR.R_RES_CHKOUTDATE > TO_DATE(#{checkOutDate}, 'YYYY-MM-DD')))
+	    ))
+	    GROUP BY hr.hotel_id, rt.type_name, rt.type_price
+	</select>
+	
+	<select id="getRandomNo" parameterType="hrrrVo" resultType="String">
+		SELECT hr.room_no
+		FROM hotel_room hr 
+		JOIN room_type rt ON hr.type_name = rt.type_name
+		WHERE hr.hotel_id = #{hotel_id}
+		AND rt.type_name = #{type_name}
+		AND hr.room_no NOT IN (
+    		SELECT DISTINCT RR.room_no
+    		FROM room_reservation RR
+    		WHERE RR.hotel_id = hr.hotel_id
+    		AND (
+        		(RR.R_RES_CHKINDATE &lt;= TO_DATE(#{r_res_chkindate}, 'YYYY-MM-DD') AND RR.R_RES_CHKOUTDATE > TO_DATE(#{r_res_chkindate}, 'YYYY-MM-DD'))
+	    		and((RR.R_RES_CHKINDATE &lt;= TO_DATE(#{r_res_chkoutdate}, 'YYYY-MM-DD') AND RR.R_RES_CHKOUTDATE > TO_DATE(#{r_res_chkoutdate}, 'YYYY-MM-DD')))
+    		)
+		)
+		ORDER BY DBMS_RANDOM.VALUE
+		FETCH FIRST 1 ROWS ONLY
+	
+	</select>
+	
+	
+	
+	
+	<!-- 부가서비스 추가 예약 -->
+<!-- 	<insert id="insertService" parameterType="" -->
+
+
+	
+</mapper>

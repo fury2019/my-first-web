@@ -1,0 +1,84 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Insert Coupon</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+        body {
+            background-color: #fff8dc; /* 배경색을 부드러운 노란색으로 설정 */
+            font-family: 'Arial', sans-serif;
+            color: #5a3e36; /* 메인 글씨 색상 */
+        }
+
+        h2 {
+            color: #8b4513;
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: #fdfdfd;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            color: #5a3e36;
+        }
+
+        .form-control {
+            border: 1px solid #deb887;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #8b4513;
+            box-shadow: 0 0 5px rgba(139, 69, 19, 0.5);
+        }
+
+        .btn-primary {
+            background-color: #8b4513;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #5a3e36;
+            color: #fff;
+        }
+</style>
+<body>
+    <div class="container mt-5">
+        <h2>쿠폰 생성</h2>
+        <form action="<%=request.getContextPath()%>/insertCoupon" method="post">
+            <div class="form-group">
+                <label for="coupon_name">쿠폰 이름</label>
+                <input type="text" class="form-control" id="coupon_name" name="coupon_name" required>
+            </div>
+            <div class="form-group">
+                <label for="coupon_comment">쿠폰 설명</label>
+                <textarea class="form-control" id="coupon_comment" name="coupon_comment" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="coupon_percent">할인율</label>
+                <input type="number" class="form-control" id="coupon_percent" name="coupon_percent" required>
+            </div>
+            <div class="form-group">
+                <label for="mem_id">회원 ID</label>
+                <input type="text" class="form-control" id="mem_id" name="mem_id" required>
+            </div>
+            <button type="submit" class="btn btn-primary">쿠폰 생성</button>
+        </form>
+    </div>
+</body>
+</html>

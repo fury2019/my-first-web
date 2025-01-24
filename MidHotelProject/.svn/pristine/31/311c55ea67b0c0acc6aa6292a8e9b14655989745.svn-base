@@ -1,0 +1,27 @@
+package com.Hotel.service.HotelNearbySpots;
+
+import java.util.List;
+import java.util.Map;
+
+import com.Hotel.vo.HotelVO;
+import com.Hotel.vo.Hotel_PlaceVO;
+
+
+public interface IHotelNearbySpotsService {
+
+	// 모든 주변 장소를 가져오는 메서드
+    List<Hotel_PlaceVO> HotelPlaceDisplayAll();
+    
+    // 특정 호텔 ID에 해당하는 장소를 가져오는 메서드
+    public List<Hotel_PlaceVO> getPlacesByHotelId(Map<String, Object> params);
+
+    // 모든 호텔정보를 가져오는 메서드
+    public List<HotelVO> getAllHotels();
+
+	/**
+	 * 모든 호텔정보를 가져오는 메서드
+	 * @param params
+	 * @return
+	 */
+	//public List<HotelVO> getAllHotels(Map<String, Object> params);
+}

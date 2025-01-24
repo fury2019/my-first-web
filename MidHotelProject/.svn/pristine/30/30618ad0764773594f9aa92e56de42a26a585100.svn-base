@@ -1,0 +1,109 @@
+<%@page import="com.Hotel.vo.Hotel_room_resVO"%>
+<%@page import="com.Hotel.vo.Room_ServiceVO"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.util.LinkedHashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="com.Hotel.vo.HotelVO"%>
+<%@page import="com.Hotel.vo.MemberVO"%>
+<%@ page import="java.util.List"%>
+<%@ page import="com.Hotel.vo.Room_ReservationVO"%>
+<%@ page import="com.Hotel.service.reservation.IRoom_reserService"%>
+<%@ page import="com.Hotel.service.reservation.Room_reserServiceImpl"%>
+<%@ page session="true" %>
+
+<%@include file="/jsp/include/top.jsp" %>
+
+<%@include file="/jsp/include/header.jsp"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DDIT 호텔 - 예약페이지</title>
+<style>
+.header1 { 
+	text-align: center;
+}
+
+.header1 img {
+    text-align: center; 
+    margin-bottom: 20px;
+}
+
+</style>
+</head>
+  <body>
+  	<form action="/payresult" method="post">
+  	 <div class="header1">
+		<img src="/image/예약3.png" alt="예약단계3">
+    </div>
+  
+
+<%
+	
+    Room_ReservationVO reservation = (Room_ReservationVO) session.getAttribute("reservation");
+    List<Hotel_room_resVO> services = (List<Hotel_room_resVO>) session.getAttribute("service");
+    int totalServicePrice = 0;
+	String type = reservation.getType_name();
+
+%>
+
+<h1>예약 정보</h1>
+<div>
+    <p>예약 번호: <%= reservation.getR_res_no() %></p>
+    <p>고객 아이디: <%= reservation.getMem_id() %></p>
+    <p>객실 금액: <%= reservation.getR_res_price() %>원</p>
+    
+   <% if (services != null && !services.isEmpty()) { %>
+        <% for (Hotel_room_resVO service : services) { %>
+            <p>서비스 ID: <%= service.getService_id() %> 추가 금액: <%= service.getAddprice() %> 원</p>
+            <%
+                totalServicePrice += service.getAddprice();
+            %>
+        <% } %>
+    <% } else { %>
+        <p>추가 서비스가 없습니다.</p>
+    <% } %>
+
+    <p>서비스 총 금액: <%= totalServicePrice %> 원</p>
+    <p>총 결제 금액: <%= reservation.getR_res_price() + totalServicePrice %> 원</p>
+    
+
+    
+    
+</div>
+
+<!-- 결제 모달 -->
+	
+
+<div id="paymentModal" class="payment-modal">
+    <div class="payment-content">
+        <span id="closeModal" style="float:right;">&times;</span>
+        <h2>결제 정보</h2>
+        <form id="paymentForm" action="/jsp/Payment.jsp" method="post">
+            <input type="hidden" name="r_res_no" value="<%= reservation.getR_res_no() %>">
+
+            <input type="hidden" name="type" value="<%= type %>">
+            <label for="paymentMethod">결제 방법:</label>
+
+            <select name="paymentMethod" id="paymentMethod">
+                <option value="kakao">간편결제</option>
+            </select>
+            <br><br>
+            <label for="amount">결제 금액:</label>
+            <input type="text" name="amount" value="<%= reservation.getR_res_price() + totalServicePrice %>" readonly>
+            <br><br>
+            <button type="submit">결제 진행</button>
+        </form>
+    </div>
+</div>
+	</form>
+
+
+  
+<%@include file="/jsp/include/footer.jsp"%>
+</body>
+</html>
+

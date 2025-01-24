@@ -1,0 +1,274 @@
+/* CSS Document */
+/*레저베이션 ows연계로 인한 html변경*/
+.selForm label.date4 { background: url("../../images/ko/dongtan/reservation/reserveStepDateBoxATh1.gif") no-repeat scroll 0 -113px transparent; display: inline-block; height: 27px;line-height: 100px; overflow: hidden; vertical-align: middle;width: 190px;}
+.ctnReserve .dateBoxC .hBox .selRoom {padding: 34px 0 0;}
+.btnS_1Confirm{background: url("../../images/ko/dongtan/reservation/reserveStep1BtnConfirm.gif") no-repeat scroll 0 0 transparent; display: inline-block; height: 27px; line-height: 100px;overflow: hidden; vertical-align: middle;  width: 81px;}
+
+/*reserve.css*/
+
+/* 레저베이션 메인 예약레이어 */
+.gnbReservationBox div.selector,
+.gnbReservationBox div.selector span{ background: url(../../images/ko/dongtan/reservation/uiformRsv2.png)no-repeat right 0;}
+.gnbReservationBox div.selector{ height:23px; line-height:23px;}
+.gnbReservationBox div.selector select{ height:23px;}
+.gnbReservationBox div.selector option{ padding:3px; } 
+.gnbReservationBox div.selector span{ height:23px; line-height:24px; color:#595042}
+.gnbReservationBox div.selector, .gnbReservationBox div.selector span {background-image: url("../../images/ko/dongtan/reservation/uiformRsv2.png") no-repeat; background-position:right 0;}
+.gnbReservationBox input.text{ padding:3px; margin:0; border:#6b523a solid 1px; background:#f1ebd6; font-size:12px; font-family:Dotum,'돋움',serif;}
+.gnbReservationBox input.disabled { background:#a28b74;} 
+.gnbReservationBox .btnCalendar{ height:23px; width:22px; background:url(../../images/ko/dongtan/reservation/reserveLayerBtnCalendar.png) no-repeat;}
+.gnbReservationBox label.date1{ width:65px; height:23px; background:url(../../images/ko/dongtan/reservation/reserveLayerLb1.png) no-repeat; } 
+.gnbReservationBox label.date2{ width:74px; height:23px; background:url(../../images/ko/dongtan/reservation/reserveLayerLb2.png) no-repeat;}
+.gnbReservationBox label.date3{ width:52px; height:23px; background:url(../../images/ko/dongtan/reservation/reserveLayerLb3.png) no-repeat;}
+.gnbReservationBox label.roomEa{ width:102px; height:23px; background:url(../../images/ko/dongtan/reservation/reserveLayerLb4.png) no-repeat; vertical-align:middle; display:inline-block; line-height:100px; overflow:hidden;}
+
+.gnbReservationBox label.roomEaOne{ width:104px; height:23px; background:url(../../images/ko/dongtan/reservation/reserveLayerLb41.png) no-repeat; vertical-align:middle; display:inline-block; line-height:100px; overflow:hidden;}
+.gnbReservationBox label.roomEaTwo{ width:104px; height:23px; background:url(../../images/ko/dongtan/reservation/reserveLayerLb42.png) no-repeat; vertical-align:middle; display:inline-block; line-height:100px; overflow:hidden;}
+
+.gnbReservationBox{ display:none; background:url(../../images/ko/dongtan/reservation/reserveLayerBg.png) repeat-x; margin:0px; width:100%; min-width:1280px; padding-bottom:250px;;position:absolute; z-index:10; top:150px; left:0px; zoom:1;}/* 2013-08-02 width수정 */
+.gnbReservationBoxIn{ width:1200px; margin:auto; position:relative;}
+.gnbReservationBox .dateBoxA{ position:absolute; left:131px; top:49px; width:530px;}  
+.gnbReservationBox .dateBoxA .selForm{padding:0px;}
+.gnbReservationBox .dateBoxA .selForm .itemMice{ position:absolute; left:0px; top:-30px;}
+.gnbReservationBox .dateBoxA .selForm .itemMice .btnMice{ width:180px; height:23px; display:inline-block; vertical-align:middle; line-height:100px; overflow:hidden; background:url(../../images/ko/dongtan/reservation/reserveLayerLb02.png) no-repeat;}
+.gnbReservationBox .dateBoxA .selForm .itemMice label.miceCode{ position:absolute; left:-9999%;}
+.gnbReservationBox .dateBoxA .selForm .itemMice input.miceCode{ width:182px; display: inline-block;}
+.gnbReservationBox .dateBoxA .selForm .itemMice input.miceCodeDim{ display:none;}
+.gnbReservationBox .dateBoxA .selForm .itemMice img {vertical-align:middle;}
+.gnbReservationBox .dateBoxA .selForm .item2{ margin-right:6px;}
+.gnbReservationBox .dateBoxA .selForm .item3{ margin-right:5px;}
+.gnbReservationBox .dateBoxA .selForm .item4{ margin-right:3px;}
+.gnbReservationBox .dateBoxA .selForm dt{display:inline-block; display:inline; padding:0px;}
+.gnbReservationBox .dateBoxA .selForm dd{display:inline-block; display:inline; padding:0px;}
+.gnbReservationBox .dateBoxA .selForm input.date1{ width:93px; text-align:center; color:#362d22;}
+.gnbReservationBox .dateBoxA .selForm input.date2{ width:93px; text-align:center; color:#362d22;}
+.gnbReservationBox .dateBoxA .selForm input.date3{ width:37px; text-align:center; color:#000; font-weight:bold; background:#dedede;}
+.gnbReservationBox .dateBoxB{ }
+.gnbReservationBox .dateBoxC{ position:absolute; left:669px; top:49px;}
+.gnbReservationBox .groupCodeBox{clear:both; background:#FFF; border:#CCC solid 1px; padding:10px; margin:10px 0;}
+.gnbReservationBox .btnList{ clear:both;}
+.gnbReservationBox .calendarReserveBox{ position:absolute; left:135px; top:80px; z-index:10; background:#FFF; width:494px; min-height:284px; border:#6b523a solid 3px; padding:20px 27px;}
+.gnbReservationBox .selRoom{width:156px;}
+.gnbReservationBox .selRoom .selector{ width:34px !important;}
+.gnbReservationBox .selRoom .selector span{ width:9px !important;}
+.gnbReservationBox .selRoomOpt{ position:absolute; left:160px; top:-31px; width:180px; padding-top:31px; background:url(../../images/ko/dongtan/reservation/reserveLayerLbAdultKid.png) no-repeat 49px 0;}
+.gnbReservationBox .selRoomOpt dl{ overflow:hidden; margin:0 0 5px 0;}
+.gnbReservationBox .selRoomOpt dl dt{ float:left; background:url(../../images/ko/dongtan/reservation/reserveLayerLbRoom.png) no-repeat; width:53px; height:23px; vertical-align:middle; display:inline-block; line-height:100px; overflow:hidden;}
+.gnbReservationBox .selRoomOpt dl dd{ float:left;}
+.gnbReservationBox .selRoomOpt dl.room1 dt{ background-position:0px 0px;}
+.gnbReservationBox .selRoomOpt dl.room2 dt{ background-position:0px -28px;}
+.gnbReservationBox .selRoomOpt dl.room3 dt{ background-position:0px -56px;}
+.gnbReservationBox .selRoomOpt dl.room4 dt{ background-position:0px -84px;}
+.gnbReservationBox .selRoomOpt dl.room5 dt{ background-position:0px -113px;}
+.gnbReservationBox .selRoomOpt dl.room5{ display:none;}
+.gnbReservationBox .selRoomOpt dl.room1 .selector,
+.gnbReservationBox .selRoomOpt dl.room2 .selector,
+.gnbReservationBox .selRoomOpt dl.room3 .selector,
+.gnbReservationBox .selRoomOpt dl.room4 .selector,
+.gnbReservationBox .selRoomOpt dl.room5 .selector{ margin:0 17px 0 0}
+.gnbReservationBox .selRoomOpt dl label.adult,
+.gnbReservationBox .selRoomOpt dl label.kid{ position:absolute; left:-9999%;}
+.gnbReservationBox .selRoomOpt dl div.selector{ width:34px !important;}
+.gnbReservationBox .selRoomOpt dl div.selector span{ width:8px !important;}
+.gnbReservationBox .btnSch{ position:absolute; right:103px; top:49px; background:url(../../images/ko/dongtan/reservation/reserveLayerBtnSch.png) no-repeat; width:85px; height:23px; line-height:100px; overflow:hidden;}
+.gnbReservationBox .groupCodeBox{}
+.gnbReservationBox .rStatus{ height:16px;}
+.gnbReservationBox .groupCodeBox .groupCode{ display:none;}
+
+/*step01*/
+dd.item5 div.selector { width:155px!important; margin-bottom:6px;}
+dd.item5 div.selector span {width: 130px!important;}
+input.W152{width:152px!important;}
+input.W156{width:156px!important;}
+input.W113{width:113px!important;} 
+.reserveStep li.t1 span {background-position: 0 0; width: 242px!important;}
+.reserveStep li.t2 span {background-position: -241px 0px!important; width: 240px!important;}
+.reserveStep li.t3 span {background-position: -481px 0px!important; width: 240px!important;}
+.reserveStep li.t4 span {background-position: -721px 0px!important;width: 240px!important;}
+.reserveStep li.t5 span {background-position: -961px 0px!important;width: 240px!important;}
+.reserveStep {height: 76px; margin: 0 0 30px; width: 1202px!important;}
+.ctnReserve1 .dateBoxC .selRoomOpt dl dd .ddAd div { margin-left: 7px;}
+.ctnReserve .dateBoxC .selRoomOpt dl { float: left; margin: 0 46px 0 0 !important;  width: 186px !important;}
+.ctnReserve1  .dateBoxC .selRoomOpt dl dd { float: right;width: 174px;}
+.ctnReserve1 .rsvJejuGuide ul { overflow: hidden;float: left}
+.ctnReserve1 .rsvJejuGuide ul li {width: 407px; float:none}
+.ctnReserve1 .rsvJejuGuide {height:61px;}
+.ctnReserve1 .reserveInfoBox .rBox {padding: 8px 0; background: none!important;}
+.ctnReserve1 .reserveInfo {background:#eee3cc; border: 1px solid #EDE5D8; min-height: 336px;padding: 19px 21px;}
+.ctnReserve .dateBoxC .selRoomOpt dl {float: left; margin: 0 14px 0 0!important; width: 235px!important;}
+ 
+.ctnReserve2 td .btnSelBed { background: url("../../images/ko/dongtan/reservation/reserveStep2BtnSelBed.gif") no-repeat scroll 0 0 transparent;display: inline-block; height: 27px; line-height: 100px; overflow: hidden; position: absolute; right: 15px; vertical-align: middle; width: 59px; margin-top:-14px }
+.ctnReserve2 td a:hover,
+.ctnReserve2 td a:focus{background: url("../../images/ko/dongtan/reservation/reserveStep2BtnSelBed_over.gif") no-repeat scroll 0 0 transparent;}
+
+.ctnReserve .tableTypeC thead tr {border: 1px solid #ECEAE1;}
+.ctnReserve .tableTypeC thead th{border:none;}
+.ctnReserve .tableTypeC.tableAccSatellite thead th {background: none repeat scroll 0 0 #Fff; padding: 8px 0;color:#444444;}
+.ctnReserve .tableTypeC.tableAccSatellite tbody td {background: none repeat scroll 0 0 #f6f4eb; border:none; height: 23px;text-align: center;}
+.ctnReserve .tableTypeC.tableAccSatellite tbody td.TaL{padding-left:20px!important; text-align: left!important;}
+.ctnReserve .tableTypeC.tableAccSatellite .line{border-bottom:1px solid #E6DCCA}
+.ctnReserve .tableTypeC.tableAccSatellite .bold{font-weight: bold; color:#7e4f15}
+
+.ctnReserve .tableTypeC{ margin:20px 0 0 0; width: 100%; border-collapse:collapse; table-layout:fixed;}
+.ctnReserve .tableTypeC thead th {height: 11px; background: #faf9f7; vertical-align: top; line-height: 100%; }
+.ctnReserve .tableTypeC thead th.bdL { border-left: 1px solid #eceae1; }
+.ctnReserve .tableTypeC thead th img { vertical-align: top; line-height: 100%; }
+.ctnReserve .tableTypeC tbody th img { vertical-align: top; line-height: 100%; }
+.ctnReserve .tableTypeC tbody th { border-right: 1px solid #eceae1; border-left: 1px solid #eceae1; border-bottom: 1px solid #eceae1; height: 43px; padding: 0 0 0 15px; text-align: left; background: #faf9f7; line-height: 100%; vertical-align: middle; }
+.ctnReserve .tableTypeC tbody td.left { text-align:left !important; padding:7px 0 6px 10px !important; }
+
+.ctnReserve .tableTypeC.tableAccSatellite{ margin:0; }
+.ctnReserve .tableTypeC.tableAccSatellite tr .bdrN { border-right: 0 !important; }
+.ctnReserve .tableTypeC.tableAccSatellite tbody th { height: auto; border-left: none; background: #f8f8f8; font-weight: bold; text-align: center; padding: 8px 0; color: #888; }
+.popLayerAccSatellite_seoul .askTxt { width: 91px; height:11px; display:block; margin-top: 10px; overflow: hidden; text-indent:-9999%; background:url('../../images/ko/dongtan/accommodation/AccSatelliteTxt.gif') 0 0 no-repeat; }
+
+.ctnReserve .roomList .rBox .rCtn .info .priceBox .priceScroll.new { max-height: 379px !important;}
+.roomList .rBox .rCtn .info .priceBox .detailBox .dHead .icoPack {background: url("../../images/ko/dongtan/reservation/reserveStep2IcoRoom.gif") no-repeat scroll 0 0 transparent;}
+
+.ctnReserve2Opt .hrOptRoom p{ color: #7E4F15;}
+
+.ctnReserve2Opt .btnList .btnOptSel { background: url("../../images/ko/dongtan/reservation/reserveStep2DayBtnPrev.gif") no-repeat scroll 0 0 transparent;display: inline-block; height: 41px; line-height: 100px; overflow: hidden;vertical-align: middle; width: 142px;}
+/*step 03*/
+
+.ctnReserve2Opt .headTit .tit {background: url("../../images/ko/dongtan/reservation/reserveStep2Tit1Opt.gif") no-repeat scroll 0 0 transparent;    height: 26px;    line-height: 100px;    overflow: hidden;    width: 400px;}
+
+.roomOptWrap .rOptHeadTop p{float: left;  height: 13px; width: 209px;}
+
+.roomOptWrap .rOptHeadTop { margin: 0 0 20px; border:none;}
+.rprice_1 .dt{font-size:14px!important; font-weight:bold!important;}
+.rprice_1 .dd{font-size:14px!important; font-weight:bold!important;}
+.titst01 {background: url("../../images/ko/dongtan/reservation/reserveStepOptRoom.gif") no-repeat scroll 0 0 transparent;    height: 22px;    line-height: 100px;    overflow: hidden;  margin-top: 35px; }
+.titst02 {background: url("../../images/ko/dongtan/reservation/reserveStepOptRoom.gif") no-repeat scroll 0 -18px transparent; height: 22px;    line-height: 100px;    overflow: hidden;  margin-top: 20px;}
+.titst03 {background: url("../../images/ko/dongtan/reservation/reserveStepOptRoom.gif") no-repeat scroll 0 -36px transparent; height: 22px;    line-height: 100px;    overflow: hidden;  margin-top: 20px;}
+
+
+.ctnReserve2Opt .roomOptWrap .bbsAddonTable th, .roomOptWrap .bbsAddonTable td {-moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-right-colors: none; -moz-border-top-colors: none; border-color: -moz-use-text-color -moz-use-text-color #ECEAE1; border-image: none; border-style: none none solid; border-width: medium medium 1px; color: #1B1B1B; height: 38px; line-height: 16px; text-align: center;padding:0px;}
+.mgt30{margin-top:30px;}
+
+.reserveInfoBox .rBox4 .rTit .tit span { width:148px; background: url("../../images/ko/dongtan/reservation/reserveStepTit1depth.gif") no-repeat scroll 0 -61px transparent; display: inline-block; height: 18px; line-height: 100px; overflow: hidden; vertical-align: middle;}
+.reserveInfoBox .rBox4 .list li .tit { display: inline-block; float: left; height: 18px; overflow: hidden; width: 190px; font-size:11px;}
+
+.reserveInfoBox .rBox4 .list li.opt1 .tit { background-position: 0 0;}
+.reserveInfoBox .rBox4 .list li.opt2 .tit { background-position: 0 -20px;}
+.reserveInfoBox .rBox4 .list li.opt3 .tit { background-position: 0 -40px;}
+.reserveInfoBox .rBox4 .list li {overflow: hidden;}
+.reserveInfoBox .rBox4 .list li .num {float: right;}
+.ctnReserve3 .reserveInfoBox .rBox3 {   background: url("../../images/ko/dongtan/reservation/reserveInfoBoxDotLine.gif") repeat-x scroll 0 bottom transparent; padding: 8px 0;}
+.ctnReserve3 .reserveInfoBox .rBox4 {   background: none!important;}
+
+
+/*step 04o*/
+.ctnReserve4 .topGuideMsg { height:109px;background: none!important;}
+
+.ctnReserve4 .topGuideMsg .msg2 {color: #856F56;text-align: center; width: 100%;padding:0px;}
+.ctnReserve4 .rsvDetInfoBox{border-top: 3px solid #A1886F;}
+    
+.ctnReserve4 .rsvDetInfoBox .item2 .dt { background: none!important; line-height:0px; width: 85px; height:12px;}
+.ctnReserve4 .rsvDetInfoBox .item3 .dt { background: none!important; line-height:0px; width: 85px; height:12px;}
+.ctnReserve4 .rsvDetInfoBox .item4 .dt { background: none!important; line-height:0px; width: 85px; height:12px;}
+.ctnReserve4 .rsvDetInfoBox .item5pack .dt {width:85px; height:12px; background-repeat:no-repeat;}
+
+.ctnReserve4 .rsvDetInfoBox .item {background: none;paddimg:0px!important;}
+.ctnReserve4 .rsvDetInfoBox .item .dd {display: inline-block; height: 27px; line-height: 29px; vertical-align: middle;width: 425px;}
+.ctnReserve4 .rsvDetInfoBox .item .dd2 {display: inline-block; height: 27px; line-height: 29px; vertical-align: middle;width: 100px;}
+.ctnReserve4 .rsvDetInfoBox .item .dd3 {display: inline-block; height: 27px; line-height: 29px; vertical-align: middle;width: 270px;}
+.ctnReserve4 .rsvDetInfoBox .box { border-bottom: 1px solid #A1886F;    padding: 10px 0;}
+.ctnReserve4 .roomComWrap .headTit .tit { background: none!important; line-height:0px; height: 27px; vertical-align: middle;width: 70px;}
+.ctnReserve4 .roomComWrap .headTit .bookingNumber{font-size:15px;color:#666666; font-weight: bold;}
+ 
+.ctnReserve4 .rsvDetInfoBox_B{background-color:#faf9f4;}
+.ctnReserve4 .rsvDetInfoBox_B .Booking .dt { display: inline-block;  height: 17px; vertical-align: middle; color:#666666; font-weight: bold;} 
+.ctnReserve4 .rsvDetInfoBox_B .Booking1 .dt {width: 54px;}
+.ctnReserve4 .rsvDetInfoBox_B .Booking2 .dt {width: 73px;}
+
+.ctnReserve4 .rsvDetInfoBox_B .Booking  { margin: 0 0 0 30px;  padding: 0 30px 0 0; width: 352px;background: none;}
+.ctnReserve4 .rsvDetInfoBox_B .Booking .dd {display: inline-block; height: 27px; line-height: 29px; vertical-align: middle;width: 232px;}
+.ctnReserve4 .rsvDetInfoBox_B .Booking .dd2 {display: inline-block; height: 27px; line-height: 29px; vertical-align: middle;width: 301px;}
+.ctnReserve4 .rsvDetInfoBox_B .box {padding: 10px 20px 10px 0;}
+ 
+.ctnReserve4 .roomPriceWrap .bbsPriceTable th,
+.ctnReserve4 .roomPriceWrap .bbsPriceTable td{ border:none; border-bottom:#eceae1 solid 1px; padding:5px 10px 5px 10px; text-align:center; line-height:16px; color:#1b1b1b}
+.ctnReserve4 .roomPriceWrap .bbsPriceTable tr.last td{ border-bottom:none;}
+.ctnReserve4 .roomPriceWrap .bbsPriceTable th{ border-bottom:#cdcbbe solid 1px; font-weight:bold; color:#666666; padding:13px 10px 13px; line-height:17px;  background:#faf9f4; white-space:nowrap;}
+
+.ctnReserve4 .roomPriceWrap .bbsPriceTable td.price {font-weight:bold; padding-right: 30px;  text-align: right;}
+.TL{text-align:left!important; padding-left:42px!important;}
+.TR{text-align:right!important; padding-right:42px!important;}
+
+.roomPriceWrap .priceWrap .priceBox .list li.rprice .dt{font-size:14px; font-weight:bold; min-width:150px; margin:0 20px 0 0; color:#584a3b; text-align:right; display:inline-block; vertical-align:middle;}
+.roomPriceWrap .priceWrap .priceBox .list li.rprice .dd{font-size:14px; font-weight:bold; min-width:110px; color:#584a3b; text-align:right; display:inline-block; vertical-align:middle;}
+
+.ctnReserve4 .roomPriceWrap .msg { color: #7E4F15;margin:10px 0;}
+.reserveInfoBox .rBox4 div {height: 13px; margin: 0 0 4px;overflow: hidden;}
+.reserveInfoBox .rBox4 div .Room { background: url("../../images/ko/dongtan/reservation/reserveStepTitRoom.gif") ;display: inline-block;float: left;    height: 18px;    line-height: 100px;    overflow: hidden;   width: 50px;}
+.reserveInfoBox .rBox4 div .Room1 {  background-position: 0 -1px;}
+.reserveInfoBox .rBox4 div .Room2 {  background-position: 0 -21px;}
+.reserveInfoBox .rBox4 ul.list{padding-bottom:10px;}
+/*step05*/
+
+.ctnReserve4 .roomComWrap .btnPrint {background: url("../../images/ko/dongtan/reservation/reserveStep4BtnPrint.gif") no-repeat scroll 0 0 transparent;display: inline-block;height: 27px; line-height: 100px; margin: 9px 0 0;overflow: hidden; vertical-align: middle; width: 63px;}
+.ctnReserve .info { display: block; float:right;}
+.ctnReserve4 .info1 { display: block; float: left;}
+
+.ctnReserve4 .rsvDetInfoBox .item1 .dt {background: none!important; line-height:0px; width: 85px; height:12px;}
+.Border{border:1px solid #e9e9e9!important; height:69px;}
+ .roomOptWrap .rmRsvWrap {}
+.roomOptWrap .hRoomOptTit1{ border-bottom: 3px solid #A78F77;    height: 30px; }
+.roomOptWrap .hRoomOptTit1 .msg{ background-image:url(../../images/ko/dongtan/reservation/reserveStep2DayMsg1.gif);float:right;width:285px; margin-top:-41px;}
+.roomOptWrap .hRoomOptTit1 .tit2 { background: url("../../images/ko/dongtan/reservation/reserveStep2DayTit1.gif") no-repeat scroll 0 0 transparent;   line-height: 100px; height:35px; overflow: hidden;}
+.roomCateBox .hRoomTit1 .tit { background: url("../../images/ko/dongtan/reservation/reserveStep2TitRoom.gif") no-repeat scroll 0 0 transparent;}
+
+
+/*2013.10.29추가*/
+.gnbReservationBox .dateBoxA .selForm .itemMice input.miceCode1,
+.gnbReservationBox .dateBoxA .selForm .itemMice input.miceCode2{width: 85px;}
+
+/*2013.10.30 추가*/
+
+.ctnReserve .btnSelRoom { background: url("../../images/ko/dongtan/reservation/reserveStep3BtnPrev.gif") no-repeat scroll 0 0 transparent; display: inline-block;  height: 41px;  line-height: 100px;  overflow: hidden; vertical-align: middle;  width: 142px;}
+.ctnReserve3 .roomUserWrap .tableReserveInfo1 label.firstNameEn {margin: 0px;}
+.ctnReserve3 div.radio {height: 22px; margin-right: 0; vertical-align: middle;}
+@media screen and (-webkit-min-device-pixel-ratio:0){.ctnReserve3 div.radio {height: 27px; margin-right: 0; vertical-align: middle;}}/*사파리핵*/
+.ctnReserve3 div.checker, div.checker span, div.checker input { height: 20px; width: 19px;}
+@media screen and (-webkit-min-device-pixel-ratio:0){.ctnReserve3 div.checker, div.checker span, div.checker input { height: 20px; width: 19px;margin-top:-2px;}}
+
+/*기업그룹코드 */
+.ctnReserve .miceBoxTop .Mice{width:585px;}
+
+.ctnReserve3 .roomUserWrap textarea{width:834px;}
+.ctnReserve3 .reserveStep3Box .msg {  display: block;    padding: 6px 0 0;}
+/*스페셜기업코드 */
+/* .ctnReserve1 .dateBoxA .item5 label { left: -9999%;  position: absolute;} */
+.ctnReserve1 .dateBoxA .item5 label.date5  ,
+.ctnReserve1 .dateBoxA .item5 label.date6  { left: -9999%;  position: absolute;}
+.ctnReserve1 .dateBoxA .item5 .date5 {background: url("../../images/ko/dongtan/reservation/BgText.png") no-repeat 2px 0px;  margin: 0;    width: 208px; background-color: #fff;}
+.ctnReserve1 .dateBoxA .item5 .date6 {background: url("../../images/ko/dongtan/reservation/BgText.png") no-repeat 2px -30px;  margin: 0;    width: 208px;background-color: #fff;}
+.ctnReserve1 .dateBoxA .item5 .focus{background-image:none}
+.ctnReserve1 .dateBoxA .item6 .focus{background-image:none}
+
+.gnbReservationBox .groupCodeBox .itemMice label,
+.gnbReservationBox .dateBoxA .itemMice label { left: -9999%;  position: absolute;}
+.gnbReservationBox .groupCodeBox .miceCode1,.gnbReservationBox .groupCodeBox .miceCode,
+.gnbReservationBox .dateBoxA .miceCode1,.gnbReservationBox .dateBoxA .miceCode {background: url("../../images/ko/dongtan/reservation/BgText.png") no-repeat  2px -31px;  margin: 0;    width: 208px;background-color: #F1EBD6}
+.gnbReservationBox .groupCodeBox .miceCode2,
+.gnbReservationBox .dateBoxA .miceCode2 {background: url("../../images/ko/dongtan/reservation/BgText.png") no-repeat  2px -2px; margin: 0;    width: 208px; background-color: #F1EBD6}
+.gnbReservationBox .groupCodeBox .focus,
+.gnbReservationBox .dateBoxA .focus{ background-image:none; background-color: #F1EBD6}
+.gnbReservationBox .groupCodeBox .miceCode1 .focus, 
+.gnbReservationBox .groupCodeBox .miceCode .focus, 
+.gnbReservationBox .dateBoxA .miceCode1 .focus, 
+.gnbReservationBox .dateBoxA .miceCode .focus{ background-image:none; background-color: #F1EBD6}
+
+.gnbReservationBox .dateBoxA .selForm .itemMice input.miceCode{width:90px!important;}
+.gnbReservationBox div.selector { height: 23px; line-height: 23px;  width: 123px !important; background-color:#f1ebd6;}
+.gnbReservationBox div.selector span {width:103px!important;}
+
+.P9{margin:9px 0px;}
+
+/*2013.11.1 추가*/
+.hrOptRoom { border-top: none; padding: 5px 0 0;}
+
+/*20180209 메인 예약바 추가*/
+.rsvWrap{position: relative;}
+.rsvCalendarDate{position: absolute;top: 142px;left: 288px;width: 592px;padding: 25px 30px 45px;border: 1px solid #6e583e;background: #fff;display: none;z-index: 100;}
+.rsvCalendarDate.on{display: block;}

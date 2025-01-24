@@ -1,0 +1,83 @@
+package com.Hotel.vo;
+
+import java.sql.Date;
+
+public class Room_ReservationVO {
+
+	private String r_res_no;
+	private String mem_id;
+	private String room_no;
+	private String type_name;
+	private String hotel_id;
+	private int r_res_people;
+	private Date r_res_chkindate;
+	private Date r_res_chkoutdate;
+	private int r_res_price;
+	
+	public String getR_res_no() {
+		return r_res_no;
+	}
+	public void setR_res_no(String r_res_no) {
+		this.r_res_no = r_res_no;
+	}
+	public String getMem_id() {
+		return mem_id;
+	}
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+	public String getRoom_no() {
+		return room_no;
+	}
+	public void setRoom_no(String room_no) {
+		this.room_no = room_no;
+	}
+	public String getType_name() {
+		return type_name;
+	}
+	public void setType_name(String type_name) {
+		this.type_name = type_name;
+	}
+	public String getHotel_id() {
+		return hotel_id;
+	}
+	public void setHotel_id(String hotel_id) {
+		this.hotel_id = hotel_id;
+	}
+	public int getR_res_people() {
+		return r_res_people;
+	}
+	public void setR_res_people(int r_res_people) {
+		this.r_res_people = r_res_people;
+	}
+	public Date getR_res_chkindate() {
+		return r_res_chkindate;
+	}
+	public void setR_res_chkindate(Date r_res_chkindate) {
+		this.r_res_chkindate = r_res_chkindate;
+	}
+	public Date getR_res_chkoutdate() {
+		return r_res_chkoutdate;
+	}
+	public void setR_res_chkoutdate(Date r_res_chkoutdate) {
+		this.r_res_chkoutdate = r_res_chkoutdate;
+	}
+	public int getR_res_price() {
+		return r_res_price;
+	}
+	public void setR_res_price(int r_res_price) {
+		this.r_res_price = r_res_price;
+	}
+	
+	@Override
+	public String toString() {
+		return "Room_ReservationVO [r_res_no=" + r_res_no + ", mem_id=" + mem_id + ", room_no=" + room_no
+				+ ", type_name=" + type_name + ", hotel_id=" + hotel_id + ", r_res_people=" + r_res_people
+				+ ", r_res_chkindate=" + r_res_chkindate + ", r_res_chkoutdate=" + r_res_chkoutdate + ", r_res_price="
+				+ r_res_price + "]";
+	}
+	
+	
+	
+	
+}

@@ -1,0 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@include file="/jsp/include/logintop.jsp" %>
+<%@include file="/jsp/include/header.jsp" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DDIT 호텔 - 회원가입 완료</title>
+<link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+
+
+
+
+<%@include file="/jsp/include/footer.jsp" %>
+</body>
+</html>

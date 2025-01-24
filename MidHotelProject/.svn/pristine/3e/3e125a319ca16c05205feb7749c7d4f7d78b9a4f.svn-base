@@ -1,0 +1,36 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	
+<%@include file="/jsp/include/logintop.jsp" %>
+<%@include file="/jsp/include/header.jsp" %>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login - DDIT Hotel</title>
+<link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body id="login_body">
+	<div class="login-container">
+		<h1>로그인</h1>
+		<form action="/Login" method="post">
+			<input type="text" id="username" name="mem_id" placeholder="Username" required> 
+			<input type="password"  id="password" name="mem_pw" placeholder="Password" required>
+			<input type="submit" value="Login">
+			<a href="join.jsp">회원가입</a>
+		</form>
+		<%
+		if (request.getAttribute("errorMessage") != null) {
+		%>
+		<script>
+		alert(<%=request.getAttribute("errorMessage")%>);
+		</script>
+		<%
+		}
+		%>
+	</div>
+	
+
+<%@include file="/jsp/include/footer.jsp" %>
+
+  </body>
+  </html>

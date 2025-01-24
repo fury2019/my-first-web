@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="Board">
+
+<!-- config.xml <typeAlias type="com.koreait.board.dao.BoardDTO" alias="boarddto"/> -->
+	<select id="getBoardList" parameterType="hashmap" resultType="boarddto">
+		
+		SELECT	*
+from(	SELECT 	ROWNUM R, D.*
+		FROM 	(SELECT * FROM BOARD b  ORDER BY b_number DESC) D) B
+WHERE 	B.R BETWEEN #{startRow} AND
+		#{endRow}
+
+	</select>
+
+	<select id="getBoardCnt" resultType="_int">
+		SELECT COUNT(*) FROM BOARD b 
+	</select>
+	
+	<select id="getDetail" parameterType="_int" resultType="boarddto">
+		SELECT * FROM BOARD b where b_number = #{b_number}
+	</select>
+	
+	<update id="updateReadCount" parameterType="_int">
+		UPDATE BOARD SET b_readCnt = b_readCnt + 1 WHERE b_number = #{b_number}
+	</update>
+	
+	<insert id="insertBoard" parameterType="boarddto">
+		INSERT INTO BOARD VALUES (board_seq.nextval, #{b_title}, #{b_writer}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{b_content}, 0)
+	</insert>
+	
+	<select id="getSeq" resultType="_int">
+		SELECT board_seq.currval FROM dual
+	</select>
+	
+	<insert id="addcomment" parameterType="commentdto">
+		INSERT INTO "COMMENT"  
+		VALUES ( #{b_number}, comment_seq.nextval, #{c_comment},  TO_CHAR(SYSDATE, 'YYYY-MM-DD')  )
+		
+	</insert>
+	
+	<select id="getcomment" parameterType="_int" resultType="commentdto">
+		select * from "COMMENT" where b_number = #{b_number}
+	</select>
+	
+	<update id="updatecomment" parameterType="hashmap">
+		UPDATE "COMMENT" SET c_comment = #{c_comment} WHERE c_number = #{c_number}	
+	</update>
+	
+	<delete id="deletecomment" parameterType="_int">
+		delete from "COMMENT" where c_number = #{c_number}
+	</delete>
+
+</mapper>

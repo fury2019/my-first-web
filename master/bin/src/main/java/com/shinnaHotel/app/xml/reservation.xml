@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="Reservation">
+
+	<select id="searchRoom" parameterType="hashmap" resultType="roomdto">
+		SELECT * FROM room WHERE R_ID NOT in(
+            SELECT R_ID 
+            FROM RESERVATION r 
+            WHERE RES_CHECKIN = #{checkin_date} 
+            OR  (RES_CHECKIN &lt; #{checkin_date}  AND RES_CHECKOUT &gt; #{checkout_date})
+            OR  (RES_CHECKIN &gt; #{checkin_date}  AND RES_CHECKIN &lt; #{checkout_date} ))
+	</select>
+	
+	<insert id="insertReservation" parameterType="reservationdto">
+		 INSERT INTO RESERVATION 
+         VALUES (res_no_seq.nextval, #{u_id}, #{res_adults}, #{res_kids}, #{res_checkin}, #{res_checkout}, #{res_rtype}, #{res_price}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{r_id}, #{diffday}, #{res_price} * #{diffday})
+	</insert>
+	
+	<select id="selectReservation" parameterType="String" resultType="reservationdto">
+      	SELECT * FROM RESERVATION WHERE u_id = #{u_id} AND RES_CHECKIN != 'null'
+	</select>
+	
+	<insert id="insertResCancel" parameterType="rescanceldto">
+		INSERT INTO RESERVATIONCANCEL
+		VALUES (#{res_number}, #{u_id}, #{res_checkin}, #{res_checkout} , #{res_rtype}, #{res_price},  sysdate )
+	
+	</insert>
+	
+	<update id="updateReservation" parameterType="_int">
+		UPDATE RESERVATION SET RES_CHECKIN = 'null', RES_CHECKOUT ='null', RES_PRICE = 0 WHERE RES_NUMBER = #{res_number}
+	</update>
+	
+	<select id="getAllRoomList" resultType="roomdto">
+		SELECT * FROM room
+	</select>
+</mapper>

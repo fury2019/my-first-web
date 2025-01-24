@@ -1,0 +1,112 @@
+<%@page import="com.Hotel.vo.FAQVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+       pageEncoding="UTF-8"%>
+   <!DOCTYPE html>
+   <html>
+   <head>
+   <meta charset="UTF-8"/>
+   <title>FAQ 목록</title>
+   <style type="text/css">
+       table, tr, td { border:1px solid blue; }
+       td { padding:5px;}
+   </style>
+   <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.7.1.js"></script>
+   <script type="text/javascript">
+   $(function(){
+
+   	$("#addBtn").on("click", function(){
+	location.href = "<%=request.getContextPath()%>/jsp/FAQInsert.jsp";
+	});
+       
+	$("#updateBtn").on("click", function(){
+	var selected = $("input[name='faqCheckbox']:checked");
+	if (selected.length === 1) {
+		var faqNo = selected.val();
+        location.href = "<%=request.getContextPath()%>/jsp/FAQUpdate.jsp?faq_no=" + faqNo;
+	} else {
+		alert("수정할 FAQ를 하나 선택해 주세요.");
+	}
+	
+	});
+
+	$("#deleteBtn").on("click", function(){
+	    var selected = $("input[name='faqCheckbox']:checked");
+	    if (selected.length > 0) {
+	        var faqNos = [];
+	        selected.each(function() {
+	            faqNos.push($(this).val());
+	        });
+
+	        console.log("Selected FAQ numbers: ", faqNos); // 선택된 FAQ 번호 확인
+	        if (confirm("선택한 FAQ를 삭제하시겠습니까?")) {
+	            $.ajax({
+	                type: "POST",
+	                url: "<%=request.getContextPath()%>/faqDelete",
+	                data: { "faq_no": faqNos },
+	                traditional: true, // 배열을 전송할 때 이 옵션을 추가
+	                success: function(response) {
+	                    console.log("Response from server: ", response); // 서버 응답 확인
+	                    location.reload(); // 삭제 후 페이지 새로고침
+	                },
+	                error: function(jqXHR, textStatus, errorThrown) {
+	                    console.error("Error deleting FAQ: ", textStatus, errorThrown); // 오류 확인
+	                }
+	            });
+	        }
+	    } else {
+	        alert("삭제할 FAQ를 선택해 주세요.");
+	    }
+
+	});
+       
+	});
+      
+   </script>
+   </head>
+   <body>
+   <%
+       List<FAQVO> faqList = (List<FAQVO>)request.getAttribute("faqList");
+       if (faqList != null && !faqList.isEmpty()) {
+   %>
+	<h2>FAQ 목록 보기</h2>    
+	<table border="1">
+	
+	<thead>
+		<tr>
+		<th>번 호</th>
+		<th>제 목</th>
+		<th>내 용</th>
+		<th><input type="button" id="deleteBtn" value="삭제"></th>
+		<th><input type="button" id="updateBtn" value="수정"></th>
+		<th><input type="button" id="addBtn" value="FAQ 추가"></th>
+		</tr>
+
+		</td>
+	</tr>
+	</thead>
+	<tbody>
+	<%
+		for(FAQVO faqvo : faqList){    
+	%>
+    <tr>
+	<td><%=faqvo.getFaq_no() %></td>
+	<td><%=faqvo.getFaq_title() %></td>
+	<td><%=faqvo.getFaq_content() %></td>
+	<td><input type="radio" name="faqCheckbox" value="<%=faqvo.getFaq_no() %>"></td>
+	</tr>
+	<%
+	}
+	%>
+    </tbody>
+    </table>
+   <%
+       } else {
+           out.println("<p>No FAQ data found.</p>");
+       }
+   %>
+	
+   
+   
+   </body>
+   </html>

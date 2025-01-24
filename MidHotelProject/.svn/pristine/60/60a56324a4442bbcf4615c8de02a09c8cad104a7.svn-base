@@ -1,0 +1,17 @@
+package com.Hotel.service.reservation;
+
+import java.util.List;
+
+import com.Hotel.vo.Room_ReservationVO;
+import com.Hotel.vo.Room_ServiceVO;
+
+public interface IRoom_ServiceResService {
+	
+	public int insertService(Room_ServiceVO roomService);
+	
+	public int deleteService(Room_ServiceVO roomService);
+	
+	public List<Room_ServiceVO> getServiceRes(String resId);
+
+	public List<Room_ReservationVO> getServicePrice(String memId, String resId);
+}

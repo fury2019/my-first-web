@@ -1,0 +1,47 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	
+<%@include file="/jsp/include/logintop.jsp" %>
+<%@include file="/jsp/include/header.jsp" %>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login - DDIT Hotel</title>
+<!-- <link rel="icon" href="/image/LOGOHOTEL.ico" type="image/x-icon"> -->
+<link rel="stylesheet" type="text/css" href="/css/styles.css">
+<style>
+.join {
+text-decoration: none;
+color: #9A0101;
+}
+
+</style>
+</head>
+<body id="login_body">
+	<div class="login-container">
+		<h1>로그인</h1>
+		<hr id="hr">
+		<form action="/Login" method="post">
+			<h6 class="Lid">아이디</h6>
+			<input class="idid" type="text" id="username" name="mem_id" placeholder="Id를 입력하세요." required> 
+			<h6 class="Lid">비밀번호</h6>
+			<input class="idid" type="password"  id="password" name="mem_pw" placeholder="Password를 입력하세요." required>
+			<input id="sum" type="submit" value="Login">
+			<a href="/jsp/Agreement.jsp" class="join">회원가입</a>
+		</form>
+		<%
+		if (request.getAttribute("errorMessage") != null) {
+		%>
+		<script>
+		alert(<%=request.getAttribute("errorMessage")%>);
+		</script>
+		<%
+		}
+		%>
+	</div>
+	
+
+<%@include file="/jsp/include/footer.jsp" %>
+
+  </body>
+  </html>

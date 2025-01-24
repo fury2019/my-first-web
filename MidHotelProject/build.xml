@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="MidHotelProject">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../Downloads/eclipse-jee-2024-09-R-win32-x86_64/eclipse/"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="17"/>
+    <property name="source" value="17"/>
+    <path id="Maven Dependencies.libraryclasspath">
+        <pathelement location="../../.m2/repository/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar"/>
+        <pathelement location="../../.m2/repository/javax/servlet/jsp/javax.servlet.jsp-api/2.3.3/javax.servlet.jsp-api-2.3.3.jar"/>
+        <pathelement location="../../.m2/repository/javax/servlet/jstl/1.2/jstl-1.2.jar"/>
+        <pathelement location="../../.m2/repository/org/mybatis/mybatis/3.5.10/mybatis-3.5.10.jar"/>
+        <pathelement location="../../.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar"/>
+        <pathelement location="../../.m2/repository/commons-fileupload/commons-fileupload/1.4/commons-fileupload-1.4.jar"/>
+        <pathelement location="../../.m2/repository/com/oracle/database/jdbc/ojdbc11/23.6.0.24.10/ojdbc11-23.6.0.24.10.jar"/>
+        <pathelement location="../../.m2/repository/commons-io/commons-io/2.8.0/commons-io-2.8.0.jar"/>
+        <pathelement location="../../.m2/repository/commons-beanutils/commons-beanutils/1.9.4/commons-beanutils-1.9.4.jar"/>
+        <pathelement location="../../.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar"/>
+        <pathelement location="../../.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar"/>
+        <pathelement location="../../.m2/repository/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar"/>
+        <pathelement location="../../.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar"/>
+    </path>
+    <path id="Server Runtime [apache-tomcat-10.1.28].libraryclasspath">
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/annotations-api.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/catalina-ant.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/catalina-ha.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/catalina-ssi.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/catalina-storeconfig.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/catalina-tribes.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/catalina.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/ecj-4.27.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/el-api.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/jakartaee-migration-1.0.8-shaded.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/jasper-el.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/jasper.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/jaspic-api.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/jsp-api.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/servlet-api.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-api.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-coyote-ffm.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-coyote.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-dbcp.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-i18n-cs.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-i18n-de.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-i18n-es.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-i18n-fr.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-i18n-ja.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-i18n-ko.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-i18n-pt-BR.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-i18n-ru.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-i18n-zh-CN.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-jdbc.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-jni.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-util-scan.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-util.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/tomcat-websocket.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/websocket-api.jar"/>
+        <pathelement location="../../OneDrive/문서/apache-tomcat-10.1.28/lib/websocket-client-api.jar"/>
+    </path>
+    <path id="MidHotelProject.classpath">
+        <pathelement location="target/classes"/>
+        <pathelement location="target/test-classes"/>
+        <path refid="Maven Dependencies.libraryclasspath"/>
+        <path refid="Server Runtime [apache-tomcat-10.1.28].libraryclasspath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="target/classes"/>
+        <mkdir dir="target/test-classes"/>
+        <copy includeemptydirs="false" todir="target/classes">
+            <fileset dir="src/main/java">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="target/classes">
+            <fileset dir="res">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="target/classes">
+            <fileset dir="src/main/resources">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+                <exclude name="**"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="target/test-classes">
+            <fileset dir="src/test/java">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="target/test-classes">
+            <fileset dir="src/test/resources">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+                <exclude name="**"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="target/classes"/>
+        <delete dir="target/test-classes"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="target/classes" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src/main/java"/>
+            <src path="res"/>
+            <src path="src/main/resources"/>
+            <exclude name="**"/>
+            <classpath refid="MidHotelProject.classpath"/>
+        </javac>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="target/test-classes" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src/test/java"/>
+            <src path="src/test/resources"/>
+            <exclude name="**"/>
+            <classpath refid="MidHotelProject.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+</project>

@@ -1,0 +1,186 @@
+package com.Hotel.controller.reservation;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import com.Hotel.service.reservation.IRoom_reserService;
+import com.Hotel.service.reservation.Room_reserServiceImpl;
+import com.Hotel.vo.Room_ReservationVO;
+
+import java.io.IOException;
+import java.sql.Date;
+import java.util.List;
+
+@WebServlet("/RoomResServlet")
+public class RoomResServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    private IRoom_reserService reservationService;
+
+    public RoomResServlet() {
+        super();
+        //예약 서비스를 받아와서 인스턴스로 불러옴
+        reservationService = Room_reserServiceImpl.getInstance();
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+    	//action 파라미터 생성
+    	String action = request.getParameter("action");
+    	
+    	
+    	//문자열.equals가 action일 때 조건문 
+        if ("create".equals(action)) {
+        	//insert관련 서블릿 처리
+            createReservation(request, response);
+        } else if ("update".equals(action)) {
+        	//update관련 서블릿 처리
+            updateReservation(request, response);
+        } else if ("delete".equals(action)) {
+        	//delete관련 서블릿 처리
+            deleteReservation(request, response);
+        }
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       
+    	
+    	String action = request.getParameter("action");
+    	
+    	
+    	//문자열.equals가 action일 때 조건문 
+        if ("list".equals(action)) {
+        	//리스트 전체를 보여주는 서블릿
+            listReservations(request, response);
+        } else if ("view".equals(action)) {
+        	//r_res_no에 대한 리스트를 보여주는 서블릿
+            viewReservation(request, response);
+        }
+    }
+
+    private void createReservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       
+    	//각각의 값을 파라미터로 받음 -> 파라미터 값을 String으로만 가능 -> 형변환 필요
+    	String r_res_no = request.getParameter("r_res_no");
+        String mem_id = request.getParameter("mem_id");
+        String room_no = request.getParameter("room_no");
+        String type_name = request.getParameter("type_name");
+        String hotel_id = request.getParameter("hotel_id");
+        Date r_res_chkindate = Date.valueOf(request.getParameter("r_res_chkindate"));
+        Date r_res_chkoutdate = Date.valueOf(request.getParameter("r_res_chkoutdate"));
+        int r_res_price = Integer.parseInt(request.getParameter("r_res_price"));
+        int r_res_adult = Integer.parseInt(request.getParameter("r_res_adult"));
+        int r_res_child = Integer.parseInt(request.getParameter("r_res_child"));
+        int r_res_kids = Integer.parseInt(request.getParameter("r_res_kids"));
+        
+        //VO객체 생성 -> 생성자 생성
+        Room_ReservationVO reservation = new Room_ReservationVO();
+        //db에 저장된 값에 파라미터값으로 선언한 변수들을 집어넣음
+        reservation.setR_res_no(r_res_no);
+        reservation.setMem_id(mem_id);
+        reservation.setRoom_no(room_no);
+        reservation.setType_name(type_name);
+        reservation.setHotel_id(hotel_id);
+        reservation.setR_res_chkindate(r_res_chkindate);
+        reservation.setR_res_chkoutdate(r_res_chkoutdate);
+        reservation.setR_res_price(r_res_price);
+        reservation.setR_res_adult(r_res_adult);
+        reservation.setR_res_adult(r_res_child);
+        reservation.setR_res_adult(r_res_kids);
+
+        
+        //성공 여부 확인을 위한 변수선언
+        int isSuccess = reservationService.insertRes(reservation);
+        
+        //json 객체로 불러와 성공이면 : 1 실패면 0을 띄워줌
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write("{\"success\":" + isSuccess + "}");
+       
+        //이동할 문서의 위치 -> 오류 부모키 문제... MEM_ID, ROOM_NO, HOTEL_ID
+        //insert가 성공하면 메인페이지로 이동하게 해줌
+        response.sendRedirect("./Main.jsp");
+    }
+
+    private void updateReservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+    	//각각의 값을 파라미터로 받음 -> 파라미터 값을 String으로만 가능 -> 형변환 필요
+    	String r_res_no = request.getParameter("r_res_no");
+        String mem_id = request.getParameter("mem_id");
+        String room_no = request.getParameter("room_no");
+        String type_name = request.getParameter("type_name");
+        String hotel_id = request.getParameter("hotel_id");
+        Date r_res_chkindate = Date.valueOf(request.getParameter("r_res_chkindate"));
+        Date r_res_chkoutdate = Date.valueOf(request.getParameter("r_res_chkoutdate"));
+        int r_res_price = Integer.parseInt(request.getParameter("r_res_price"));
+        int r_res_adult = Integer.parseInt(request.getParameter("r_res_adult"));
+        int r_res_child = Integer.parseInt(request.getParameter("r_res_child"));
+        int r_res_kids = Integer.parseInt(request.getParameter("r_res_kids"));
+        
+        
+        //VO객체 생성 -> 생성자 생성
+        Room_ReservationVO reservation = new Room_ReservationVO();
+        //db에 저장된 값에 파라미터값으로 선언한 변수들을 집어넣음
+        reservation.setR_res_no(r_res_no);
+        reservation.setMem_id(mem_id);
+        reservation.setRoom_no(room_no);
+        reservation.setType_name(type_name);
+        reservation.setHotel_id(hotel_id);
+        reservation.setR_res_chkindate(r_res_chkindate);
+        reservation.setR_res_chkoutdate(r_res_chkoutdate);
+        reservation.setR_res_price(r_res_price);
+        reservation.setR_res_adult(r_res_adult);
+        reservation.setR_res_adult(r_res_child);
+        reservation.setR_res_adult(r_res_kids);
+        
+        //성공 여부 확인을 위한 변수선언
+        int isSuccess = reservationService.updateRes(reservation);
+        
+        
+        //update가 성공하면 메인페이지로 이동하게 해줌
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write("{\"success\":" + isSuccess + "}");
+        
+        
+    }
+
+    private void deleteReservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+    	//delete할 예약 넘버를 파라미터로 받아서 변수선언 
+    	String r_res_no = request.getParameter("r_res_no");
+    	
+    	 //성공 여부 확인을 위한 변수선언
+        int isSuccess = reservationService.deleteRes(r_res_no);
+        
+        //성공하면 1 실패하면 0 
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write("{\"success\":" + isSuccess + "}");
+    }
+
+    private void viewReservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+    	//보여줄 예약 넘버를 파라미터로 받아서 변수선언 
+    	String r_res_no = request.getParameter("r_res_no");
+    	
+    	//리스트 일부를 보여주기 위한 변수 생성
+        Room_ReservationVO reservation = reservationService.selectRes(r_res_no);
+        
+        //setAttribute로 리스트의 저장값을 넘겨줌
+        request.setAttribute("reservation", reservation);
+        //파일로 정보를 넘겨줌 
+        request.getRequestDispatcher("/jsp/Reservation.jsp").forward(request, response);
+    }
+
+    private void listReservations(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	//리스트 전체를 보여주기 위한 변수 생성
+    	List<Room_ReservationVO> reservations = reservationService.selectAllRes();
+    	 //setAttribute로 리스트의 저장값을 넘겨줌
+        request.setAttribute("reservations", reservations);
+        //파일로 정보를 넘겨줌 
+        request.getRequestDispatcher("/jsp/Reservation.jsp").forward(request, response);
+    }
+}

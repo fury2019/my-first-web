@@ -1,0 +1,9 @@
+package com.Hotel.service.reservation;
+
+import com.Hotel.vo.Room_PaymentVO;
+
+public interface IRoom_PayService {
+
+	
+	public int insertPay(Room_PaymentVO pay);
+}

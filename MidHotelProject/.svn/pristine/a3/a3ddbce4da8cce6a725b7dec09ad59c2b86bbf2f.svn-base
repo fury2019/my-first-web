@@ -1,0 +1,37 @@
+package com.Hotel.controller.HotelNearbySpots;
+
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+
+@WebServlet("/HotelDetails")
+public class HotelDetailsServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	@Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 클라이언트에서 전달된 hotel_id 값 가져오기
+        String hotelId = request.getParameter("hotel_id");
+
+        // 데이터베이스나 임시 데이터로 호텔 정보 가져오기
+        String hotelName = ""; // 호텔 이름 (예: DB에서 가져오기)
+        if ("h01".equals(hotelId)) {
+            hotelName = "서울 DDIT 호텔";
+        } else if ("h02".equals(hotelId)) {
+            hotelName = "DDIT 스테이 광화문";
+        }
+        // TODO: 나머지 hotel_id에 따라 이름 매칭
+
+        // JSP로 데이터 전달
+        request.setAttribute("hotel_id", hotelId);
+        request.setAttribute("hotel_name", hotelName);
+
+        // hotelDetails.jsp로 포워드
+        request.getRequestDispatcher("/jsp/hotelDetails.jsp").forward(request, response);
+    }
+}

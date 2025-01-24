@@ -1,0 +1,111 @@
+        @font-face {
+            font-family: 'MinSans-Regular';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/MinSans-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .layout {
+            display: flex;
+            flex-direction: column;
+            min-height: 70vh;
+            align-items: center;
+        }
+
+        .content {
+            display: flex;
+            width: 80%;
+            background-color: #fff;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+	
+        .faq-info {
+		    width: 100%;
+		    display: flex;
+		    flex-direction: column;
+		    justify-content: space-between; /* 위-아래 요소를 공간에 맞게 배치 */
+		    height: 700px; /* 컨텐츠 박스의 고정 높이 */
+		    padding: 20px;
+		    box-sizing: border-box; /* 패딩을 포함한 높이를 고정 */
+		}
+		
+		.faq-list {
+		    flex: 1;
+		    overflow-y: auto; /* 스크롤 가능 */
+		}
+
+        .faq-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .faq-title {
+            font-weight: bold;
+            color: #5a2d0c;
+            cursor: pointer;
+            margin-bottom: 5px;
+            transition: color 0.3s;
+        }
+
+        .faq-title:hover {
+            color: #8b4513;
+        }
+
+        .faq-content {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-left: 3px solid #f0d6b6;
+            border-radius: 5px;
+            color: #555;
+        }
+
+        .faq-content.expanded {
+            display: block;
+        }
+
+        .pagination {
+		    display: flex;
+		    justify-content: center;
+		    margin-top: 20px;
+		    position: relative; /* 부모 요소에 맞게 위치 */
+		    bottom: 0; /* 컨텐츠 박스의 하단에 위치 */
+		}
+
+        .pagination button {
+            margin: 0 5px;
+            padding: 10px 15px;
+            background-color: #8b4513;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .pagination button:hover {
+            background-color: #5a2d0c;
+        }
+
+        .pagination button.active {
+            background-color: #5a2d0c;
+            font-weight: bold;
+        }
+        
+        .page-btn {
+		    background-color: #f0d6b6;
+		    color: #5a2d0c;
+		    border: none;
+		    padding: 10px 15px;
+		    margin: 5px;
+		    border-radius: 5px;
+		    cursor: pointer;
+		}
+	
+		.page-btn.active {
+		    background-color: #8b4513;
+		    color: white;
+		    font-weight: bold;
+		}

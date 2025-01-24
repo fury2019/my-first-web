@@ -1,0 +1,118 @@
+.header {
+	background-color: #012b28;
+	/* 배경색 변경 */
+	color: #333;
+	text-align: center;
+	padding: 0px 0;
+	/* 상하 패딩 */
+	font-family: 'Arial', sans-serif;
+	/* 기본 폰트 */
+	position: relative;
+	/* 자식 요소의 절대 위치 설정을 위한 기준 */
+}
+
+
+.header img {
+	max-width: 100%;
+	/* 이미지가 부모 요소의 너비를 넘지 않도록 설정 */
+	height: auto;
+	/* 비율 유지 */
+	margin-left: 10px;
+	/* 왼쪽으로 이동 (원하는 값으로 조정 가능) */
+	margin-right: 70px;
+	/* 오른쪽으로 이동 (원하는 값으로 조정 가능) */
+}
+
+.header .links {
+	position: absolute;
+	/* 절대 위치 사용 */
+	width: 100%;
+	/* 전체 폭 사용 */
+	display: flex;
+	/* 플렉스 박스 사용 */
+	justify-content: space-between;
+	/* 좌우 공간 분배 */
+	padding: 0 60px;
+	/* 좌우 패딩 */
+	bottom: 20px;
+	/* 아래쪽 위치 조정 */
+}
+
+.header a {
+	font-size: 20px;
+	/* 링크 크기 */
+	color: #ebb42c;
+	/* 링크 색상 */
+	text-decoration: none;
+	/* 밑줄 제거 */
+	height: 60px;
+}
+
+.body {
+	display: flex;
+	/* Flexbox 사용 */
+	flex-direction: column;
+	/* 세로 방향으로 정렬 */
+	align-items: center;
+	/* 가로 방향 가운데 정렬 */
+	text-align: center;
+	/* 텍스트 가운데 정렬 */
+	padding: 20px 0;
+	/* 상하 패딩 */
+}
+
+.body img {
+	margin-bottom: 20px;
+	/* 이미지 아래에 간격 추가 */
+}
+
+.body h2 {
+	font-family: 'Helvetica', sans-serif;
+	margin: 15px 0;
+}
+
+.body h5 {
+	font-family: 'Tahoma', sans-serif;
+}
+
+.footer {
+	background-color: #012b28;
+	/* 배경색 */
+	color: #fff;
+	/* 글자색 */
+	text-align: center;
+	/* 가운데 정렬 */
+	padding: 20px 0;
+	/* 상하 패딩 */
+}
+
+.footer-logo img {
+	margin-bottom: 10px;
+	/* 로고와 글자 간의 간격 */
+}
+
+.footer-info p {
+	margin: 5px 0;
+	/* 정보 간의 간격 */
+}
+
+.footer-links {
+	margin-top: 10px;
+	/* 링크와 정보 간의 간격 */
+}
+
+.footer-links a {
+	color: #ebb42c;
+	/* 링크 색상 */
+	text-decoration: none;
+	/* 밑줄 제거 */
+	margin: 0 10px;
+	/* 링크 간의 간격 */
+}
+
+.carousel-inner img {
+	max-height: 750px;
+	/* 원하는 최대 높이 설정 */
+	object-fit: contain;
+	/* 이미지 비율 유지 */
+}

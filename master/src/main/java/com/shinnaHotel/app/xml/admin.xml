@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Admin">
+	<!-- 전체회원 -->
+	<select id="getAdminList" resultType="userdto">
+		SELECT * FROM USERS where u_status = 1
+	</select>
+	<!-- 객실정보 -->	
+	<select id="getRoomList" resultType="roomdto">
+		SELECT * FROM ROOM 
+	</select>
+	<!-- 예약내역 -->
+	<select id="getAdminReserveList" parameterType="string" resultType="reservationdto">
+      	SELECT * FROM RESERVATION WHERE res_price != '0' and  RES_CHECKIN != 'null'
+	</select>
+	<!-- 판매내역 -->
+	<select id="getSalesList" resultType="reservationdto">
+		SELECT * FROM RESERVATION WHERE  res_price != '0' and RES_CHECKIN != 'null'
+	</select>
+
+
+
+	<!-- 회원삭제 -->
+	<update id="deleteMember" parameterType="string">
+		UPDATE USERS SET U_NAME = '탈퇴한사용자', U_PASSWORD = '', U_PHONE = '', U_EMAIL ='', U_STATUS = '2' WHERE u_id = #{u_id}
+	</update> 
+	<!-- 회원정보 변경 -->
+	<update id="updateMemberOk" parameterType="userdto">
+		UPDATE 	USERS SET 
+				u_name 		= #{u_name},
+				u_password 	= #{u_password},
+				u_phone 	= #{u_phone},
+				u_email 	= #{u_email},
+				u_status 	= #{u_status}
+			WHERE u_id = #{u_id}
+	</update>
+	<!-- 예약 삭제 -->
+	<delete id="deleteReserve" parameterType="_int">
+		delete from RESERVATION where res_number = #{res_number}
+	</delete>
+	
+	
+	<!-- 총 개수 -->
+	<!-- 매출 개수 -->
+	<select id="getSalesCnt" resultType="_int">
+		SELECT count(*) FROM RESERVATION  WHERE res_price != '0' and RES_CHECKIN != 'null'
+	</select>
+	<!-- 회원 개수 -->
+	<select id="getMemCnt" resultType="_int">
+		SELECT count(*) FROM users where u_status = 1
+	</select>
+	<!-- 예약 개수 -->
+	<select id="getReserveCnt" resultType="_int">
+		SELECT count(*) FROM RESERVATION WHERE res_price != '0' and  RES_CHECKIN != 'null'
+	</select>
+	<!-- 객실정보 개수 -->
+	<select id="getRoomCnt" resultType="_int">
+		SELECT count(*) FROM room
+	</select>
+	
+	
+	<!-- 객실 정보 -->
+	<select id="getDetail" parameterType="_int" resultType="roomdto">
+		SELECT * FROM room  where r_id = #{r_id}
+	</select>
+	<!-- 객실 추가 -->
+	<insert id="insertRoom" parameterType="roomdto">
+        INSERT INTO room 
+        VALUES ( r_id_seq.nextval, #{r_type}, #{r_capacity}, #{r_price}, #{r_img})
+    </insert>
+	<!-- 객실 수정 -->
+	<update id="updateRoom" parameterType="roomdto">
+		UPDATE 	room SET 
+				r_type 		= #{r_type},
+				r_capacity 	= #{r_capacity},
+				r_price 	= #{r_price}
+			WHERE r_id = #{r_id}
+	</update>
+	<!-- 객실 삭제 -->
+	<delete id="deleteRoom" parameterType="_int">
+		delete from room where r_id = #{r_id}
+	</delete>
+	
+	
+	<!-- 예약취소내역 추가 -->
+	<insert id="insertResCancel" parameterType="rescanceldto">
+		INSERT INTO reservationcancel
+		VALUES (#{res_number}, #{u_id}, #{res_checkin}, #{res_checkout} , #{res_rtype}, #{res_price},  sysdate )
+	</insert>
+	<!-- 예약취소내역 수정 -->
+	<update id="updateReservation" parameterType="_int">
+		UPDATE reservation SET RES_CHECKIN = 'null', RES_CHECKOUT = 'null', RES_PRICE ='0' WHERE RES_NUMBER = #{res_number}
+	</update>	
+	
+	<!-- 월별 예약 수 -->
+	<select id="ReCnt9" resultType="_int">
+		SELECT  COUNT(*) FROM RESERVATION WHERE SUBSTR(res_checkin,6,2) = '09'
+	</select>
+	<select id="ReCnt10" resultType="_int">
+		SELECT  COUNT(*) FROM RESERVATION WHERE SUBSTR(res_checkin,6,2) = '10'
+	</select>
+	<select id="ReCnt11" resultType="_int">
+		SELECT  COUNT(*) FROM RESERVATION WHERE SUBSTR(res_checkin,6,2) = '11'
+	</select>
+	<select id="ReCnt12" resultType="_int">
+		SELECT  COUNT(*) FROM RESERVATION WHERE SUBSTR(res_checkin,6,2) = '12'
+	</select>
+	
+	<!-- 월별 매출액 -->
+	<select id="ReSales9" resultType="Integer">
+		SELECT  sum(res_price) FROM RESERVATION WHERE SUBSTR(res_checkin,6,2) = '09'	
+	</select>
+	<select id="ReSales10" resultType="Integer">
+		SELECT  sum(res_price) FROM RESERVATION WHERE SUBSTR(res_checkin,6,2) = '10'	
+	</select>
+	<select id="ReSales11" resultType="Integer">
+		SELECT  sum(res_price) FROM RESERVATION WHERE SUBSTR(res_checkin,6,2) = '11'	
+	</select>
+	<select id="ReSales12" resultType="Integer">
+		SELECT  sum(res_price) FROM RESERVATION WHERE SUBSTR(res_checkin,6,2) = '12'	
+	</select>
+	
+	
+	<select id="selectExist" parameterType="String" resultType="_int">
+		SELECT nvl(sum(r.RES_PRICE),0) FROM RESERVATION r  WHERE r.U_ID = #{u_id}
+	</select>
+	 <!-- 탈퇴회원 -->
+    <select id="getAdminExitList" resultType="userdto">
+        SELECT * FROM USERS where u_status = 2
+    </select>
+	
+</mapper>

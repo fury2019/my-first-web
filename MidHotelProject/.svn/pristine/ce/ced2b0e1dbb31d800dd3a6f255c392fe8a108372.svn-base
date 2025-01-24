@@ -1,0 +1,53 @@
+<%@ page import="com.Hotel.vo.Hotel_PlaceVO" %>
+<%@ page import="java.util.List" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Nearby Spots</title>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/HotelPlace.css">
+</head>
+<body>
+    <h1>Nearby Spots</h1>
+    <%
+        List<Hotel_PlaceVO> spots = (List<Hotel_PlaceVO>) request.getAttribute("spots");
+        if (spots != null && !spots.isEmpty()) {
+    %>
+    <table>
+        <thead>
+            <tr>
+                <th>Place ID</th>
+                <th>Place Name</th>
+                <th>Tel</th>
+                <th>Address</th>
+                <th>Category</th>
+                <th>Likes</th>
+            </tr>
+        </thead>
+        <tbody>
+        <%
+            for (Hotel_PlaceVO spot : spots) {
+        %>
+            <tr>
+                <td><%= spot.getPlace_id() %></td>
+                <td><%= spot.getPlace_name() %></td>
+                <td><%= spot.getPlace_tel() %></td>
+                <td><%= spot.getPlace_addr() %></td>
+                <td><%= spot.getPlace_cat_id() %></td>
+                <td><%= spot.getPlace_like_amt() %></td>
+            </tr>
+        <%
+            }
+        %>
+        </tbody>
+    </table>
+    <%
+        } else {
+    %>
+        <p>No nearby spots available for this hotel.</p>
+    <%
+        }
+    %>
+</body>
+</html>

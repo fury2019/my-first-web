@@ -1,0 +1,48 @@
+package com.Hotel.service.reservation;
+
+import java.util.List;
+import java.util.Map;
+
+import com.Hotel.vo.Room_ReservationVO;
+
+public interface IRoom_reserService {
+	
+	/**
+	 * 객실 예약 정보 넘기기
+	 * @param res
+	 * @return
+	 */
+	public int insertRes(Room_ReservationVO res);
+	
+	/**
+	 * 객실 예약 업데이트
+	 * @param res
+	 * @return
+	 */
+	public int updateRes(Room_ReservationVO memid);
+	
+	/**
+	 * 객실 예약 삭제
+	 * @param resno
+	 * @return
+	 */
+	public int deleteRes(String resno);
+	
+	/**
+	 * 객실 목록 -> 객실 번호 입력시 보임 
+	 * @param resno
+	 * @return
+	 */
+	public Room_ReservationVO selectRes(String resno);
+	
+	
+	 // DB에서 호텔 이름과 날짜로 예약 검색 (이 부분은 실제 DB와 연결된 코드로 구현 필요)
+    // 예시로 예약 리스트를 반환
+	public List<Room_ReservationVO> getReservationsByHotelAndDates(Map<String, Object> params);
+	
+	/**
+	 * 객실 전체 출력 
+	 * @return
+	 */
+	public List<Room_ReservationVO> selectAllRes();
+}

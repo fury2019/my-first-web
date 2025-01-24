@@ -1,0 +1,43 @@
+package com.Hotel.service.facilities;
+
+import java.util.List;
+
+import com.Hotel.vo.Facilities_ReservationVO;
+
+public interface IFac_reserService {
+	
+	/**
+	 * 편의시설 예약 정보 저장
+	 * @param facres
+	 * @return
+	 */
+	public int insertFacRes(Facilities_ReservationVO facres);
+	
+	/**
+	 * 편의시설 예약 정보 변경
+	 * @param facres
+	 * @return
+	 */
+	public int updateFacRes(Facilities_ReservationVO facres);
+	
+	/**
+	 * 편의시설 예약 정보 삭제
+	 * @param fresno
+	 * @return
+	 */
+	public int deleteFacRes(String fresno);
+	
+	/**
+	 * 편의시설 예약 번호 입력 후 정보 조회 
+	 * @param freno
+	 * @return
+	 */
+	public Facilities_ReservationVO selectFacRes(String freno);
+	
+	/**
+	 * 편의시설 예약 정보 전체 출력
+	 * @return
+	 */
+	public List<Facilities_ReservationVO> selectAllFacRes();
+
+}

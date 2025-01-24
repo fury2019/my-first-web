@@ -3,10 +3,11 @@ package kr.or.ddit.util;
 import java.io.IOException;
 import java.io.Reader;
 
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import jakarta.annotation.Resources;
 
 public class MybatisUtil {
 	private static SqlSessionFactory factory;
